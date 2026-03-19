@@ -1,70 +1,82 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<title>Εγγραφή | EduMorph</title>
-
-<style>
-body {
-    font-family: Arial;
-    background: linear-gradient(135deg, #0f766e, #1e3a8a);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    color: white;
-}
-
-.form-box {
-    background: white;
-    color: #333;
-    padding: 40px;
-    border-radius: 15px;
-    width: 350px;
-    text-align: center;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background: #0ea5a4;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0f766e;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Εγγραφή | EduMorph</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f766e, #1e3a8a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .form-box {
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      width: 360px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    h2 { margin-top: 0; color: #1e3a8a; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0ea5a4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #0f766e; }
+    a { color: #1e3a8a; text-decoration: none; }
+  </style>
 </head>
-
 <body>
-
-<div class="form-box">
+  <div class="form-box">
     <h2>Εγγραφή</h2>
+    <input type="text" id="username" placeholder="Όνομα χρήστη">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Κωδικός">
+    <select id="role">
+      <option value="">Επίλεξε ρόλο</option>
+      <option value="Μαθητής">Μαθητής</option>
+      <option value="Εκπαιδευτικός">Εκπαιδευτικός</option>
+      <option value="Διοίκηση">Διοίκηση</option>
+    </select>
+    <button onclick="register()">Εγγραφή</button>
+    <p>Έχεις ήδη λογαριασμό; <a href="login.html">Σύνδεση</a></p>
+  </div>
 
-    <form method="post" action="index.jsp">
-        <input type="text" name="username" placeholder="Όνομα χρήστη" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Κωδικός" required>
+  <script>
+    function register() {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const role = document.getElementById('role').value;
 
-        <button type="submit" name="action" value="register">Εγγραφή</button>
-    </form>
+      if (!username || !email || !password || !role) {
+        alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
+        return;
+      }
 
-    <p>Έχεις ήδη λογαριασμό;</p>
-    <a href="login.jsp">Σύνδεση</a>
-</div>
-
+      localStorage.setItem('registeredUser', JSON.stringify({ username, email, role }));
+      alert('Η εγγραφή ολοκληρώθηκε!');
+      window.location.href = 'login.html';
+    }
+  </script>
 </body>
 </html>
