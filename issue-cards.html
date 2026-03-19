@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issue Cards | EduMorph</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --accent: #0ea5a4;
+      --accent-dark: #0f766e;
+      --soft: #dbeafe;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 8px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 18px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+    }
+
+    .info-box {
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .saved-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+
+    .saved-card strong {
+      color: #1e3a8a;
+    }
+
+    .empty {
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Issue Cards</h1>
+    <p>Δομημένη καταγραφή μαθητικής εμπειρίας και προτάσεων βελτίωσης</p>
+  </header>
+
+  <div class="container">
+    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Νέα κάρτα προβληματισμού</h2>
+        <p>Οι μαθητές εκφράζουν εμπειρίες, δυσκολίες και προτάσεις με δομημένο τρόπο, ώστε η ανατροφοδότηση να μετατρέπεται σε χρήσιμη παιδαγωγική πληροφορία.</p>
+
+        <label for="phase">Φάση μαθήματος</label>
+        <select id="phase">
+          <option value="">Επίλεξε φάση</option>
+          <option>Εισαγωγή</option>
+          <option>Παρουσίαση νέας ύλης</option>
+          <option>Άσκηση / Εφαρμογή</option>
+          <option>Συζήτηση / Συνεργασία</option>
+          <option>Αξιολόγηση</option>
+        </select>
+
+        <label for="intensity">Επίπεδο έντασης δυσκολίας</label>
+        <select id="intensity">
+          <option value="">Επίλεξε επίπεδο</option>
+          <option>Χαμηλό</option>
+          <option>Μέτριο</option>
+          <option>Υψηλό</option>
+        </select>
+
+        <label for="experience">Περιγραφή εμπειρίας</label>
+        <textarea id="experience" placeholder="Περιέγραψε τι σε δυσκόλεψε ή τι σε προβλημάτισε..."></textarea>
+
+        <label for="proposal">Πρόταση βελτίωσης</label>
+        <textarea id="proposal" placeholder="Τι θα μπορούσε να αλλάξει για να βελτιωθεί η εμπειρία μάθησης;"></textarea>
+
+        <button onclick="saveIssueCard()">Υποβολή Issue Card</button>
+      </section>
+
+      <aside class="card">
+        <div class="info-box">
+          <h2>Γιατί έχει σημασία;</h2>
+          <p>Η EduMorph δεν συλλέγει απλώς σχόλια. Μετατρέπει τη μαθητική φωνή σε δομημένα δεδομένα, τα οποία μπορούν να οδηγήσουν σε στοχευμένες παρεμβάσεις και βελτίωση της εκπαιδευτικής διαδικασίας.</p>
+        </div>
+
+        <h2>Πρόσφατες καταγραφές</h2>
+        <div id="issue-list" class="empty">Δεν έχουν υποβληθεί ακόμα issue cards.</div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    function saveIssueCard() {
+      const phase = document.getElementById('phase').value;
+      const intensity = document.getElementById('intensity').value;
+      const experience = document.getElementById('experience').value.trim();
+      const proposal = document.getElementById('proposal').value.trim();
+
+      if (!phase || !intensity || !experience || !proposal) {
+        alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
+        return;
+      }
+
+      const newCard = { phase, intensity, experience, proposal };
+      const existing = JSON.parse(localStorage.getItem('issueCards') || '[]');
+      existing.unshift(newCard);
+      localStorage.setItem('issueCards', JSON.stringify(existing));
+
+      document.getElementById('phase').value = '';
+      document.getElementById('intensity').value = '';
+      document.getElementById('experience').value = '';
+      document.getElementById('proposal').value = '';
+
+      renderCards();
+      alert('Η καταγραφή υποβλήθηκε επιτυχώς.');
+    }
+
+    function renderCards() {
+      const list = document.getElementById('issue-list');
+      const cards = JSON.parse(localStorage.getItem('issueCards') || '[]');
+
+      if (!cards.length) {
+        list.className = 'empty';
+        list.textContent = 'Δεν έχουν υποβληθεί ακόμα issue cards.';
+        return;
+      }
+
+      list.className = '';
+      list.innerHTML = cards.slice(0, 5).map(card => `
+        <div class="saved-card">
+          <div><strong>Φάση:</strong> ${card.phase}</div>
+          <div><strong>Ένταση:</strong> ${card.intensity}</div>
+          <div><strong>Εμπειρία:</strong> ${card.experience}</div>
+          <div><strong>Πρόταση:</strong> ${card.proposal}</div>
+        </div>
+      `).join('');
+    }
+
+    renderCards();
+  </script>
+</body>
+</html>
