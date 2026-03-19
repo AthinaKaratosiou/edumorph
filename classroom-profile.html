@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Collective Classroom Profile | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="global.js" defer></script>
+
   <style>
     :root {
       --bg: #f4f7fb;
@@ -44,7 +48,7 @@
       margin-bottom: 20px;
     }
 
-    .btn, .lang-btn {
+    .btn {
       background: #0ea5a4;
       color: white;
       border: none;
@@ -53,9 +57,10 @@
       text-decoration: none;
       font-weight: bold;
       cursor: pointer;
+      display: inline-block;
     }
 
-    .btn:hover, .lang-btn:hover {
+    .btn:hover {
       background: #0f766e;
     }
 
@@ -102,9 +107,20 @@
       margin-top: 10px;
     }
 
-    .good { background: #dcfce7; color: #166534; }
-    .medium { background: #fef3c7; color: #92400e; }
-    .high { background: #fee2e2; color: #b91c1c; }
+    .good {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .high {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
 
     .chart-wrap {
       position: relative;
@@ -118,7 +134,8 @@
       margin-top: 12px;
     }
 
-    th, td {
+    th,
+    td {
       text-align: left;
       padding: 12px;
       border-bottom: 1px solid #e5e7eb;
@@ -141,6 +158,7 @@
   </style>
 </head>
 <body>
+<main id="main-content">
   <header>
     <h1 data-i18n="title">Collective Classroom Profile</h1>
     <p data-i18n="subtitle">Συλλογική αποτύπωση του κλίματος και της εμπειρίας της τάξης</p>
@@ -150,7 +168,6 @@
     <div class="top-actions">
       <a class="btn" href="index.html" data-i18n="back">← Επιστροφή στην αρχική</a>
       <a class="btn" href="dashboard.html" data-i18n="dashboard">Dashboard</a>
-      <button class="lang-btn" onclick="toggleLanguage()">EN / GR</button>
     </div>
 
     <section class="card">
@@ -158,10 +175,10 @@
       <p data-i18n="overviewText">
         Οι δείκτες ενημερώνονται δυναμικά με βάση τα δεδομένα των issue cards. Όσο αυξάνονται οι καταγραφές, η πλατφόρμα δίνει πιο ρεαλιστική εικόνα για την κατανόηση, το άγχος, την εμπλοκή και την αντίληψη δικαιοσύνης.
       </p>
-      <p class="small-note" id="cardsCount"></p>
+      <p class="small-note" id="cardsCount" aria-live="polite"></p>
     </section>
 
-    <section class="grid">
+    <section class="grid" aria-label="Class metrics">
       <div class="metric-card">
         <div id="understandingValue" class="metric-value">0%</div>
         <div class="metric-label" data-i18n="understanding">Κατανόηση</div>
@@ -208,257 +225,246 @@
       </table>
     </section>
   </div>
+</main>
 
-  <script>
-    let chartInstance = null;
-    let currentLanguage = localStorage.getItem('edumorphLanguage') || 'el';
+<script>
+  window.pageTranslations = {
+    el: {
+      title: 'Collective Classroom Profile',
+      subtitle: 'Συλλογική αποτύπωση του κλίματος και της εμπειρίας της τάξης',
+      back: '← Επιστροφή στην αρχική',
+      dashboard: 'Dashboard',
+      overviewTitle: 'Αυτόματη επισκόπηση τάξης',
+      overviewText: 'Οι δείκτες ενημερώνονται δυναμικά με βάση τα δεδομένα των issue cards. Όσο αυξάνονται οι καταγραφές, η πλατφόρμα δίνει πιο ρεαλιστική εικόνα για την κατανόηση, το άγχος, την εμπλοκή και την αντίληψη δικαιοσύνης.',
+      understanding: 'Κατανόηση',
+      anxiety: 'Άγχος',
+      engagement: 'Εμπλοκή',
+      fairness: 'Αντίληψη Δικαιοσύνης',
+      chartTitle: 'Οπτικοποίηση δεικτών',
+      phaseTitle: 'Ανάλυση ανά φάση μαθήματος',
+      phase: 'Φάση',
+      submissions: 'Καταγραφές',
+      dominant: 'Κυρίαρχη εικόνα',
+      noData: 'Δεν υπάρχουν ακόμα δεδομένα issue cards.',
+      cardsCount: 'Συνολικές καταγραφές: ',
+      good: 'Θετική εικόνα',
+      warning: 'Χρειάζεται προσοχή',
+      critical: 'Άμεση ανάγκη παρέμβασης',
+      unknown: 'Άγνωστο'
+    },
+    en: {
+      title: 'Collective Classroom Profile',
+      subtitle: 'A collective snapshot of classroom climate and learning experience',
+      back: '← Back to home',
+      dashboard: 'Dashboard',
+      overviewTitle: 'Automatic classroom overview',
+      overviewText: 'Indicators update dynamically based on issue card data. As submissions grow, the platform provides a clearer view of understanding, anxiety, engagement, and perceived fairness.',
+      understanding: 'Understanding',
+      anxiety: 'Anxiety',
+      engagement: 'Engagement',
+      fairness: 'Perceived Fairness',
+      chartTitle: 'Indicator visualization',
+      phaseTitle: 'Analysis by lesson phase',
+      phase: 'Phase',
+      submissions: 'Submissions',
+      dominant: 'Dominant picture',
+      noData: 'No issue card data available yet.',
+      cardsCount: 'Total submissions: ',
+      good: 'Positive picture',
+      warning: 'Needs attention',
+      critical: 'Immediate intervention needed',
+      unknown: 'Unknown'
+    }
+  };
 
-    const translations = {
-      el: {
-        title: 'Collective Classroom Profile',
-        subtitle: 'Συλλογική αποτύπωση του κλίματος και της εμπειρίας της τάξης',
-        back: '← Επιστροφή στην αρχική',
-        dashboard: 'Dashboard',
-        overviewTitle: 'Αυτόματη επισκόπηση τάξης',
-        overviewText: 'Οι δείκτες ενημερώνονται δυναμικά με βάση τα δεδομένα των issue cards. Όσο αυξάνονται οι καταγραφές, η πλατφόρμα δίνει πιο ρεαλιστική εικόνα για την κατανόηση, το άγχος, την εμπλοκή και την αντίληψη δικαιοσύνης.',
-        understanding: 'Κατανόηση',
-        anxiety: 'Άγχος',
-        engagement: 'Εμπλοκή',
-        fairness: 'Αντίληψη Δικαιοσύνης',
-        chartTitle: 'Οπτικοποίηση δεικτών',
-        phaseTitle: 'Ανάλυση ανά φάση μαθήματος',
-        phase: 'Φάση',
-        submissions: 'Καταγραφές',
-        dominant: 'Κυρίαρχη εικόνα',
-        noData: 'Δεν υπάρχουν ακόμα δεδομένα issue cards.',
-        cardsCount: 'Συνολικές καταγραφές: ',
-        low: 'Χαμηλό',
-        medium: 'Μέτριο',
-        high: 'Υψηλό',
-        good: 'Θετική εικόνα',
-        warning: 'Χρειάζεται προσοχή',
-        critical: 'Άμεση ανάγκη παρέμβασης'
+  let chartInstance = null;
+
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
+  function getStatusClass(value, inverse = false) {
+    if (!inverse) {
+      if (value >= 75) return 'good';
+      if (value >= 50) return 'medium';
+      return 'high';
+    } else {
+      if (value <= 35) return 'good';
+      if (value <= 65) return 'medium';
+      return 'high';
+    }
+  }
+
+  function getStatusText(value, inverse = false) {
+    if (!inverse) {
+      if (value >= 75) return t('good');
+      if (value >= 50) return t('warning');
+      return t('critical');
+    } else {
+      if (value <= 35) return t('good');
+      if (value <= 65) return t('warning');
+      return t('critical');
+    }
+  }
+
+  function calculateMetrics(cards) {
+    if (!cards.length) {
+      return { understanding: 0, anxiety: 0, engagement: 0, fairness: 0 };
+    }
+
+    let understanding = 75;
+    let anxiety = 25;
+    let engagement = 72;
+    let fairness = 88;
+
+    cards.forEach(card => {
+      if (card.intensity === 'Χαμηλό' || card.intensity === 'Low') {
+        understanding += 2;
+        anxiety += 3;
+        engagement += 1;
+      } else if (card.intensity === 'Μέτριο' || card.intensity === 'Medium') {
+        understanding -= 4;
+        anxiety += 8;
+        engagement -= 3;
+        fairness -= 2;
+      } else if (card.intensity === 'Υψηλό' || card.intensity === 'High') {
+        understanding -= 8;
+        anxiety += 14;
+        engagement -= 6;
+        fairness -= 4;
+      }
+
+      const text = (card.experience || '').toLowerCase();
+      if (text.includes('δεν κατάλαβα') || text.includes('confused') || text.includes('δύσκολο')) {
+        understanding -= 6;
+      }
+      if (text.includes('άγχος') || text.includes('stress') || text.includes('πίεση')) {
+        anxiety += 10;
+      }
+      if (text.includes('βαρετό') || text.includes('boring') || text.includes('δεν συμμετείχα')) {
+        engagement -= 8;
+      }
+      if (text.includes('άδικο') || text.includes('unfair')) {
+        fairness -= 10;
+      }
+    });
+
+    understanding = Math.max(0, Math.min(100, Math.round(understanding)));
+    anxiety = Math.max(0, Math.min(100, Math.round(anxiety)));
+    engagement = Math.max(0, Math.min(100, Math.round(engagement)));
+    fairness = Math.max(0, Math.min(100, Math.round(fairness)));
+
+    return { understanding, anxiety, engagement, fairness };
+  }
+
+  function renderChart(metrics) {
+    const ctx = document.getElementById('profileChart').getContext('2d');
+    if (chartInstance) chartInstance.destroy();
+
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          t('understanding'),
+          t('anxiety'),
+          t('engagement'),
+          t('fairness')
+        ],
+        datasets: [{
+          label: 'Class Metrics',
+          data: [metrics.understanding, metrics.anxiety, metrics.engagement, metrics.fairness],
+          backgroundColor: ['#2563eb', '#f59e0b', '#0ea5a4', '#8b5cf6'],
+          borderRadius: 8
+        }]
       },
-      en: {
-        title: 'Collective Classroom Profile',
-        subtitle: 'A collective snapshot of classroom climate and learning experience',
-        back: '← Back to home',
-        dashboard: 'Dashboard',
-        overviewTitle: 'Automatic classroom overview',
-        overviewText: 'Indicators update dynamically based on issue card data. As submissions grow, the platform provides a clearer view of understanding, anxiety, engagement, and perceived fairness.',
-        understanding: 'Understanding',
-        anxiety: 'Anxiety',
-        engagement: 'Engagement',
-        fairness: 'Perceived Fairness',
-        chartTitle: 'Indicator visualization',
-        phaseTitle: 'Analysis by lesson phase',
-        phase: 'Phase',
-        submissions: 'Submissions',
-        dominant: 'Dominant picture',
-        noData: 'No issue card data available yet.',
-        cardsCount: 'Total submissions: ',
-        low: 'Low',
-        medium: 'Medium',
-        high: 'High',
-        good: 'Positive picture',
-        warning: 'Needs attention',
-        critical: 'Immediate intervention needed'
-      }
-    };
-
-    function applyLanguage() {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        el.textContent = translations[currentLanguage][key];
-      });
-    }
-
-    function toggleLanguage() {
-      currentLanguage = currentLanguage === 'el' ? 'en' : 'el';
-      localStorage.setItem('edumorphLanguage', currentLanguage);
-      applyLanguage();
-      renderProfile();
-    }
-
-    function getStatusClass(value, inverse = false) {
-      if (!inverse) {
-        if (value >= 75) return 'good';
-        if (value >= 50) return 'medium';
-        return 'high';
-      } else {
-        if (value <= 35) return 'good';
-        if (value <= 65) return 'medium';
-        return 'high';
-      }
-    }
-
-    function getStatusText(value, inverse = false) {
-      const t = translations[currentLanguage];
-      if (!inverse) {
-        if (value >= 75) return t.good;
-        if (value >= 50) return t.warning;
-        return t.critical;
-      } else {
-        if (value <= 35) return t.good;
-        if (value <= 65) return t.warning;
-        return t.critical;
-      }
-    }
-
-    function calculateMetrics(cards) {
-      if (!cards.length) {
-        return { understanding: 0, anxiety: 0, engagement: 0, fairness: 0 };
-      }
-
-      let understanding = 75;
-      let anxiety = 25;
-      let engagement = 72;
-      let fairness = 88;
-
-      cards.forEach(card => {
-        if (card.intensity === 'Χαμηλό' || card.intensity === 'Low') {
-          understanding += 2;
-          anxiety += 3;
-          engagement += 1;
-          fairness -= 0;
-        } else if (card.intensity === 'Μέτριο' || card.intensity === 'Medium') {
-          understanding -= 4;
-          anxiety += 8;
-          engagement -= 3;
-          fairness -= 2;
-        } else if (card.intensity === 'Υψηλό' || card.intensity === 'High') {
-          understanding -= 8;
-          anxiety += 14;
-          engagement -= 6;
-          fairness -= 4;
-        }
-
-        const text = (card.experience || '').toLowerCase();
-        if (text.includes('δεν κατάλαβα') || text.includes('confused') || text.includes('δύσκολο')) {
-          understanding -= 6;
-        }
-        if (text.includes('άγχος') || text.includes('stress') || text.includes('πίεση')) {
-          anxiety += 10;
-        }
-        if (text.includes('βαρετό') || text.includes('boring') || text.includes('δεν συμμετείχα')) {
-          engagement -= 8;
-        }
-        if (text.includes('άδικο') || text.includes('unfair')) {
-          fairness -= 10;
-        }
-      });
-
-      understanding = Math.max(0, Math.min(100, Math.round(understanding)));
-      anxiety = Math.max(0, Math.min(100, Math.round(anxiety)));
-      engagement = Math.max(0, Math.min(100, Math.round(engagement)));
-      fairness = Math.max(0, Math.min(100, Math.round(fairness)));
-
-      return { understanding, anxiety, engagement, fairness };
-    }
-
-    function renderChart(metrics) {
-      const ctx = document.getElementById('profileChart').getContext('2d');
-      if (chartInstance) chartInstance.destroy();
-
-      chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: [
-            translations[currentLanguage].understanding,
-            translations[currentLanguage].anxiety,
-            translations[currentLanguage].engagement,
-            translations[currentLanguage].fairness
-          ],
-          datasets: [{
-            label: 'Class Metrics',
-            data: [metrics.understanding, metrics.anxiety, metrics.engagement, metrics.fairness],
-            backgroundColor: ['#2563eb', '#f59e0b', '#0ea5a4', '#8b5cf6'],
-            borderRadius: 8
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100
-            }
-          },
-          plugins: {
-            legend: { display: false }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
           }
+        },
+        plugins: {
+          legend: { display: false }
         }
-      });
-    }
-
-    function renderPhaseTable(cards) {
-      const body = document.getElementById('phaseTableBody');
-      const t = translations[currentLanguage];
-
-      if (!cards.length) {
-        body.innerHTML = `<tr><td colspan="3">${t.noData}</td></tr>`;
-        return;
       }
+    });
+  }
 
-      const grouped = {};
-      cards.forEach(card => {
-        const phase = card.phase || 'Άγνωστο';
-        if (!grouped[phase]) grouped[phase] = [];
-        grouped[phase].push(card);
-      });
+  function renderPhaseTable(cards) {
+    const body = document.getElementById('phaseTableBody');
 
-      body.innerHTML = Object.entries(grouped).map(([phase, items]) => {
-        const highCount = items.filter(i => i.intensity === 'Υψηλό' || i.intensity === 'High').length;
-        const mediumCount = items.filter(i => i.intensity === 'Μέτριο' || i.intensity === 'Medium').length;
-        let picture = t.good;
-        if (highCount >= 2) picture = t.critical;
-        else if (mediumCount >= 2 || highCount >= 1) picture = t.warning;
-
-        return `
-          <tr>
-            <td>${phase}</td>
-            <td>${items.length}</td>
-            <td>${picture}</td>
-          </tr>
-        `;
-      }).join('');
+    if (!cards.length) {
+      body.innerHTML = `<tr><td colspan="3">${t('noData')}</td></tr>`;
+      return;
     }
 
-    function renderProfile() {
-      const cards = JSON.parse(localStorage.getItem('issueCards') || '[]');
-      const metrics = calculateMetrics(cards);
+    const grouped = {};
+    cards.forEach(card => {
+      const phase = card.phase || t('unknown');
+      if (!grouped[phase]) grouped[phase] = [];
+      grouped[phase].push(card);
+    });
 
-      document.getElementById('cardsCount').textContent =
-        translations[currentLanguage].cardsCount + cards.length;
+    body.innerHTML = Object.entries(grouped).map(([phase, items]) => {
+      const highCount = items.filter(i => i.intensity === 'Υψηλό' || i.intensity === 'High').length;
+      const mediumCount = items.filter(i => i.intensity === 'Μέτριο' || i.intensity === 'Medium').length;
 
-      document.getElementById('understandingValue').textContent = metrics.understanding + '%';
-      document.getElementById('anxietyValue').textContent = metrics.anxiety + '%';
-      document.getElementById('engagementValue').textContent = metrics.engagement + '%';
-      document.getElementById('fairnessValue').textContent = metrics.fairness + '%';
+      let picture = t('good');
+      if (highCount >= 2) picture = t('critical');
+      else if (mediumCount >= 2 || highCount >= 1) picture = t('warning');
 
-      const understandingStatus = document.getElementById('understandingStatus');
-      understandingStatus.className = 'status ' + getStatusClass(metrics.understanding);
-      understandingStatus.textContent = getStatusText(metrics.understanding);
+      return `
+        <tr>
+          <td>${phase}</td>
+          <td>${items.length}</td>
+          <td>${picture}</td>
+        </tr>
+      `;
+    }).join('');
+  }
 
-      const anxietyStatus = document.getElementById('anxietyStatus');
-      anxietyStatus.className = 'status ' + getStatusClass(metrics.anxiety, true);
-      anxietyStatus.textContent = getStatusText(metrics.anxiety, true);
+  function renderProfile() {
+    const cards = JSON.parse(localStorage.getItem('issueCards') || '[]');
+    const metrics = calculateMetrics(cards);
 
-      const engagementStatus = document.getElementById('engagementStatus');
-      engagementStatus.className = 'status ' + getStatusClass(metrics.engagement);
-      engagementStatus.textContent = getStatusText(metrics.engagement);
+    document.getElementById('cardsCount').textContent = t('cardsCount') + cards.length;
 
-      const fairnessStatus = document.getElementById('fairnessStatus');
-      fairnessStatus.className = 'status ' + getStatusClass(metrics.fairness);
-      fairnessStatus.textContent = getStatusText(metrics.fairness);
+    document.getElementById('understandingValue').textContent = metrics.understanding + '%';
+    document.getElementById('anxietyValue').textContent = metrics.anxiety + '%';
+    document.getElementById('engagementValue').textContent = metrics.engagement + '%';
+    document.getElementById('fairnessValue').textContent = metrics.fairness + '%';
 
-      renderChart(metrics);
-      renderPhaseTable(cards);
-    }
+    const understandingStatus = document.getElementById('understandingStatus');
+    understandingStatus.className = 'status ' + getStatusClass(metrics.understanding);
+    understandingStatus.textContent = getStatusText(metrics.understanding);
 
-    applyLanguage();
+    const anxietyStatus = document.getElementById('anxietyStatus');
+    anxietyStatus.className = 'status ' + getStatusClass(metrics.anxiety, true);
+    anxietyStatus.textContent = getStatusText(metrics.anxiety, true);
+
+    const engagementStatus = document.getElementById('engagementStatus');
+    engagementStatus.className = 'status ' + getStatusClass(metrics.engagement);
+    engagementStatus.textContent = getStatusText(metrics.engagement);
+
+    const fairnessStatus = document.getElementById('fairnessStatus');
+    fairnessStatus.className = 'status ' + getStatusClass(metrics.fairness);
+    fairnessStatus.textContent = getStatusText(metrics.fairness);
+
+    renderChart(metrics);
+    renderPhaseTable(cards);
+  }
+
+  window.onload = () => {
     renderProfile();
-  </script>
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
