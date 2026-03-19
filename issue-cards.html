@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Issue Cards | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     :root {
       --bg: #f4f7fb;
@@ -34,12 +38,23 @@
       padding: 30px 20px 50px;
     }
 
-    .back-link {
-      display: inline-block;
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-bottom: 20px;
+    }
+
+    .back-link,
+    .dashboard-link {
+      display: inline-block;
       color: #1e3a8a;
       text-decoration: none;
       font-weight: bold;
+      background: white;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #dbeafe;
     }
 
     .grid {
@@ -59,9 +74,13 @@
       margin-top: 0;
     }
 
+    .field-group {
+      margin-top: 14px;
+    }
+
     label {
       display: block;
-      margin: 14px 0 8px;
+      margin: 0 0 8px;
       font-weight: bold;
     }
 
@@ -72,6 +91,8 @@
       border-radius: 10px;
       box-sizing: border-box;
       font-size: 1rem;
+      background: #fff;
+      color: #1f2937;
     }
 
     textarea {
@@ -107,6 +128,7 @@
       padding: 14px;
       margin-bottom: 12px;
       background: #fafafa;
+      line-height: 1.65;
     }
 
     .saved-card strong {
@@ -126,59 +148,177 @@
   </style>
 </head>
 <body>
+<main id="main-content">
   <header>
-    <h1>Issue Cards</h1>
-    <p>Δομημένη καταγραφή μαθητικής εμπειρίας και προτάσεων βελτίωσης</p>
+    <h1 data-i18n="pageTitle">Issue Cards</h1>
+    <p data-i18n="pageSubtitle">Δομημένη καταγραφή μαθητικής εμπειρίας και προτάσεων βελτίωσης</p>
   </header>
 
   <div class="container">
-    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+    <div class="top-actions">
+      <a class="back-link" href="index.html" data-i18n="backHome">← Επιστροφή στην αρχική</a>
+      <a class="dashboard-link" href="dashboard.html" data-i18n="goDashboard">Dashboard</a>
+    </div>
 
     <div class="grid">
-      <section class="card">
-        <h2>Νέα κάρτα προβληματισμού</h2>
-        <p>Οι μαθητές εκφράζουν εμπειρίες, δυσκολίες και προτάσεις με δομημένο τρόπο, ώστε η ανατροφοδότηση να μετατρέπεται σε χρήσιμη παιδαγωγική πληροφορία.</p>
+      <section class="card" aria-labelledby="new-issue-title">
+        <h2 id="new-issue-title" data-i18n="newCardTitle">Νέα κάρτα προβληματισμού</h2>
+        <p data-i18n="newCardText">
+          Οι μαθητές εκφράζουν εμπειρίες, δυσκολίες και προτάσεις με δομημένο τρόπο, ώστε η ανατροφοδότηση να μετατρέπεται σε χρήσιμη παιδαγωγική πληροφορία.
+        </p>
 
-        <label for="phase">Φάση μαθήματος</label>
-        <select id="phase">
-          <option value="">Επίλεξε φάση</option>
-          <option>Εισαγωγή</option>
-          <option>Παρουσίαση νέας ύλης</option>
-          <option>Άσκηση / Εφαρμογή</option>
-          <option>Συζήτηση / Συνεργασία</option>
-          <option>Αξιολόγηση</option>
-        </select>
-
-        <label for="intensity">Επίπεδο έντασης δυσκολίας</label>
-        <select id="intensity">
-          <option value="">Επίλεξε επίπεδο</option>
-          <option>Χαμηλό</option>
-          <option>Μέτριο</option>
-          <option>Υψηλό</option>
-        </select>
-
-        <label for="experience">Περιγραφή εμπειρίας</label>
-        <textarea id="experience" placeholder="Περιέγραψε τι σε δυσκόλεψε ή τι σε προβλημάτισε..."></textarea>
-
-        <label for="proposal">Πρόταση βελτίωσης</label>
-        <textarea id="proposal" placeholder="Τι θα μπορούσε να αλλάξει για να βελτιωθεί η εμπειρία μάθησης;"></textarea>
-
-        <button onclick="saveIssueCard()">Υποβολή Issue Card</button>
-      </section>
-
-      <aside class="card">
-        <div class="info-box">
-          <h2>Γιατί έχει σημασία;</h2>
-          <p>Η EduMorph δεν συλλέγει απλώς σχόλια. Μετατρέπει τη μαθητική φωνή σε δομημένα δεδομένα, τα οποία μπορούν να οδηγήσουν σε στοχευμένες παρεμβάσεις και βελτίωση της εκπαιδευτικής διαδικασίας.</p>
+        <div class="field-group">
+          <label for="phase" data-i18n="phaseLabel">Φάση μαθήματος</label>
+          <select id="phase" aria-required="true">
+            <option value="" data-i18n="phasePlaceholder">Επίλεξε φάση</option>
+            <option value="Εισαγωγή" data-i18n="phaseIntro">Εισαγωγή</option>
+            <option value="Παρουσίαση νέας ύλης" data-i18n="phasePresentation">Παρουσίαση νέας ύλης</option>
+            <option value="Άσκηση / Εφαρμογή" data-i18n="phasePractice">Άσκηση / Εφαρμογή</option>
+            <option value="Συζήτηση / Συνεργασία" data-i18n="phaseDiscussion">Συζήτηση / Συνεργασία</option>
+            <option value="Αξιολόγηση" data-i18n="phaseEvaluation">Αξιολόγηση</option>
+          </select>
         </div>
 
-        <h2>Πρόσφατες καταγραφές</h2>
-        <div id="issue-list" class="empty">Δεν έχουν υποβληθεί ακόμα issue cards.</div>
+        <div class="field-group">
+          <label for="intensity" data-i18n="intensityLabel">Επίπεδο έντασης δυσκολίας</label>
+          <select id="intensity" aria-required="true">
+            <option value="" data-i18n="intensityPlaceholder">Επίλεξε επίπεδο</option>
+            <option value="Χαμηλό" data-i18n="intensityLow">Χαμηλό</option>
+            <option value="Μέτριο" data-i18n="intensityMedium">Μέτριο</option>
+            <option value="Υψηλό" data-i18n="intensityHigh">Υψηλό</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="experience" data-i18n="experienceLabel">Περιγραφή εμπειρίας</label>
+          <textarea
+            id="experience"
+            placeholder="Περιέγραψε τι σε δυσκόλεψε ή τι σε προβλημάτισε..."
+            data-i18n-placeholder="experiencePlaceholder"
+            aria-required="true"
+          ></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="proposal" data-i18n="proposalLabel">Πρόταση βελτίωσης</label>
+          <textarea
+            id="proposal"
+            placeholder="Τι θα μπορούσε να αλλάξει για να βελτιωθεί η εμπειρία μάθησης;"
+            data-i18n-placeholder="proposalPlaceholder"
+            aria-required="true"
+          ></textarea>
+        </div>
+
+        <button onclick="saveIssueCard()" data-i18n="submitBtn" data-i18n-aria-label="submitBtnAria" aria-label="Υποβολή Issue Card">
+          Υποβολή Issue Card
+        </button>
+      </section>
+
+      <aside class="card" aria-labelledby="recent-title">
+        <div class="info-box">
+          <h2 data-i18n="whyMattersTitle">Γιατί έχει σημασία;</h2>
+          <p data-i18n="whyMattersText">
+            Η EduMorph δεν συλλέγει απλώς σχόλια. Μετατρέπει τη μαθητική φωνή σε δομημένα δεδομένα, τα οποία μπορούν να οδηγήσουν σε στοχευμένες παρεμβάσεις και βελτίωση της εκπαιδευτικής διαδικασίας.
+          </p>
+        </div>
+
+        <h2 id="recent-title" data-i18n="recentTitle">Πρόσφατες καταγραφές</h2>
+        <div id="issue-list" class="empty" aria-live="polite" data-i18n="emptyState">
+          Δεν έχουν υποβληθεί ακόμα issue cards.
+        </div>
       </aside>
     </div>
   </div>
+</main>
 
 <script>
+  window.pageTranslations = {
+    el: {
+      pageTitle: 'Issue Cards',
+      pageSubtitle: 'Δομημένη καταγραφή μαθητικής εμπειρίας και προτάσεων βελτίωσης',
+      backHome: '← Επιστροφή στην αρχική',
+      goDashboard: 'Dashboard',
+      newCardTitle: 'Νέα κάρτα προβληματισμού',
+      newCardText: 'Οι μαθητές εκφράζουν εμπειρίες, δυσκολίες και προτάσεις με δομημένο τρόπο, ώστε η ανατροφοδότηση να μετατρέπεται σε χρήσιμη παιδαγωγική πληροφορία.',
+      phaseLabel: 'Φάση μαθήματος',
+      phasePlaceholder: 'Επίλεξε φάση',
+      phaseIntro: 'Εισαγωγή',
+      phasePresentation: 'Παρουσίαση νέας ύλης',
+      phasePractice: 'Άσκηση / Εφαρμογή',
+      phaseDiscussion: 'Συζήτηση / Συνεργασία',
+      phaseEvaluation: 'Αξιολόγηση',
+      intensityLabel: 'Επίπεδο έντασης δυσκολίας',
+      intensityPlaceholder: 'Επίλεξε επίπεδο',
+      intensityLow: 'Χαμηλό',
+      intensityMedium: 'Μέτριο',
+      intensityHigh: 'Υψηλό',
+      experienceLabel: 'Περιγραφή εμπειρίας',
+      experiencePlaceholder: 'Περιέγραψε τι σε δυσκόλεψε ή τι σε προβλημάτισε...',
+      proposalLabel: 'Πρόταση βελτίωσης',
+      proposalPlaceholder: 'Τι θα μπορούσε να αλλάξει για να βελτιωθεί η εμπειρία μάθησης;',
+      submitBtn: 'Υποβολή Issue Card',
+      submitBtnAria: 'Υποβολή Issue Card',
+      whyMattersTitle: 'Γιατί έχει σημασία;',
+      whyMattersText: 'Η EduMorph δεν συλλέγει απλώς σχόλια. Μετατρέπει τη μαθητική φωνή σε δομημένα δεδομένα, τα οποία μπορούν να οδηγήσουν σε στοχευμένες παρεμβάσεις και βελτίωση της εκπαιδευτικής διαδικασίας.',
+      recentTitle: 'Πρόσφατες καταγραφές',
+      emptyState: 'Δεν έχουν υποβληθεί ακόμα issue cards.',
+      fillAllFields: 'Παρακαλώ συμπλήρωσε όλα τα πεδία.',
+      successPoints: 'Η καταγραφή υποβλήθηκε επιτυχώς. Κέρδισες 20 πόντους!',
+      fieldPhase: 'Φάση:',
+      fieldIntensity: 'Ένταση:',
+      fieldExperience: 'Εμπειρία:',
+      fieldProposal: 'Πρόταση:',
+      fieldUser: 'Χρήστης:',
+      fieldTime: 'Χρόνος:',
+      anonymous: 'anonymous'
+    },
+    en: {
+      pageTitle: 'Issue Cards',
+      pageSubtitle: 'Structured capture of student experience and improvement proposals',
+      backHome: '← Back to home',
+      goDashboard: 'Dashboard',
+      newCardTitle: 'New issue card',
+      newCardText: 'Students express experiences, difficulties, and proposals in a structured way so that feedback becomes useful pedagogical information.',
+      phaseLabel: 'Lesson phase',
+      phasePlaceholder: 'Select phase',
+      phaseIntro: 'Introduction',
+      phasePresentation: 'New content presentation',
+      phasePractice: 'Practice / Application',
+      phaseDiscussion: 'Discussion / Collaboration',
+      phaseEvaluation: 'Assessment',
+      intensityLabel: 'Difficulty intensity level',
+      intensityPlaceholder: 'Select level',
+      intensityLow: 'Low',
+      intensityMedium: 'Medium',
+      intensityHigh: 'High',
+      experienceLabel: 'Experience description',
+      experiencePlaceholder: 'Describe what felt difficult or concerning...',
+      proposalLabel: 'Improvement proposal',
+      proposalPlaceholder: 'What could change to improve the learning experience?',
+      submitBtn: 'Submit Issue Card',
+      submitBtnAria: 'Submit Issue Card',
+      whyMattersTitle: 'Why does it matter?',
+      whyMattersText: 'EduMorph does not simply collect comments. It turns student voice into structured data that can lead to targeted interventions and improvement of the educational process.',
+      recentTitle: 'Recent submissions',
+      emptyState: 'No issue cards have been submitted yet.',
+      fillAllFields: 'Please fill in all fields.',
+      successPoints: 'Your submission was successful. You earned 20 points!',
+      fieldPhase: 'Phase:',
+      fieldIntensity: 'Intensity:',
+      fieldExperience: 'Experience:',
+      fieldProposal: 'Proposal:',
+      fieldUser: 'User:',
+      fieldTime: 'Time:',
+      anonymous: 'anonymous'
+    }
+  };
+
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
   function getUserObject() {
     const raw = localStorage.getItem('user');
     return raw ? JSON.parse(raw) : null;
@@ -219,19 +359,21 @@
     const proposal = document.getElementById('proposal').value.trim();
 
     if (!phase || !intensity || !experience || !proposal) {
-      alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
+      alert(t('fillAllFields'));
       return;
     }
 
     const user = getUserObject();
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
 
     const newCard = {
       phase,
       intensity,
       experience,
       proposal,
-      submittedBy: user ? user.username : 'anonymous',
-      submittedAt: new Date().toLocaleString()
+      submittedBy: user ? user.username : t('anonymous'),
+      submittedAt: new Date().toLocaleString(),
+      language: lang
     };
 
     const existing = JSON.parse(localStorage.getItem('issueCards') || '[]');
@@ -246,7 +388,7 @@
     document.getElementById('proposal').value = '';
 
     renderCards();
-    alert('Η καταγραφή υποβλήθηκε επιτυχώς. Κέρδισες 20 πόντους!');
+    alert(t('successPoints'));
   }
 
   function renderCards() {
@@ -255,24 +397,29 @@
 
     if (!cards.length) {
       list.className = 'empty';
-      list.textContent = 'Δεν έχουν υποβληθεί ακόμα issue cards.';
+      list.textContent = t('emptyState');
       return;
     }
 
     list.className = '';
     list.innerHTML = cards.slice(0, 5).map(card => `
       <div class="saved-card">
-        <div><strong>Φάση:</strong> ${card.phase}</div>
-        <div><strong>Ένταση:</strong> ${card.intensity}</div>
-        <div><strong>Εμπειρία:</strong> ${card.experience}</div>
-        <div><strong>Πρόταση:</strong> ${card.proposal}</div>
-        <div><strong>Χρήστης:</strong> ${card.submittedBy || 'anonymous'}</div>
-        <div><strong>Χρόνος:</strong> ${card.submittedAt || '-'}</div>
+        <div><strong>${t('fieldPhase')}</strong> ${card.phase}</div>
+        <div><strong>${t('fieldIntensity')}</strong> ${card.intensity}</div>
+        <div><strong>${t('fieldExperience')}</strong> ${card.experience}</div>
+        <div><strong>${t('fieldProposal')}</strong> ${card.proposal}</div>
+        <div><strong>${t('fieldUser')}</strong> ${card.submittedBy || t('anonymous')}</div>
+        <div><strong>${t('fieldTime')}</strong> ${card.submittedAt || '-'}</div>
       </div>
     `).join('');
   }
 
-  renderCards();
+  window.onload = () => {
+    renderCards();
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
 </script>
 </body>
 </html>
