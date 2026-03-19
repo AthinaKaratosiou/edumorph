@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Impact Analytics | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="global.js" defer></script>
+
   <style>
     body {
       margin: 0;
@@ -33,7 +37,7 @@
       margin-bottom: 20px;
     }
 
-    .btn, .lang-btn {
+    .btn {
       background: #0ea5a4;
       color: white;
       border: none;
@@ -42,9 +46,10 @@
       text-decoration: none;
       font-weight: bold;
       cursor: pointer;
+      display: inline-block;
     }
 
-    .btn:hover, .lang-btn:hover {
+    .btn:hover {
       background: #0f766e;
     }
 
@@ -114,6 +119,7 @@
   </style>
 </head>
 <body>
+<main id="main-content">
   <header>
     <h1 data-i18n="title">Impact Analytics</h1>
     <p data-i18n="subtitle">Αξιολόγηση της επίδρασης των παρεμβάσεων στην εμπειρία μάθησης</p>
@@ -123,7 +129,6 @@
     <div class="actions">
       <a class="btn" href="index.html" data-i18n="back">← Επιστροφή στην αρχική</a>
       <a class="btn" href="dashboard.html" data-i18n="dashboard">Dashboard</a>
-      <button class="lang-btn" onclick="toggleLanguage()">EN / GR</button>
     </div>
 
     <section class="card">
@@ -133,26 +138,26 @@
       </p>
     </section>
 
-    <section class="grid">
+    <section class="grid" aria-label="Impact summary metrics">
       <div class="metric">
         <div class="metric-value">+11%</div>
         <h3 data-i18n="understandingGain">Βελτίωση κατανόησης</h3>
-        <div class="progress"><div class="bar" style="width:78%"></div></div>
+        <div class="progress" aria-hidden="true"><div class="bar" style="width:78%"></div></div>
       </div>
       <div class="metric">
         <div class="metric-value">-9%</div>
         <h3 data-i18n="anxietyDrop">Μείωση άγχους</h3>
-        <div class="progress"><div class="bar" style="width:68%"></div></div>
+        <div class="progress" aria-hidden="true"><div class="bar" style="width:68%"></div></div>
       </div>
       <div class="metric">
         <div class="metric-value">+14%</div>
         <h3 data-i18n="engagementGain">Αύξηση εμπλοκής</h3>
-        <div class="progress"><div class="bar" style="width:83%"></div></div>
+        <div class="progress" aria-hidden="true"><div class="bar" style="width:83%"></div></div>
       </div>
       <div class="metric">
         <div class="metric-value">92%</div>
         <h3 data-i18n="positiveEval">Θετική αποτίμηση</h3>
-        <div class="progress"><div class="bar" style="width:92%"></div></div>
+        <div class="progress" aria-hidden="true"><div class="bar" style="width:92%"></div></div>
       </div>
     </section>
 
@@ -174,133 +179,162 @@
             <th data-i18n="result">Αποτέλεσμα</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="historyBody">
           <tr>
-            <td>Μικρο-ανακεφαλαίωση</td>
-            <td>Κατανόηση</td>
-            <td>1 εβδομάδα</td>
-            <td>Βελτίωση σαφήνειας και απαντήσεων</td>
+            <td data-i18n="history1Intervention">Μικρο-ανακεφαλαίωση</td>
+            <td data-i18n="history1Goal">Κατανόηση</td>
+            <td data-i18n="history1Duration">1 εβδομάδα</td>
+            <td data-i18n="history1Result">Βελτίωση σαφήνειας και απαντήσεων</td>
           </tr>
           <tr>
-            <td>Διαμορφωτική αξιολόγηση</td>
-            <td>Μείωση άγχους</td>
-            <td>2 εβδομάδες</td>
-            <td>Μεγαλύτερη αίσθηση ασφάλειας</td>
+            <td data-i18n="history2Intervention">Διαμορφωτική αξιολόγηση</td>
+            <td data-i18n="history2Goal">Μείωση άγχους</td>
+            <td data-i18n="history2Duration">2 εβδομάδες</td>
+            <td data-i18n="history2Result">Μεγαλύτερη αίσθηση ασφάλειας</td>
           </tr>
           <tr>
-            <td>Συνεργατικές δραστηριότητες</td>
-            <td>Εμπλοκή</td>
-            <td>10 ημέρες</td>
-            <td>Αύξηση συμμετοχής</td>
+            <td data-i18n="history3Intervention">Συνεργατικές δραστηριότητες</td>
+            <td data-i18n="history3Goal">Εμπλοκή</td>
+            <td data-i18n="history3Duration">10 ημέρες</td>
+            <td data-i18n="history3Result">Αύξηση συμμετοχής</td>
           </tr>
         </tbody>
       </table>
     </section>
   </div>
+</main>
 
-  <script>
-    let currentLanguage = localStorage.getItem('edumorphLanguage') || 'el';
-    let impactChart = null;
-
-    const translations = {
-      el: {
-        title: 'Impact Analytics',
-        subtitle: 'Αξιολόγηση της επίδρασης των παρεμβάσεων στην εμπειρία μάθησης',
-        back: '← Επιστροφή στην αρχική',
-        dashboard: 'Dashboard',
-        overview: 'Συνολική αποτίμηση',
-        overviewText: 'Η EduMorph αποτιμά αν οι παιδαγωγικές παρεμβάσεις οδήγησαν σε πραγματική βελτίωση. Το μοντέλο below δείχνει παράδειγμα σύγκρισης πριν και μετά την παρέμβαση.',
-        understandingGain: 'Βελτίωση κατανόησης',
-        anxietyDrop: 'Μείωση άγχους',
-        engagementGain: 'Αύξηση εμπλοκής',
-        positiveEval: 'Θετική αποτίμηση',
-        chartTitle: 'Before / After Chart',
-        historyTitle: 'Ιστορικό παρεμβάσεων',
-        intervention: 'Παρέμβαση',
-        goal: 'Στόχος',
-        duration: 'Διάρκεια',
-        result: 'Αποτέλεσμα'
-      },
-      en: {
-        title: 'Impact Analytics',
-        subtitle: 'Evaluation of intervention impact on the learning experience',
-        back: '← Back to home',
-        dashboard: 'Dashboard',
-        overview: 'Overall evaluation',
-        overviewText: 'EduMorph evaluates whether pedagogical interventions led to measurable improvement. The model below shows an example of before/after comparison.',
-        understandingGain: 'Understanding improvement',
-        anxietyDrop: 'Anxiety reduction',
-        engagementGain: 'Engagement increase',
-        positiveEval: 'Positive evaluation',
-        chartTitle: 'Before / After Chart',
-        historyTitle: 'Intervention history',
-        intervention: 'Intervention',
-        goal: 'Goal',
-        duration: 'Duration',
-        result: 'Outcome'
-      }
-    };
-
-    function applyLanguage() {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.textContent = translations[currentLanguage][el.dataset.i18n];
-      });
+<script>
+  window.pageTranslations = {
+    el: {
+      title: 'Impact Analytics',
+      subtitle: 'Αξιολόγηση της επίδρασης των παρεμβάσεων στην εμπειρία μάθησης',
+      back: '← Επιστροφή στην αρχική',
+      dashboard: 'Dashboard',
+      overview: 'Συνολική αποτίμηση',
+      overviewText: 'Η EduMorph αποτιμά αν οι παιδαγωγικές παρεμβάσεις οδήγησαν σε πραγματική βελτίωση. Το μοντέλο below δείχνει παράδειγμα σύγκρισης πριν και μετά την παρέμβαση.',
+      understandingGain: 'Βελτίωση κατανόησης',
+      anxietyDrop: 'Μείωση άγχους',
+      engagementGain: 'Αύξηση εμπλοκής',
+      positiveEval: 'Θετική αποτίμηση',
+      chartTitle: 'Before / After Chart',
+      historyTitle: 'Ιστορικό παρεμβάσεων',
+      intervention: 'Παρέμβαση',
+      goal: 'Στόχος',
+      duration: 'Διάρκεια',
+      result: 'Αποτέλεσμα',
+      history1Intervention: 'Μικρο-ανακεφαλαίωση',
+      history1Goal: 'Κατανόηση',
+      history1Duration: '1 εβδομάδα',
+      history1Result: 'Βελτίωση σαφήνειας και απαντήσεων',
+      history2Intervention: 'Διαμορφωτική αξιολόγηση',
+      history2Goal: 'Μείωση άγχους',
+      history2Duration: '2 εβδομάδες',
+      history2Result: 'Μεγαλύτερη αίσθηση ασφάλειας',
+      history3Intervention: 'Συνεργατικές δραστηριότητες',
+      history3Goal: 'Εμπλοκή',
+      history3Duration: '10 ημέρες',
+      history3Result: 'Αύξηση συμμετοχής',
+      before: 'Πριν',
+      week1: 'Εβδομάδα 1',
+      week2: 'Εβδομάδα 2',
+      after: 'Μετά'
+    },
+    en: {
+      title: 'Impact Analytics',
+      subtitle: 'Evaluation of intervention impact on the learning experience',
+      back: '← Back to home',
+      dashboard: 'Dashboard',
+      overview: 'Overall evaluation',
+      overviewText: 'EduMorph evaluates whether pedagogical interventions led to measurable improvement. The model below shows an example of before/after comparison.',
+      understandingGain: 'Understanding improvement',
+      anxietyDrop: 'Anxiety reduction',
+      engagementGain: 'Engagement increase',
+      positiveEval: 'Positive evaluation',
+      chartTitle: 'Before / After Chart',
+      historyTitle: 'Intervention history',
+      intervention: 'Intervention',
+      goal: 'Goal',
+      duration: 'Duration',
+      result: 'Outcome',
+      history1Intervention: 'Micro-recap',
+      history1Goal: 'Understanding',
+      history1Duration: '1 week',
+      history1Result: 'Improved clarity and responses',
+      history2Intervention: 'Formative assessment',
+      history2Goal: 'Anxiety reduction',
+      history2Duration: '2 weeks',
+      history2Result: 'Greater sense of safety',
+      history3Intervention: 'Collaborative activities',
+      history3Goal: 'Engagement',
+      history3Duration: '10 days',
+      history3Result: 'Increased participation',
+      before: 'Before',
+      week1: 'Week 1',
+      week2: 'Week 2',
+      after: 'After'
     }
+  };
 
-    function toggleLanguage() {
-      currentLanguage = currentLanguage === 'el' ? 'en' : 'el';
-      localStorage.setItem('edumorphLanguage', currentLanguage);
-      applyLanguage();
-      renderChart();
-    }
+  let impactChart = null;
 
-    function renderChart() {
-      const ctx = document.getElementById('impactChart').getContext('2d');
-      if (impactChart) impactChart.destroy();
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
 
-      impactChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Before', 'Week 1', 'Week 2', 'After'],
-          datasets: [
-            {
-              label: translations[currentLanguage].understandingGain,
-              data: [62, 68, 71, 73],
-              borderColor: '#2563eb',
-              backgroundColor: 'rgba(37,99,235,0.12)',
-              fill: true,
-              tension: 0.35
-            },
-            {
-              label: translations[currentLanguage].anxietyDrop,
-              data: [54, 49, 45, 41],
-              borderColor: '#f59e0b',
-              backgroundColor: 'rgba(245,158,11,0.12)',
-              fill: true,
-              tension: 0.35
-            },
-            {
-              label: translations[currentLanguage].engagementGain,
-              data: [58, 63, 68, 72],
-              borderColor: '#0ea5a4',
-              backgroundColor: 'rgba(14,165,164,0.12)',
-              fill: true,
-              tension: 0.35
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { beginAtZero: true, max: 100 }
+  function renderChart() {
+    const ctx = document.getElementById('impactChart').getContext('2d');
+    if (impactChart) impactChart.destroy();
+
+    impactChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [t('before'), t('week1'), t('week2'), t('after')],
+        datasets: [
+          {
+            label: t('understandingGain'),
+            data: [62, 68, 71, 73],
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37,99,235,0.12)',
+            fill: true,
+            tension: 0.35
+          },
+          {
+            label: t('anxietyDrop'),
+            data: [54, 49, 45, 41],
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245,158,11,0.12)',
+            fill: true,
+            tension: 0.35
+          },
+          {
+            label: t('engagementGain'),
+            data: [58, 63, 68, 72],
+            borderColor: '#0ea5a4',
+            backgroundColor: 'rgba(14,165,164,0.12)',
+            fill: true,
+            tension: 0.35
           }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true, max: 100 }
         }
-      });
-    }
+      }
+    });
+  }
 
-    applyLanguage();
+  window.onload = () => {
     renderChart();
-  </script>
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
