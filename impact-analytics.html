@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impact Analytics | EduMorph</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .metric {
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .progress-box {
+      margin-top: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #0ea5a4);
+      border-radius: 999px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th {
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Impact Analytics</h1>
+    <p>Αξιολόγηση της επίδρασης των παιδαγωγικών παρεμβάσεων</p>
+  </header>
+
+  <div class="container">
+    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+
+    <section class="card">
+      <h2>Closed-Loop Improvement</h2>
+      <p>Η EduMorph δεν σταματά στη συλλογή ανατροφοδότησης. Παρακολουθεί αν οι παρεμβάσεις που εφαρμόζονται οδηγούν σε πραγματική βελτίωση της εμπειρίας μάθησης, μέσα από επαναξιολόγηση των δεικτών της τάξης.</p>
+    </section>
+
+    <section class="metrics">
+      <div class="metric">
+        <div class="metric-value">+11%</div>
+        <h3>Βελτίωση κατανόησης</h3>
+        <p>Μετά από στοχευμένη μικρο-ανακεφαλαίωση.</p>
+        <div class="progress-box"><div class="progress" style="width:78%"></div></div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-value">-9%</div>
+        <h3>Μείωση άγχους</h3>
+        <p>Μετά από αναπροσαρμογή της διαδικασίας αξιολόγησης.</p>
+        <div class="progress-box"><div class="progress" style="width:68%"></div></div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-value">+14%</div>
+        <h3>Αύξηση εμπλοκής</h3>
+        <p>Μετά από εφαρμογή συνεργατικών δραστηριοτήτων.</p>
+        <div class="progress-box"><div class="progress" style="width:83%"></div></div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-value">92%</div>
+        <h3>Θετική αποτίμηση</h3>
+        <p>Ποσοστό μαθητών που αντιλήφθηκαν ουσιαστική βελτίωση.</p>
+        <div class="progress-box"><div class="progress" style="width:92%"></div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ιστορικό παρεμβάσεων</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Παρέμβαση</th>
+            <th>Στόχος</th>
+            <th>Διάρκεια</th>
+            <th>Αποτέλεσμα</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Μικρο-ανακεφαλαίωση ενότητας</td>
+            <td>Αύξηση κατανόησης</td>
+            <td>1 εβδομάδα</td>
+            <td>Θετική μεταβολή στη σαφήνεια και στις απαντήσεις κατανόησης</td>
+          </tr>
+          <tr>
+            <td>Διαμορφωτική αξιολόγηση με σαφή κριτήρια</td>
+            <td>Μείωση άγχους</td>
+            <td>2 εβδομάδες</td>
+            <td>Μείωση πίεσης και βελτίωση αίσθησης ασφάλειας</td>
+          </tr>
+          <tr>
+            <td>Συνεργατικές δραστηριότητες ρόλων</td>
+            <td>Αύξηση εμπλοκής</td>
+            <td>10 ημέρες</td>
+            <td>Περισσότερη συμμετοχή και ενεργότερη παρουσία στην τάξη</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
