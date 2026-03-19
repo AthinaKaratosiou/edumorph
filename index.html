@@ -1,108 +1,575 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="EduMorph.User" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<title>EduMorph</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMorph | Πλατφόρμα Συμμετοχικού Εκπαιδευτικού Μετασχηματισμού</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-}
+    <style>
+        :root {
+            --bg-color: #f4f7fb;
+            --text-color: #1f2937;
+            --header-bg-color: linear-gradient(135deg, #1e3a8a, #0f766e);
+            --header-text-color: #ffffff;
+            --button-bg-color: #0ea5a4;
+            --button-hover-bg-color: #0f766e;
+            --input-bg-color: #ffffff;
+            --input-text-color: #1f2937;
+            --border-color: #d1d5db;
+            --form-box-bg: #ffffff;
+            --card-bg: #ffffff;
+            --accent-color: #2563eb;
+            --accent-soft: #dbeafe;
+            --hero-overlay: rgba(15, 23, 42, 0.2);
+        }
 
-section {
-  padding: 60px;
-  text-align: center;
-}
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --text-color: #e5e7eb;
+            --header-bg-color: linear-gradient(135deg, #0f172a, #134e4a);
+            --header-text-color: #f8fafc;
+            --button-bg-color: #14b8a6;
+            --button-hover-bg-color: #0f766e;
+            --input-bg-color: #1e293b;
+            --input-text-color: #f8fafc;
+            --border-color: #334155;
+            --form-box-bg: #111827;
+            --card-bg: #1e293b;
+            --accent-color: #60a5fa;
+            --accent-soft: #1e3a8a;
+            --hero-overlay: rgba(0, 0, 0, 0.25);
+        }
 
-.hero {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-}
+        * {
+            box-sizing: border-box;
+        }
 
-h1 {
-  font-size: 50px;
-}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
 
-p {
-  max-width: 600px;
-  margin: auto;
-}
+        header {
+            background: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 70px 20px 50px;
+            text-align: center;
+            position: relative;
+        }
 
-.button {
-  margin-top: 20px;
-  padding: 15px 30px;
-  background: white;
-  color: black;
-  border-radius: 10px;
-  cursor: pointer;
-}
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--hero-overlay);
+        }
 
-.grid {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-.card {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 10px;
-  width: 250px;
-}
-</style>
+        h1 {
+            margin: 0 0 15px 0;
+            font-size: 3rem;
+            line-height: 1.1;
+        }
 
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 760px;
+            margin: 0 auto 25px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .hero-button,
+        .secondary-button,
+        .toggle-theme,
+        .button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .hero-button,
+        .button {
+            background-color: var(--button-bg-color);
+            color: #fff;
+        }
+
+        .hero-button:hover,
+        .button:hover {
+            background-color: var(--button-hover-bg-color);
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            background-color: rgba(255,255,255,0.15);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.35);
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .top-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0 5px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-theme {
+            background-color: #111827;
+            color: #fff;
+            margin: 25px auto 0;
+            display: block;
+        }
+
+        .toggle-theme:hover {
+            background-color: #000;
+        }
+
+        .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 30px 20px 50px;
+        }
+
+        section {
+            margin-bottom: 35px;
+            border-radius: 18px;
+            padding: 35px 25px;
+            background: var(--form-box-bg);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        .intro-text {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        .stats-grid,
+        .features-container,
+        .benefits-grid,
+        .steps-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .features-container {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            margin-top: 25px;
+        }
+
+        .benefits-grid {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .steps-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .feature-box,
+        .stat-card,
+        .benefit-card,
+        .step-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(15, 23, 42, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .feature-box:hover,
+        .stat-card:hover,
+        .benefit-card:hover,
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 10px 24px rgba(15, 23, 42, 0.14);
+        }
+
+        .feature-icon,
+        .step-number {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            background: var(--accent-soft);
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .problem-list,
+        .target-list {
+            max-width: 900px;
+            margin: 20px auto 0;
+            padding-left: 20px;
+            line-height: 1.9;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .welcome-message {
+            text-align: center;
+            background: linear-gradient(135deg, #1d4ed8, #0f766e);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px auto 30px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+        }
+
+        .welcome-message h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .user-name {
+            color: #d1fae5;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, #dbeafe, #ccfbf1);
+        }
+
+        body.dark-mode .cta-section {
+            background: linear-gradient(135deg, #1e3a8a, #134e4a);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 25px 18px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<section class="hero">
-  <h1>EduMorph</h1>
-  <p>Πλατφόρμα Συμμετοχικού Εκπαιδευτικού Μετασχηματισμού</p>
-  <div class="button">Ξεκίνα τώρα</div>
-</section>
+<%
+    String loginMessage = null;
 
-<section>
-  <h2>Το Πρόβλημα</h2>
-  <p>
-  Οι μαθητές δεν έχουν δομημένη φωνή, η εκπαιδευτική διαδικασία παραμένει στατική 
-  και το feedback σπάνια οδηγεί σε πραγματική δράση.
-  </p>
-</section>
+    if ("POST".equalsIgnoreCase(request.getMethod())) {
+        String action = request.getParameter("action");
 
-<section>
-  <h2>Η Λύση</h2>
-  <div class="grid">
-    <div class="card">Issue Cards</div>
-    <div class="card">Δείκτες Τάξης</div>
-    <div class="card">Μηχανισμός Παρεμβάσεων</div>
-    <div class="card">Συνεχής Βελτίωση</div>
-  </div>
-</section>
+        if ("logout".equals(action)) {
+            session.invalidate();
+            response.sendRedirect("EduMorph.jsp");
+            return;
+        }
+    }
 
-<section>
-  <h2>Πώς λειτουργεί</h2>
-  <p>
-  Ανατροφοδότηση → Παρέμβαση → Αξιολόγηση → Βελτίωση
-  </p>
-</section>
+    User loggedInUser = null;
+    if (session != null) {
+        loggedInUser = (User) session.getAttribute("user");
+    }
+%>
 
-<section>
-  <h2>Οφέλη</h2>
-  <p>
-  Ενίσχυση μαθητικής φωνής, τεκμηριωμένες αποφάσεις για εκπαιδευτικούς 
-  και μετασχηματισμός της εκπαιδευτικής εμπειρίας.
-  </p>
-</section>
+<header>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>EduMorph</h1>
+        <p class="hero-subtitle">
+            Πλατφόρμα Συμμετοχικού Εκπαιδευτικού Μετασχηματισμού που μετατρέπει
+            τη μαθητική φωνή σε δομημένη ανατροφοδότηση, παιδαγωγική δράση
+            και μετρήσιμη βελτίωση της εκπαιδευτικής εμπειρίας.
+        </p>
 
-<section>
-  <h2>Γίνε μέρος της αλλαγής</h2>
-  <p>
-  Η EduMorph μετατρέπει την εκπαίδευση σε ένα δυναμικό, συμμετοχικό σύστημα βελτίωσης.
-  </p>
-</section>
+        <div class="hero-buttons">
+            <a href="#features" class="hero-button">Ανακάλυψε τη Λύση</a>
+            <a href="#how-it-works" class="secondary-button">Πώς λειτουργεί</a>
+        </div>
+    </div>
+</header>
+
+<button class="toggle-theme" onclick="toggleDarkMode()">Εναλλαγή Dark / Light Mode</button>
+
+<div class="container">
+
+    <% if (loggedInUser == null) { %>
+        <div class="button-container">
+            <form action="login.jsp" method="get" style="display:inline;">
+                <button class="button" type="submit">Σύνδεση</button>
+            </form>
+            <form action="register.jsp" method="get" style="display:inline;">
+                <button class="button" type="submit">Εγγραφή</button>
+            </form>
+        </div>
+    <% } else { %>
+        <div class="welcome-message">
+            <h2>Καλώς ήρθες, <span class="user-name"><%= loggedInUser.getFirstName() %></span>!</h2>
+            <p>Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.</p>
+            <p>Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.</p>
+            <form method="post" style="display:inline;">
+                <button class="button" type="submit" name="action" value="logout">Αποσύνδεση</button>
+            </form>
+        </div>
+    <% } %>
+
+    <section>
+        <h2>Η Αποστολή της EduMorph</h2>
+        <p class="intro-text">
+            Η EduMorph σχεδιάστηκε για να καλύψει ένα κρίσιμο κενό στην εκπαίδευση:
+            την απουσία ενός δομημένου μηχανισμού μέσω του οποίου οι μαθητές εκφράζουν
+            εμπειρίες, δυσκολίες και προτάσεις, και τα δεδομένα αυτά μετατρέπονται
+            σε στοχευμένες παιδαγωγικές παρεμβάσεις με αξιολόγηση αποτελεσματικότητας.
+        </p>
+    </section>
+
+    <section>
+        <h2>Το Πρόβλημα που Αντιμετωπίζουμε</h2>
+        <ul class="problem-list">
+            <li>Η μαθητική φωνή παραμένει συχνά άτυπη, αποσπασματική και μη αξιοποιήσιμη.</li>
+            <li>Η εκπαιδευτική διαδικασία δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.</li>
+            <li>Τα περισσότερα εργαλεία συλλέγουν feedback, αλλά δεν οδηγούν σε άμεση παρέμβαση.</li>
+            <li>Απουσιάζει ένας κλειστός βρόχος βελτίωσης: feedback → δράση → αποτίμηση αποτελέσματος.</li>
+        </ul>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2>Βασικές Δυνατότητες της Πλατφόρμας</h2>
+
+        <div class="features-container">
+            <div class="feature-box" onclick="navigateTo('issue-cards.jsp')">
+                <div class="feature-icon">📝</div>
+                <h3>Issue Cards</h3>
+                <p>Οι μαθητές καταγράφουν εμπειρίες, επίπεδο έντασης, φάση μαθήματος και πρόταση βελτίωσης.</p>
+            </div>
+
+            <div class="feature-box" onclick="navigateTo('classroom-profile.jsp')">
+                <div class="feature-icon">📊</div>
+                <h3>Collective Classroom Profile</h3>
+                <p>Δημιουργία συλλογικών δεικτών κατανόησης, άγχους, εμπλοκής και αντίληψης δικαιοσύνης.</p>
+            </div>
+
+            <div class="feature-box" onclick="navigateTo('interventions.jsp')">
+                <div class="feature-icon">🎯</div>
+                <h3>Μηχανισμός Παρεμβάσεων</h3>
+                <p>Ενεργοποίηση παιδαγωγικών playbooks όταν οι δείκτες ξεπερνούν καθορισμένα όρια.</p>
+            </div>
+
+            <div class="feature-box" onclick="navigateTo('impact-analytics.jsp')">
+                <div class="feature-icon">🔄</div>
+                <h3>Closed-Loop Improvement</h3>
+                <p>Κάθε παρέμβαση εφαρμόζεται, αξιολογείται και αναπροσαρμόζεται βάσει επίδρασης.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <h2>Πώς λειτουργεί η EduMorph</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Καταγραφή</h3>
+                <p>Οι μαθητές συμπληρώνουν δομημένες κάρτες εμπειρίας και προτάσεων.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Συλλογική Ανάλυση</h3>
+                <p>Η πλατφόρμα μετατρέπει τα δεδομένα σε ομαδικούς δείκτες τάξης.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Παρέμβαση</h3>
+                <p>Ενεργοποιούνται παιδαγωγικές ενέργειες σύμφωνα με τις πραγματικές ανάγκες.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Αξιολόγηση Αντίκτυπου</h3>
+                <p>Μετράται αν η αλλαγή βελτίωσε την εμπειρία μάθησης και το κλίμα της τάξης.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Ενδεικτικοί Δείκτες της Τάξης</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">87%</div>
+                <h3>Κατανόηση</h3>
+                <p>Ενδεικτικός συλλογικός δείκτης κατανόησης της διδακτικής ενότητας.</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-value">42%</div>
+                <h3>Άγχος</h3>
+                <p>Έγκαιρη ανίχνευση πίεσης πριν δημιουργηθούν σοβαρές μαθησιακές δυσκολίες.</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-value">74%</div>
+                <h3>Εμπλοκή</h3>
+                <p>Παρακολούθηση του επιπέδου συμμετοχής και ενεργητικής παρουσίας στην τάξη.</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-value">91%</div>
+                <h3>Αντίληψη Δικαιοσύνης</h3>
+                <p>Καταγραφή του κατά πόσο οι μαθητές βιώνουν τη διαδικασία ως δίκαιη και υποστηρικτική.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Οφέλη για Όλους τους Εμπλεκόμενους</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <h3>Για τους Μαθητές</h3>
+                <p>Αίσθημα ακρόασης, ενδυνάμωση συμμετοχής, μείωση άγχους και καλλιέργεια υπευθυνότητας.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h3>Για τους Εκπαιδευτικούς</h3>
+                <p>Τεκμηριωμένη λήψη αποφάσεων, παιδαγωγικός αναστοχασμός και επαγγελματική ανάπτυξη.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h3>Για τα Ιδρύματα</h3>
+                <p>Ενίσχυση κουλτούρας διαλόγου, δεδομενοκεντρική βελτίωση και συμμετοχική εκπαιδευτική καινοτομία.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Αγορά-Στόχος</h2>
+        <ul class="target-list">
+            <li>Σχολικές μονάδες πρωτοβάθμιας και δευτεροβάθμιας εκπαίδευσης</li>
+            <li>Πανεπιστήμια και κολέγια</li>
+            <li>Εκπαιδευτικοί οργανισμοί και δίκτυα σχολείων</li>
+            <li>Φορείς εκπαιδευτικής καινοτομίας και edtech incubators</li>
+        </ul>
+    </section>
+
+    <section class="cta-section">
+        <h2>Γίνε μέρος του εκπαιδευτικού μετασχηματισμού</h2>
+        <p class="intro-text">
+            Η EduMorph δεν είναι απλώς ένα εργαλείο feedback. Είναι ένας μηχανισμός
+            συλλογικής αυτορρύθμισης της τάξης που συνδέει τη μαθητική εμπειρία με
+            πραγματική, μετρήσιμη παιδαγωγική αλλαγή.
+        </p>
+
+        <div class="top-actions">
+            <button class="button" onclick="navigateTo('register.jsp')">Ξεκίνα τώρα</button>
+            <button class="button" onclick="navigateTo('about-edumorph.jsp')">Μάθε περισσότερα</button>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2026 EduMorph. Όλα τα δικαιώματα διατηρούνται.</p>
+</footer>
+
+<script>
+    function navigateTo(page) {
+        window.location.href = page;
+    }
+
+    function toggleDarkMode() {
+        const body = document.body;
+        const isDarkMode = body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    }
+
+    window.onload = () => {
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+        }
+    };
+</script>
 
 </body>
 </html>
