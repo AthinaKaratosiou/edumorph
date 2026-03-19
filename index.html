@@ -288,6 +288,23 @@
             font-weight: bold;
         }
 
+        .user-role {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.2);
+            font-weight: bold;
+        }
+
+        .welcome-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
         .cta-section {
             text-align: center;
             background: linear-gradient(135deg, #dbeafe, #ccfbf1);
@@ -360,7 +377,12 @@
         <h2>Καλώς ήρθες, <span id="user-name" class="user-name"></span>!</h2>
         <p>Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.</p>
         <p>Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.</p>
-        <button class="button" onclick="logout()">Αποσύνδεση</button>
+        <div id="user-role" class="user-role"></div>
+
+        <div class="welcome-actions">
+            <button class="button" onclick="window.location.href='dashboard.html'">Μετάβαση στο dashboard</button>
+            <button class="button" onclick="logout()">Αποσύνδεση</button>
+        </div>
     </div>
 
     <section>
@@ -536,21 +558,31 @@
         location.reload();
     }
 
+    function formatRole(role) {
+        if (role === 'student') return 'Ρόλος: Μαθητής';
+        if (role === 'teacher') return 'Ρόλος: Εκπαιδευτικός';
+        if (role === 'admin') return 'Ρόλος: Διοίκηση';
+        return 'Ρόλος: Χρήστης';
+    }
+
     window.onload = () => {
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
         }
 
-        const user = localStorage.getItem('user');
+        const rawUser = localStorage.getItem('user');
         const authButtons = document.getElementById('auth-buttons');
         const welcomeMessage = document.getElementById('welcome-message');
         const userName = document.getElementById('user-name');
+        const userRole = document.getElementById('user-role');
 
-        if (user) {
+        if (rawUser) {
+            const user = JSON.parse(rawUser);
             authButtons.style.display = 'none';
             welcomeMessage.style.display = 'block';
-            userName.textContent = user;
+            userName.textContent = user.fullName || user.username || 'Χρήστης';
+            userRole.textContent = formatRole(user.role);
         } else {
             authButtons.style.display = 'flex';
             welcomeMessage.style.display = 'none';
