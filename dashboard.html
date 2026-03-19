@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | EduMorph</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --accent: #2563eb;
+      --teal: #0ea5a4;
+      --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      color: white;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .topbar button, .topbar a {
+      background: #0ea5a4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .topbar button:hover, .topbar a:hover {
+      background: #0f766e;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 28px 20px 50px;
+    }
+
+    .welcome-card, .section-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .feature-card a {
+      display: inline-block;
+      margin-top: 10px;
+      color: white;
+      background: var(--teal);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .feature-card a:hover {
+      background: #0f766e;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>EduMorph Dashboard</h1>
+    <div>
+      <a href="index.html">Αρχική</a>
+      <button onclick="logout()">Αποσύνδεση</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="welcome-card">
+      <h2 id="welcomeTitle">Καλώς ήρθες!</h2>
+      <p id="welcomeText">Φόρτωση στοιχείων χρήστη...</p>
+      <div id="roleBadge" class="role-badge"></div>
+    </section>
+
+    <section class="section-card">
+      <h2>Λειτουργίες ανά ρόλο</h2>
+      <div id="roleFeatures" class="grid"></div>
+    </section>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem('user');
+      window.location.href = 'index.html';
+    }
+
+    function createCard(title, text, link, linkText) {
+      return `
+        <div class="feature-card">
+          <h3>${title}</h3>
+          <p>${text}</p>
+          <a href="${link}">${linkText}</a>
+        </div>
+      `;
+    }
+
+    function loadDashboard() {
+      const userData = localStorage.getItem('user');
+
+      if (!userData) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      document.getElementById('welcomeTitle').textContent = `Καλώς ήρθες, ${user.fullName}!`;
+      document.getElementById('roleBadge').textContent =
+        user.role === 'student' ? 'Ρόλος: Μαθητής' :
+        user.role === 'teacher' ? 'Ρόλος: Εκπαιδευτικός' :
+        'Ρόλος: Διοίκηση';
+
+      let description = '';
+      let cards = '';
+
+      if (user.role === 'student') {
+        description = 'Ως μαθητής μπορείς να καταγράφεις εμπειρίες, να προτείνεις βελτιώσεις και να συμμετέχεις ενεργά στη βελτίωση της τάξης.';
+        cards += createCard(
+          'Υποβολή Issue Card',
+          'Κατέγραψε μια εμπειρία, δυσκολία ή πρόταση βελτίωσης.',
+          'issue-cards.html',
+          'Μετάβαση'
+        );
+        cards += createCard(
+          'Προφίλ Τάξης',
+          'Δες τους συλλογικούς δείκτες της τάξης σου.',
+          'classroom-profile.html',
+          'Προβολή'
+        );
+      } else if (user.role === 'teacher') {
+        description = 'Ως εκπαιδευτικός μπορείς να παρακολουθείς τους δείκτες τάξης, να ενεργοποιείς παρεμβάσεις και να αξιολογείς την αποτελεσματικότητά τους.';
+        cards += createCard(
+          'Collective Classroom Profile',
+          'Παρακολούθησε κατανόηση, άγχος, εμπλοκή και αντίληψη δικαιοσύνης.',
+          'classroom-profile.html',
+          'Άνοιγμα'
+        );
+        cards += createCard(
+          'Μηχανισμός Παρεμβάσεων',
+          'Ενεργοποίησε παιδαγωγικά playbooks σύμφωνα με τα δεδομένα.',
+          'interventions.html',
+          'Ενεργοποίηση'
+        );
+        cards += createCard(
+          'Impact Analytics',
+          'Αξιολόγησε τον αντίκτυπο των παρεμβάσεων.',
+          'impact-analytics.html',
+          'Προβολή'
+        );
+      } else if (user.role === 'admin') {
+        description = 'Ως διοίκηση έχεις συνολική εποπτεία, μπορείς να παρακολουθείς δεδομένα, να υποστηρίζεις καινοτομία και να αξιοποιείς αναφορές.';
+        cards += createCard(
+          'Συνολικό Προφίλ Τάξης',
+          'Δες τη συνολική εικόνα της μονάδας ή του ιδρύματος.',
+          'classroom-profile.html',
+          'Άνοιγμα'
+        );
+        cards += createCard(
+          'Αναλύσεις Αντικτύπου',
+          'Παρακολούθησε την αποτελεσματικότητα των παρεμβάσεων.',
+          'impact-analytics.html',
+          'Προβολή'
+        );
+        cards += createCard(
+          'Σχετικά με την EduMorph',
+          'Δες το όραμα, την αποστολή και το μοντέλο λειτουργίας.',
+          'about-edumorph.html',
+          'Προβολή'
+        );
+      }
+
+      document.getElementById('welcomeText').textContent = description;
+      document.getElementById('roleFeatures').innerHTML = cards;
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>
