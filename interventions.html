@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interventions | EduMorph</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .intro, .playbook-card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      margin-bottom: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background: #dbeafe;
+      color: #1e3a8a;
+    }
+
+    .high-risk {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .medium-risk {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .good {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    ul {
+      line-height: 1.8;
+      padding-left: 20px;
+    }
+
+    button {
+      margin-top: 12px;
+      background: #0ea5a4;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #0f766e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Μηχανισμός Παρεμβάσεων</h1>
+    <p>Από τα δεδομένα της τάξης σε στοχευμένη παιδαγωγική δράση</p>
+  </header>
+
+  <div class="container">
+    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+
+    <section class="intro">
+      <h2>Πώς λειτουργεί</h2>
+      <p>Όταν οι δείκτες της τάξης ξεπερνούν ορισμένα όρια, η EduMorph προτείνει playbooks παρέμβασης. Οι παρεμβάσεις δεν λειτουργούν τιμωρητικά, αλλά υποστηρικτικά και προσαρμοστικά, με στόχο τη βελτίωση της εμπειρίας μάθησης.</p>
+    </section>
+
+    <section class="grid">
+      <div class="playbook-card">
+        <span class="tag high-risk">Υψηλή προτεραιότητα</span>
+        <h3>Αυξημένο άγχος τάξης</h3>
+        <ul>
+          <li>Μικρότερες ενότητες αξιολόγησης</li>
+          <li>Σαφέστερα κριτήρια επιτυχίας</li>
+          <li>Προφορική ανατροφοδότηση πριν από βαθμολόγηση</li>
+          <li>Χρόνος αποφόρτισης και ανακεφαλαίωσης</li>
+        </ul>
+        <button onclick="alert('Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.')">Ενεργοποίηση playbook</button>
+      </div>
+
+      <div class="playbook-card">
+        <span class="tag medium-risk">Μέτρια προτεραιότητα</span>
+        <h3>Χαμηλή κατανόηση</h3>
+        <ul>
+          <li>Μικρο-ανακεφαλαίωση βασικών εννοιών</li>
+          <li>Παραδείγματα με διαφοροποιημένη δυσκολία</li>
+          <li>Επαναπλαισίωση δύσκολων σημείων</li>
+          <li>Στοχευμένες ερωτήσεις κατανόησης</li>
+        </ul>
+        <button onclick="alert('Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.')">Ενεργοποίηση playbook</button>
+      </div>
+
+      <div class="playbook-card">
+        <span class="tag medium-risk">Μέτρια προτεραιότητα</span>
+        <h3>Χαμηλή εμπλοκή</h3>
+        <ul>
+          <li>Δραστηριότητες συνεργατικής μάθησης</li>
+          <li>Σύντομες ψηφιακές παρεμβάσεις αλληλεπίδρασης</li>
+          <li>Ενεργή συμμετοχή με ρόλους</li>
+          <li>Σύνδεση ύλης με αυθεντικά παραδείγματα</li>
+        </ul>
+        <button onclick="alert('Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.')">Ενεργοποίηση playbook</button>
+      </div>
+
+      <div class="playbook-card">
+        <span class="tag good">Σταθερότητα</span>
+        <h3>Διατήρηση θετικού κλίματος</h3>
+        <ul>
+          <li>Συνέχιση καλών πρακτικών ανατροφοδότησης</li>
+          <li>Περιοδική συλλογή feedback</li>
+          <li>Αναγνώριση προόδου της τάξης</li>
+          <li>Ενίσχυση συμμετοχικής κουλτούρας</li>
+        </ul>
+        <button onclick="alert('Η καλή πρακτική καταγράφηκε.')">Καταγραφή καλής πρακτικής</button>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
