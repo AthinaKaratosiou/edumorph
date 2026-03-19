@@ -3,45 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Εγγραφή | EduMorph</title>
+  <title>Σύνδεση | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f766e, #1e3a8a);
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
 
     .form-box {
       background: white;
       padding: 36px;
       border-radius: 18px;
-      width: 380px;
+      width: 100%;
+      max-width: 420px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       text-align: center;
     }
 
-    h2 {
+    h1 {
       margin-top: 0;
       color: #1e3a8a;
+      font-size: 1.9rem;
     }
 
     p {
       color: #4b5563;
       font-size: 0.95rem;
+      line-height: 1.6;
     }
 
-    input, select {
+    .field-group {
+      text-align: left;
+      margin-top: 12px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #1f2937;
+    }
+
+    input {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
+      margin: 0;
       border: 1px solid #d1d5db;
       border-radius: 10px;
       box-sizing: border-box;
       font-size: 1rem;
+      background: #fff;
+      color: #1f2937;
     }
 
     button {
@@ -53,7 +75,7 @@
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 18px;
     }
 
     button:hover {
@@ -66,81 +88,133 @@
       font-weight: bold;
     }
 
-    .hint {
-      text-align: left;
-      background: #eff6ff;
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin-top: 14px;
-      font-size: 0.92rem;
-      color: #1f2937;
+    .top-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 520px) {
+      .form-box {
+        padding: 24px 18px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="form-box">
-    <h2>Εγγραφή στην EduMorph</h2>
-    <p>Δημιούργησε λογαριασμό και επίλεξε τον ρόλο σου.</p>
+<main id="main-content">
+  <div class="form-box" role="form" aria-labelledby="login-title">
+    <h1 id="login-title" data-i18n="loginTitle">Σύνδεση στην EduMorph</h1>
+    <p data-i18n="loginSubtitle">Συνδέσου για να δεις το περιβάλλον του ρόλου σου.</p>
 
-    <input type="text" id="fullName" placeholder="Ονοματεπώνυμο">
-    <input type="text" id="username" placeholder="Όνομα χρήστη">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Κωδικός">
-
-    <select id="role">
-      <option value="">Επίλεξε ρόλο</option>
-      <option value="student">Μαθητής</option>
-      <option value="teacher">Εκπαιδευτικός</option>
-      <option value="admin">Διοίκηση</option>
-    </select>
-
-    <button onclick="register()">Ολοκλήρωση εγγραφής</button>
-
-    <div class="hint">
-      Κάθε ρόλος οδηγεί σε διαφορετικές λειτουργίες της πλατφόρμας.
+    <div class="field-group">
+      <label for="username" data-i18n="usernameLabel">Όνομα χρήστη ή email</label>
+      <input
+        type="text"
+        id="username"
+        placeholder="Όνομα χρήστη ή email"
+        data-i18n-placeholder="usernamePlaceholder"
+        aria-required="true"
+      >
     </div>
 
-    <p>Έχεις ήδη λογαριασμό; <a href="login.html">Σύνδεση</a></p>
+    <div class="field-group">
+      <label for="password" data-i18n="passwordLabel">Κωδικός</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Κωδικός"
+        data-i18n-placeholder="passwordPlaceholder"
+        aria-required="true"
+      >
+    </div>
+
+    <button onclick="login()" data-i18n="loginBtn" data-i18n-aria-label="loginBtnAria" aria-label="Σύνδεση">
+      Σύνδεση
+    </button>
+
+    <div class="top-links">
+      <span data-i18n="noAccount">Δεν έχεις λογαριασμό;</span>
+      <a href="register.html" data-i18n="registerLink">Εγγραφή</a>
+    </div>
   </div>
+</main>
 
-  <script>
-    function register() {
-      const fullName = document.getElementById('fullName').value.trim();
-      const username = document.getElementById('username').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const role = document.getElementById('role').value;
-
-      if (!fullName || !username || !email || !password || !role) {
-        alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
-        return;
-      }
-
-      const users = JSON.parse(localStorage.getItem('edumorphUsers') || '[]');
-
-      const exists = users.some(
-        user => user.username === username || user.email === email
-      );
-
-      if (exists) {
-        alert('Υπάρχει ήδη χρήστης με αυτό το username ή email.');
-        return;
-      }
-
-      const newUser = {
-        fullName,
-        username,
-        email,
-        password,
-        role
-      };
-
-      users.push(newUser);
-      localStorage.setItem('edumorphUsers', JSON.stringify(users));
-
-      alert('Η εγγραφή ολοκληρώθηκε επιτυχώς!');
-      window.location.href = 'login.html';
+<script>
+  window.pageTranslations = {
+    el: {
+      loginTitle: 'Σύνδεση στην EduMorph',
+      loginSubtitle: 'Συνδέσου για να δεις το περιβάλλον του ρόλου σου.',
+      usernameLabel: 'Όνομα χρήστη ή email',
+      usernamePlaceholder: 'Όνομα χρήστη ή email',
+      passwordLabel: 'Κωδικός',
+      passwordPlaceholder: 'Κωδικός',
+      loginBtn: 'Σύνδεση',
+      loginBtnAria: 'Σύνδεση',
+      noAccount: 'Δεν έχεις λογαριασμό;',
+      registerLink: 'Εγγραφή',
+      fillAllFields: 'Παρακαλώ συμπλήρωσε όλα τα πεδία.',
+      wrongCredentials: 'Λάθος στοιχεία σύνδεσης.'
+    },
+    en: {
+      loginTitle: 'Login to EduMorph',
+      loginSubtitle: 'Sign in to access your role-based environment.',
+      usernameLabel: 'Username or email',
+      usernamePlaceholder: 'Username or email',
+      passwordLabel: 'Password',
+      passwordPlaceholder: 'Password',
+      loginBtn: 'Login',
+      loginBtnAria: 'Login',
+      noAccount: 'Do not have an account?',
+      registerLink: 'Register',
+      fillAllFields: 'Please fill in all fields.',
+      wrongCredentials: 'Wrong login credentials.'
     }
-  </script>
+  };
+
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
+  function login() {
+    const usernameInput = document.getElementById('username').value.trim();
+    const passwordInput = document.getElementById('password').value.trim();
+
+    if (!usernameInput || !passwordInput) {
+      alert(t('fillAllFields'));
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem('edumorphUsers') || '[]');
+
+    const foundUser = users.find(user =>
+      (user.username === usernameInput || user.email === usernameInput) &&
+      user.password === passwordInput
+    );
+
+    if (!foundUser) {
+      alert(t('wrongCredentials'));
+      return;
+    }
+
+    localStorage.setItem('user', JSON.stringify(foundUser));
+    window.location.href = 'dashboard.html';
+  }
+
+  window.onload = () => {
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
