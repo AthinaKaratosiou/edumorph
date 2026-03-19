@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduMorph | Πλατφόρμα Συμμετοχικού Εκπαιδευτικού Μετασχηματισμού</title>
 
+    <link rel="stylesheet" href="global-accessibility.css">
+    <script src="global.js" defer></script>
+
     <style>
         :root {
             --bg-color: #f4f7fb;
@@ -346,52 +349,55 @@
     </style>
 </head>
 <body>
+<main id="main-content">
 
 <header>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h1>EduMorph</h1>
-        <p class="hero-subtitle">
+        <h1 data-i18n="heroTitle">EduMorph</h1>
+        <p class="hero-subtitle" data-i18n="heroSubtitle">
             Πλατφόρμα Συμμετοχικού Εκπαιδευτικού Μετασχηματισμού που μετατρέπει
             τη μαθητική φωνή σε δομημένη ανατροφοδότηση, παιδαγωγική δράση
             και μετρήσιμη βελτίωση της εκπαιδευτικής εμπειρίας.
         </p>
 
         <div class="hero-buttons">
-            <a href="#features" class="hero-button">Ανακάλυψε τη Λύση</a>
-            <a href="#how-it-works" class="secondary-button">Πώς λειτουργεί</a>
+            <a href="#features" class="hero-button" data-i18n="discoverSolution">Ανακάλυψε τη Λύση</a>
+            <a href="#how-it-works" class="secondary-button" data-i18n="howItWorksBtn">Πώς λειτουργεί</a>
         </div>
     </div>
 </header>
 
-<button class="toggle-theme" onclick="toggleDarkMode()">Εναλλαγή Dark / Light Mode</button>
+<button class="toggle-theme" onclick="toggleDarkMode()" data-i18n="themeToggle" data-i18n-aria-label="themeToggleAria" aria-label="Εναλλαγή φωτεινού και σκοτεινού θέματος">
+    Εναλλαγή Dark / Light Mode
+</button>
 
 <div class="container">
 
     <div id="auth-buttons" class="button-container">
         <form action="login.html" method="get" style="display:inline;">
-            <button class="button" type="submit">Σύνδεση</button>
+            <button class="button" type="submit" data-i18n="loginBtn">Σύνδεση</button>
         </form>
         <form action="register.html" method="get" style="display:inline;">
-            <button class="button" type="submit">Εγγραφή</button>
+            <button class="button" type="submit" data-i18n="registerBtn">Εγγραφή</button>
         </form>
     </div>
 
     <div id="welcome-message" class="welcome-message">
-        <h2>Καλώς ήρθες, <span id="user-name" class="user-name"></span>!</h2>
-        <p>Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.</p>
-        <p>Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.</p>
+        <h2><span data-i18n="welcomeTitleStatic">Καλώς ήρθες,</span> <span id="user-name" class="user-name"></span>!</h2>
+        <p data-i18n="welcomeText1">Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.</p>
+        <p data-i18n="welcomeText2">Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.</p>
         <div id="user-role" class="user-role"></div>
 
         <div class="welcome-actions">
-            <button class="button" onclick="window.location.href='dashboard.html'">Μετάβαση στο dashboard</button>
-            <button class="button" onclick="logout()">Αποσύνδεση</button>
+            <button class="button" onclick="window.location.href='dashboard.html'" data-i18n="dashboardBtn">Μετάβαση στο dashboard</button>
+            <button class="button" onclick="logout()" data-i18n="logoutBtn">Αποσύνδεση</button>
         </div>
     </div>
 
     <section>
-        <h2>Η Αποστολή της EduMorph</h2>
-        <p class="intro-text">
+        <h2 data-i18n="missionTitle">Η Αποστολή της EduMorph</h2>
+        <p class="intro-text" data-i18n="missionText">
             Η EduMorph σχεδιάστηκε για να καλύψει ένα κρίσιμο κενό στην εκπαίδευση:
             την απουσία ενός δομημένου μηχανισμού μέσω του οποίου οι μαθητές εκφράζουν
             εμπειρίες, δυσκολίες και προτάσεις, και τα δεδομένα αυτά μετατρέπονται
@@ -400,165 +406,310 @@
     </section>
 
     <section>
-        <h2>Το Πρόβλημα που Αντιμετωπίζουμε</h2>
+        <h2 data-i18n="problemTitle">Το Πρόβλημα που Αντιμετωπίζουμε</h2>
         <ul class="problem-list">
-            <li>Η μαθητική φωνή παραμένει συχνά άτυπη, αποσπασματική και μη αξιοποιήσιμη.</li>
-            <li>Η εκπαιδευτική διαδικασία δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.</li>
-            <li>Τα περισσότερα εργαλεία συλλέγουν feedback, αλλά δεν οδηγούν σε άμεση παρέμβαση.</li>
-            <li>Απουσιάζει ένας κλειστός βρόχος βελτίωσης: feedback → δράση → αποτίμηση αποτελέσματος.</li>
+            <li data-i18n="problem1">Η μαθητική φωνή παραμένει συχνά άτυπη, αποσπασματική και μη αξιοποιήσιμη.</li>
+            <li data-i18n="problem2">Η εκπαιδευτική διαδικασία δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.</li>
+            <li data-i18n="problem3">Τα περισσότερα εργαλεία συλλέγουν feedback, αλλά δεν οδηγούν σε άμεση παρέμβαση.</li>
+            <li data-i18n="problem4">Απουσιάζει ένας κλειστός βρόχος βελτίωσης: feedback → δράση → αποτίμηση αποτελέσματος.</li>
         </ul>
     </section>
 
     <section id="features" class="features-section">
-        <h2>Βασικές Δυνατότητες της Πλατφόρμας</h2>
+        <h2 data-i18n="featuresTitle">Βασικές Δυνατότητες της Πλατφόρμας</h2>
 
         <div class="features-container">
-            <div class="feature-box" onclick="navigateTo('issue-cards.html')">
-                <div class="feature-icon">📝</div>
-                <h3>Issue Cards</h3>
-                <p>Οι μαθητές καταγράφουν εμπειρίες, επίπεδο έντασης, φάση μαθήματος και πρόταση βελτίωσης.</p>
+            <div class="feature-box" onclick="navigateTo('issue-cards.html')" tabindex="0" role="button" aria-label="Issue Cards">
+                <div class="feature-icon" aria-hidden="true">📝</div>
+                <h3 data-i18n="issueCardsTitle">Issue Cards</h3>
+                <p data-i18n="issueCardsText">Οι μαθητές καταγράφουν εμπειρίες, επίπεδο έντασης, φάση μαθήματος και πρόταση βελτίωσης.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('classroom-profile.html')">
-                <div class="feature-icon">📊</div>
-                <h3>Collective Classroom Profile</h3>
-                <p>Δυναμική απεικόνιση δεικτών κατανόησης, άγχους, εμπλοκής και αντίληψης δικαιοσύνης.</p>
+            <div class="feature-box" onclick="navigateTo('classroom-profile.html')" tabindex="0" role="button" aria-label="Collective Classroom Profile">
+                <div class="feature-icon" aria-hidden="true">📊</div>
+                <h3 data-i18n="classroomProfileTitle">Collective Classroom Profile</h3>
+                <p data-i18n="classroomProfileText">Δυναμική απεικόνιση δεικτών κατανόησης, άγχους, εμπλοκής και αντίληψης δικαιοσύνης.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('interventions.html')">
-                <div class="feature-icon">🎯</div>
-                <h3>Μηχανισμός Παρεμβάσεων</h3>
-                <p>Ενεργοποίηση παιδαγωγικών playbooks όταν οι δείκτες ξεπερνούν καθορισμένα όρια.</p>
+            <div class="feature-box" onclick="navigateTo('interventions.html')" tabindex="0" role="button" aria-label="Μηχανισμός Παρεμβάσεων">
+                <div class="feature-icon" aria-hidden="true">🎯</div>
+                <h3 data-i18n="interventionsTitle">Μηχανισμός Παρεμβάσεων</h3>
+                <p data-i18n="interventionsText">Ενεργοποίηση παιδαγωγικών playbooks όταν οι δείκτες ξεπερνούν καθορισμένα όρια.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('impact-analytics.html')">
-                <div class="feature-icon">🔄</div>
-                <h3>Closed-Loop Improvement</h3>
-                <p>Αποτίμηση πριν και μετά την παρέμβαση με μετρήσιμη παρακολούθηση του αντίκτυπου.</p>
+            <div class="feature-box" onclick="navigateTo('impact-analytics.html')" tabindex="0" role="button" aria-label="Closed-Loop Improvement">
+                <div class="feature-icon" aria-hidden="true">🔄</div>
+                <h3 data-i18n="impactTitle">Closed-Loop Improvement</h3>
+                <p data-i18n="impactText">Αποτίμηση πριν και μετά την παρέμβαση με μετρήσιμη παρακολούθηση του αντίκτυπου.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('quiz.html')">
-                <div class="feature-icon">🧠</div>
-                <h3>Quiz & Assessment</h3>
-                <p>Αυτόματη βαθμολόγηση, mini quizzes και real-time reporting για μαθητές και εκπαιδευτικούς.</p>
+            <div class="feature-box" onclick="navigateTo('quiz.html')" tabindex="0" role="button" aria-label="Quiz and Assessment">
+                <div class="feature-icon" aria-hidden="true">🧠</div>
+                <h3 data-i18n="quizTitle">Quiz & Assessment</h3>
+                <p data-i18n="quizText">Αυτόματη βαθμολόγηση, mini quizzes και real-time reporting για μαθητές και εκπαιδευτικούς.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('gamification.html')">
-                <div class="feature-icon">🏆</div>
-                <h3>Gamification Hub</h3>
-                <p>Leaderboards, badges, levels και point system για ενίσχυση συμμετοχής και εμπλοκής.</p>
+            <div class="feature-box" onclick="navigateTo('gamification.html')" tabindex="0" role="button" aria-label="Gamification Hub">
+                <div class="feature-icon" aria-hidden="true">🏆</div>
+                <h3 data-i18n="gamificationTitle">Gamification Hub</h3>
+                <p data-i18n="gamificationText">Leaderboards, badges, levels και point system για ενίσχυση συμμετοχής και εμπλοκής.</p>
             </div>
         </div>
     </section>
 
     <section id="how-it-works">
-        <h2>Πώς λειτουργεί η EduMorph</h2>
+        <h2 data-i18n="processTitle">Πώς λειτουργεί η EduMorph</h2>
         <div class="steps-grid">
             <div class="step-card">
-                <div class="step-number">1</div>
-                <h3>Καταγραφή</h3>
-                <p>Οι μαθητές συμπληρώνουν δομημένες κάρτες εμπειρίας και προτάσεων.</p>
+                <div class="step-number" aria-hidden="true">1</div>
+                <h3 data-i18n="step1Title">Καταγραφή</h3>
+                <p data-i18n="step1Text">Οι μαθητές συμπληρώνουν δομημένες κάρτες εμπειρίας και προτάσεων.</p>
             </div>
 
             <div class="step-card">
-                <div class="step-number">2</div>
-                <h3>Συλλογική Ανάλυση</h3>
-                <p>Η πλατφόρμα μετατρέπει τα δεδομένα σε ομαδικούς δείκτες τάξης και σε οπτικοποιήσεις.</p>
+                <div class="step-number" aria-hidden="true">2</div>
+                <h3 data-i18n="step2Title">Συλλογική Ανάλυση</h3>
+                <p data-i18n="step2Text">Η πλατφόρμα μετατρέπει τα δεδομένα σε ομαδικούς δείκτες τάξης και σε οπτικοποιήσεις.</p>
             </div>
 
             <div class="step-card">
-                <div class="step-number">3</div>
-                <h3>Παρέμβαση</h3>
-                <p>Ενεργοποιούνται παιδαγωγικές ενέργειες σύμφωνα με τις πραγματικές ανάγκες.</p>
+                <div class="step-number" aria-hidden="true">3</div>
+                <h3 data-i18n="step3Title">Παρέμβαση</h3>
+                <p data-i18n="step3Text">Ενεργοποιούνται παιδαγωγικές ενέργειες σύμφωνα με τις πραγματικές ανάγκες.</p>
             </div>
 
             <div class="step-card">
-                <div class="step-number">4</div>
-                <h3>Αξιολόγηση Αντίκτυπου</h3>
-                <p>Μετράται αν η αλλαγή βελτίωσε την εμπειρία μάθησης και το κλίμα της τάξης.</p>
+                <div class="step-number" aria-hidden="true">4</div>
+                <h3 data-i18n="step4Title">Αξιολόγηση Αντίκτυπου</h3>
+                <p data-i18n="step4Text">Μετράται αν η αλλαγή βελτίωσε την εμπειρία μάθησης και το κλίμα της τάξης.</p>
             </div>
         </div>
     </section>
 
     <section>
-        <h2>Ενδεικτικοί Δείκτες της Τάξης</h2>
+        <h2 data-i18n="indicatorsTitle">Ενδεικτικοί Δείκτες της Τάξης</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value">87%</div>
-                <h3>Κατανόηση</h3>
-                <p>Ενδεικτικός συλλογικός δείκτης κατανόησης της διδακτικής ενότητας.</p>
+                <h3 data-i18n="understandingTitle">Κατανόηση</h3>
+                <p data-i18n="understandingText">Ενδεικτικός συλλογικός δείκτης κατανόησης της διδακτικής ενότητας.</p>
             </div>
 
             <div class="stat-card">
                 <div class="stat-value">42%</div>
-                <h3>Άγχος</h3>
-                <p>Έγκαιρη ανίχνευση πίεσης πριν δημιουργηθούν σοβαρές μαθησιακές δυσκολίες.</p>
+                <h3 data-i18n="anxietyTitle">Άγχος</h3>
+                <p data-i18n="anxietyText">Έγκαιρη ανίχνευση πίεσης πριν δημιουργηθούν σοβαρές μαθησιακές δυσκολίες.</p>
             </div>
 
             <div class="stat-card">
                 <div class="stat-value">74%</div>
-                <h3>Εμπλοκή</h3>
-                <p>Παρακολούθηση του επιπέδου συμμετοχής και ενεργητικής παρουσίας στην τάξη.</p>
+                <h3 data-i18n="engagementTitle">Εμπλοκή</h3>
+                <p data-i18n="engagementText">Παρακολούθηση του επιπέδου συμμετοχής και ενεργητικής παρουσίας στην τάξη.</p>
             </div>
 
             <div class="stat-card">
                 <div class="stat-value">91%</div>
-                <h3>Αντίληψη Δικαιοσύνης</h3>
-                <p>Καταγραφή του κατά πόσο οι μαθητές βιώνουν τη διαδικασία ως δίκαιη και υποστηρικτική.</p>
+                <h3 data-i18n="fairnessTitle">Αντίληψη Δικαιοσύνης</h3>
+                <p data-i18n="fairnessText">Καταγραφή του κατά πόσο οι μαθητές βιώνουν τη διαδικασία ως δίκαιη και υποστηρικτική.</p>
             </div>
         </div>
     </section>
 
     <section>
-        <h2>Οφέλη για Όλους τους Εμπλεκόμενους</h2>
+        <h2 data-i18n="benefitsTitle">Οφέλη για Όλους τους Εμπλεκόμενους</h2>
         <div class="benefits-grid">
             <div class="benefit-card">
-                <h3>Για τους Μαθητές</h3>
-                <p>Αίσθημα ακρόασης, ενδυνάμωση συμμετοχής, μείωση άγχους, καλλιέργεια υπευθυνότητας και επιβράβευση μέσω παιχνιδοποίησης.</p>
+                <h3 data-i18n="studentsBenefitTitle">Για τους Μαθητές</h3>
+                <p data-i18n="studentsBenefitText">Αίσθημα ακρόασης, ενδυνάμωση συμμετοχής, μείωση άγχους, καλλιέργεια υπευθυνότητας και επιβράβευση μέσω παιχνιδοποίησης.</p>
             </div>
 
             <div class="benefit-card">
-                <h3>Για τους Εκπαιδευτικούς</h3>
-                <p>Τεκμηριωμένη λήψη αποφάσεων, παιδαγωγικός αναστοχασμός, επαγγελματική ανάπτυξη και παρακολούθηση αποτελεσμάτων σε πραγματικό χρόνο.</p>
+                <h3 data-i18n="teachersBenefitTitle">Για τους Εκπαιδευτικούς</h3>
+                <p data-i18n="teachersBenefitText">Τεκμηριωμένη λήψη αποφάσεων, παιδαγωγικός αναστοχασμός, επαγγελματική ανάπτυξη και παρακολούθηση αποτελεσμάτων σε πραγματικό χρόνο.</p>
             </div>
 
             <div class="benefit-card">
-                <h3>Για τα Ιδρύματα</h3>
-                <p>Ενίσχυση κουλτούρας διαλόγου, δεδομενοκεντρική βελτίωση, συμμετοχική εκπαιδευτική καινοτομία και συγκεντρωτικές αναλύσεις.</p>
+                <h3 data-i18n="institutionsBenefitTitle">Για τα Ιδρύματα</h3>
+                <p data-i18n="institutionsBenefitText">Ενίσχυση κουλτούρας διαλόγου, δεδομενοκεντρική βελτίωση, συμμετοχική εκπαιδευτική καινοτομία και συγκεντρωτικές αναλύσεις.</p>
             </div>
         </div>
     </section>
 
     <section>
-        <h2>Αγορά-Στόχος</h2>
+        <h2 data-i18n="marketTitle">Αγορά-Στόχος</h2>
         <ul class="target-list">
-            <li>Σχολικές μονάδες πρωτοβάθμιας και δευτεροβάθμιας εκπαίδευσης</li>
-            <li>Πανεπιστήμια και κολέγια</li>
-            <li>Εκπαιδευτικοί οργανισμοί και δίκτυα σχολείων</li>
-            <li>Φορείς εκπαιδευτικής καινοτομίας και edtech incubators</li>
+            <li data-i18n="market1">Σχολικές μονάδες πρωτοβάθμιας και δευτεροβάθμιας εκπαίδευσης</li>
+            <li data-i18n="market2">Πανεπιστήμια και κολέγια</li>
+            <li data-i18n="market3">Εκπαιδευτικοί οργανισμοί και δίκτυα σχολείων</li>
+            <li data-i18n="market4">Φορείς εκπαιδευτικής καινοτομίας και edtech incubators</li>
         </ul>
     </section>
 
     <section class="cta-section">
-        <h2>Γίνε μέρος του εκπαιδευτικού μετασχηματισμού</h2>
-        <p class="intro-text">
+        <h2 data-i18n="ctaTitle">Γίνε μέρος του εκπαιδευτικού μετασχηματισμού</h2>
+        <p class="intro-text" data-i18n="ctaText">
             Η EduMorph δεν είναι απλώς ένα εργαλείο feedback. Είναι ένας μηχανισμός
             συλλογικής αυτορρύθμισης της τάξης που συνδέει τη μαθητική εμπειρία με
             πραγματική, μετρήσιμη παιδαγωγική αλλαγή.
         </p>
 
         <div class="top-actions">
-            <button class="button" onclick="navigateTo('register.html')">Ξεκίνα τώρα</button>
-            <button class="button" onclick="navigateTo('about-edumorph.html')">Μάθε περισσότερα</button>
+            <button class="button" onclick="navigateTo('register.html')" data-i18n="startNow">Ξεκίνα τώρα</button>
+            <button class="button" onclick="navigateTo('about-edumorph.html')" data-i18n="learnMore">Μάθε περισσότερα</button>
         </div>
     </section>
 </div>
 
 <footer>
-    <p>&copy; 2026 EduMorph. Όλα τα δικαιώματα διατηρούνται.</p>
+    <p data-i18n="footerText">&copy; 2026 EduMorph. Όλα τα δικαιώματα διατηρούνται.</p>
 </footer>
 
+</main>
+
 <script>
+    window.pageTranslations = {
+        el: {
+            heroTitle: 'EduMorph',
+            heroSubtitle: 'Πλατφόρμα Συμμετοχικού Εκπαιδευτικού Μετασχηματισμού που μετατρέπει τη μαθητική φωνή σε δομημένη ανατροφοδότηση, παιδαγωγική δράση και μετρήσιμη βελτίωση της εκπαιδευτικής εμπειρίας.',
+            discoverSolution: 'Ανακάλυψε τη Λύση',
+            howItWorksBtn: 'Πώς λειτουργεί',
+            themeToggle: 'Εναλλαγή Dark / Light Mode',
+            themeToggleAria: 'Εναλλαγή φωτεινού και σκοτεινού θέματος',
+            loginBtn: 'Σύνδεση',
+            registerBtn: 'Εγγραφή',
+            welcomeTitleStatic: 'Καλώς ήρθες,',
+            welcomeText1: 'Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.',
+            welcomeText2: 'Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.',
+            dashboardBtn: 'Μετάβαση στο dashboard',
+            logoutBtn: 'Αποσύνδεση',
+            missionTitle: 'Η Αποστολή της EduMorph',
+            missionText: 'Η EduMorph σχεδιάστηκε για να καλύψει ένα κρίσιμο κενό στην εκπαίδευση: την απουσία ενός δομημένου μηχανισμού μέσω του οποίου οι μαθητές εκφράζουν εμπειρίες, δυσκολίες και προτάσεις, και τα δεδομένα αυτά μετατρέπονται σε στοχευμένες παιδαγωγικές παρεμβάσεις με αξιολόγηση αποτελεσματικότητας.',
+            problemTitle: 'Το Πρόβλημα που Αντιμετωπίζουμε',
+            problem1: 'Η μαθητική φωνή παραμένει συχνά άτυπη, αποσπασματική και μη αξιοποιήσιμη.',
+            problem2: 'Η εκπαιδευτική διαδικασία δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.',
+            problem3: 'Τα περισσότερα εργαλεία συλλέγουν feedback, αλλά δεν οδηγούν σε άμεση παρέμβαση.',
+            problem4: 'Απουσιάζει ένας κλειστός βρόχος βελτίωσης: feedback → δράση → αποτίμηση αποτελέσματος.',
+            featuresTitle: 'Βασικές Δυνατότητες της Πλατφόρμας',
+            issueCardsTitle: 'Issue Cards',
+            issueCardsText: 'Οι μαθητές καταγράφουν εμπειρίες, επίπεδο έντασης, φάση μαθήματος και πρόταση βελτίωσης.',
+            classroomProfileTitle: 'Collective Classroom Profile',
+            classroomProfileText: 'Δυναμική απεικόνιση δεικτών κατανόησης, άγχους, εμπλοκής και αντίληψης δικαιοσύνης.',
+            interventionsTitle: 'Μηχανισμός Παρεμβάσεων',
+            interventionsText: 'Ενεργοποίηση παιδαγωγικών playbooks όταν οι δείκτες ξεπερνούν καθορισμένα όρια.',
+            impactTitle: 'Closed-Loop Improvement',
+            impactText: 'Αποτίμηση πριν και μετά την παρέμβαση με μετρήσιμη παρακολούθηση του αντίκτυπου.',
+            quizTitle: 'Quiz & Assessment',
+            quizText: 'Αυτόματη βαθμολόγηση, mini quizzes και real-time reporting για μαθητές και εκπαιδευτικούς.',
+            gamificationTitle: 'Gamification Hub',
+            gamificationText: 'Leaderboards, badges, levels και point system για ενίσχυση συμμετοχής και εμπλοκής.',
+            processTitle: 'Πώς λειτουργεί η EduMorph',
+            step1Title: 'Καταγραφή',
+            step1Text: 'Οι μαθητές συμπληρώνουν δομημένες κάρτες εμπειρίας και προτάσεων.',
+            step2Title: 'Συλλογική Ανάλυση',
+            step2Text: 'Η πλατφόρμα μετατρέπει τα δεδομένα σε ομαδικούς δείκτες τάξης και σε οπτικοποιήσεις.',
+            step3Title: 'Παρέμβαση',
+            step3Text: 'Ενεργοποιούνται παιδαγωγικές ενέργειες σύμφωνα με τις πραγματικές ανάγκες.',
+            step4Title: 'Αξιολόγηση Αντίκτυπου',
+            step4Text: 'Μετράται αν η αλλαγή βελτίωσε την εμπειρία μάθησης και το κλίμα της τάξης.',
+            indicatorsTitle: 'Ενδεικτικοί Δείκτες της Τάξης',
+            understandingTitle: 'Κατανόηση',
+            understandingText: 'Ενδεικτικός συλλογικός δείκτης κατανόησης της διδακτικής ενότητας.',
+            anxietyTitle: 'Άγχος',
+            anxietyText: 'Έγκαιρη ανίχνευση πίεσης πριν δημιουργηθούν σοβαρές μαθησιακές δυσκολίες.',
+            engagementTitle: 'Εμπλοκή',
+            engagementText: 'Παρακολούθηση του επιπέδου συμμετοχής και ενεργητικής παρουσίας στην τάξη.',
+            fairnessTitle: 'Αντίληψη Δικαιοσύνης',
+            fairnessText: 'Καταγραφή του κατά πόσο οι μαθητές βιώνουν τη διαδικασία ως δίκαιη και υποστηρικτική.',
+            benefitsTitle: 'Οφέλη για Όλους τους Εμπλεκόμενους',
+            studentsBenefitTitle: 'Για τους Μαθητές',
+            studentsBenefitText: 'Αίσθημα ακρόασης, ενδυνάμωση συμμετοχής, μείωση άγχους, καλλιέργεια υπευθυνότητας και επιβράβευση μέσω παιχνιδοποίησης.',
+            teachersBenefitTitle: 'Για τους Εκπαιδευτικούς',
+            teachersBenefitText: 'Τεκμηριωμένη λήψη αποφάσεων, παιδαγωγικός αναστοχασμός, επαγγελματική ανάπτυξη και παρακολούθηση αποτελεσμάτων σε πραγματικό χρόνο.',
+            institutionsBenefitTitle: 'Για τα Ιδρύματα',
+            institutionsBenefitText: 'Ενίσχυση κουλτούρας διαλόγου, δεδομενοκεντρική βελτίωση, συμμετοχική εκπαιδευτική καινοτομία και συγκεντρωτικές αναλύσεις.',
+            marketTitle: 'Αγορά-Στόχος',
+            market1: 'Σχολικές μονάδες πρωτοβάθμιας και δευτεροβάθμιας εκπαίδευσης',
+            market2: 'Πανεπιστήμια και κολέγια',
+            market3: 'Εκπαιδευτικοί οργανισμοί και δίκτυα σχολείων',
+            market4: 'Φορείς εκπαιδευτικής καινοτομίας και edtech incubators',
+            ctaTitle: 'Γίνε μέρος του εκπαιδευτικού μετασχηματισμού',
+            ctaText: 'Η EduMorph δεν είναι απλώς ένα εργαλείο feedback. Είναι ένας μηχανισμός συλλογικής αυτορρύθμισης της τάξης που συνδέει τη μαθητική εμπειρία με πραγματική, μετρήσιμη παιδαγωγική αλλαγή.',
+            startNow: 'Ξεκίνα τώρα',
+            learnMore: 'Μάθε περισσότερα',
+            footerText: '© 2026 EduMorph. Όλα τα δικαιώματα διατηρούνται.'
+        },
+        en: {
+            heroTitle: 'EduMorph',
+            heroSubtitle: 'A Participatory Educational Transformation Platform that turns student voice into structured feedback, pedagogical action, and measurable improvement of the learning experience.',
+            discoverSolution: 'Discover the Solution',
+            howItWorksBtn: 'How it works',
+            themeToggle: 'Toggle Dark / Light Mode',
+            themeToggleAria: 'Toggle light and dark theme',
+            loginBtn: 'Login',
+            registerBtn: 'Register',
+            welcomeTitleStatic: 'Welcome,',
+            welcomeText1: 'EduMorph helps you actively participate in improving the learning process.',
+            welcomeText2: 'Continue to the platform’s core functions.',
+            dashboardBtn: 'Go to dashboard',
+            logoutBtn: 'Logout',
+            missionTitle: 'EduMorph Mission',
+            missionText: 'EduMorph was designed to address a critical gap in education: the absence of a structured mechanism through which students express experiences, difficulties, and suggestions, and this data is transformed into targeted pedagogical interventions with effectiveness evaluation.',
+            problemTitle: 'The Problem We Address',
+            problem1: 'Student voice often remains informal, fragmented, and underused.',
+            problem2: 'The educational process does not adapt dynamically to classroom needs.',
+            problem3: 'Most tools collect feedback, but do not lead to immediate action.',
+            problem4: 'A closed improvement loop is missing: feedback → action → impact evaluation.',
+            featuresTitle: 'Core Platform Features',
+            issueCardsTitle: 'Issue Cards',
+            issueCardsText: 'Students record experiences, intensity, lesson phase, and an improvement proposal.',
+            classroomProfileTitle: 'Collective Classroom Profile',
+            classroomProfileText: 'Dynamic visualization of understanding, anxiety, engagement, and perceived fairness indicators.',
+            interventionsTitle: 'Intervention Engine',
+            interventionsText: 'Activation of pedagogical playbooks when indicators exceed predefined thresholds.',
+            impactTitle: 'Closed-Loop Improvement',
+            impactText: 'Before-and-after evaluation with measurable impact tracking.',
+            quizTitle: 'Quiz & Assessment',
+            quizText: 'Automatic grading, mini quizzes, and real-time reporting for students and educators.',
+            gamificationTitle: 'Gamification Hub',
+            gamificationText: 'Leaderboards, badges, levels, and point systems to increase participation and engagement.',
+            processTitle: 'How EduMorph Works',
+            step1Title: 'Capture',
+            step1Text: 'Students submit structured experience and suggestion cards.',
+            step2Title: 'Collective Analysis',
+            step2Text: 'The platform transforms data into classroom indicators and visualizations.',
+            step3Title: 'Intervention',
+            step3Text: 'Pedagogical actions are activated according to real classroom needs.',
+            step4Title: 'Impact Evaluation',
+            step4Text: 'The platform measures whether the change improved the learning experience and classroom climate.',
+            indicatorsTitle: 'Indicative Classroom Indicators',
+            understandingTitle: 'Understanding',
+            understandingText: 'Indicative collective indicator of understanding of the teaching unit.',
+            anxietyTitle: 'Anxiety',
+            anxietyText: 'Early detection of pressure before major learning difficulties arise.',
+            engagementTitle: 'Engagement',
+            engagementText: 'Monitoring the level of participation and active classroom presence.',
+            fairnessTitle: 'Perceived Fairness',
+            fairnessText: 'Capturing the extent to which students experience the process as fair and supportive.',
+            benefitsTitle: 'Benefits for All Stakeholders',
+            studentsBenefitTitle: 'For Students',
+            studentsBenefitText: 'Sense of being heard, empowered participation, reduced anxiety, responsibility, and reward through gamification.',
+            teachersBenefitTitle: 'For Educators',
+            teachersBenefitText: 'Evidence-based decision making, pedagogical reflection, professional development, and real-time monitoring of results.',
+            institutionsBenefitTitle: 'For Institutions',
+            institutionsBenefitText: 'A stronger culture of dialogue, data-driven improvement, participatory innovation, and aggregated analytics.',
+            marketTitle: 'Target Market',
+            market1: 'Primary and secondary school units',
+            market2: 'Universities and colleges',
+            market3: 'Educational organizations and school networks',
+            market4: 'Educational innovation bodies and edtech incubators',
+            ctaTitle: 'Become Part of Educational Transformation',
+            ctaText: 'EduMorph is not just a feedback tool. It is a mechanism of collective classroom self-regulation that connects student experience with real, measurable pedagogical change.',
+            startNow: 'Start now',
+            learnMore: 'Learn more',
+            footerText: '© 2026 EduMorph. All rights reserved.'
+        }
+    };
+
     function navigateTo(page) {
         window.location.href = page;
     }
@@ -575,10 +726,29 @@
     }
 
     function formatRole(role) {
+        const lang = localStorage.getItem('edumorphLanguage') || 'el';
+        if (lang === 'en') {
+            if (role === 'student') return 'Role: Student';
+            if (role === 'teacher') return 'Role: Teacher';
+            if (role === 'admin') return 'Role: Administration';
+            return 'Role: User';
+        }
+
         if (role === 'student') return 'Ρόλος: Μαθητής';
         if (role === 'teacher') return 'Ρόλος: Εκπαιδευτικός';
         if (role === 'admin') return 'Ρόλος: Διοίκηση';
         return 'Ρόλος: Χρήστης';
+    }
+
+    function makeFeatureCardsKeyboardAccessible() {
+        document.querySelectorAll('.feature-box').forEach(card => {
+            card.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
     }
 
     window.onload = () => {
@@ -603,6 +773,8 @@
             authButtons.style.display = 'flex';
             welcomeMessage.style.display = 'none';
         }
+
+        makeFeatureCardsKeyboardAccessible();
     };
 </script>
 
