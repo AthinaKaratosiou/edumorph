@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collective Classroom Profile | EduMorph</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .intro-card, .chart-card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .bar-wrap {
+      margin-top: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .blue { background: #2563eb; }
+    .teal { background: #0ea5a4; }
+    .orange { background: #f59e0b; }
+    .purple { background: #8b5cf6; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th {
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Collective Classroom Profile</h1>
+    <p>Συλλογική αποτύπωση του κλίματος και της εμπειρίας της τάξης</p>
+  </header>
+
+  <div class="container">
+    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+
+    <section class="intro-card">
+      <h2>Τι είναι το Classroom Profile;</h2>
+      <p>Η EduMorph συνθέτει τα δεδομένα από τις μαθητικές καταγραφές και αποτυπώνει τη συνολική εικόνα της τάξης μέσα από τέσσερις βασικούς δείκτες: κατανόηση, άγχος, εμπλοκή και αντίληψη δικαιοσύνης. Η λογική είναι συλλογική και όχι ατομική.</p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">87%</div>
+        <h3>Κατανόηση</h3>
+        <p>Ο βαθμός στον οποίο η τάξη κατανοεί τη διδακτική ενότητα.</p>
+        <div class="bar-wrap"><div class="bar blue" style="width:87%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value">42%</div>
+        <h3>Άγχος</h3>
+        <p>Ενδεικτικό επίπεδο πίεσης και δυσκολίας που βιώνουν οι μαθητές.</p>
+        <div class="bar-wrap"><div class="bar orange" style="width:42%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value">74%</div>
+        <h3>Εμπλοκή</h3>
+        <p>Το επίπεδο ενεργής συμμετοχής κατά τη διάρκεια της μαθησιακής διαδικασίας.</p>
+        <div class="bar-wrap"><div class="bar teal" style="width:74%"></div></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value">91%</div>
+        <h3>Αντίληψη Δικαιοσύνης</h3>
+        <p>Ο βαθμός στον οποίο οι μαθητές αισθάνονται ότι η διαδικασία είναι δίκαιη και υποστηρικτική.</p>
+        <div class="bar-wrap"><div class="bar purple" style="width:91%"></div></div>
+      </div>
+    </section>
+
+    <section class="chart-card">
+      <h2>Εβδομαδιαία επισκόπηση τάξης</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Δείκτης</th>
+            <th>Τρέχουσα τιμή</th>
+            <th>Κατάσταση</th>
+            <th>Προτεινόμενη ανάγνωση</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Κατανόηση</td>
+            <td>87%</td>
+            <td>Ικανοποιητική</td>
+            <td>Η τάξη ακολουθεί επαρκώς, αλλά χρειάζεται εστιασμένη ανατροφοδότηση σε ορισμένα σημεία.</td>
+          </tr>
+          <tr>
+            <td>Άγχος</td>
+            <td>42%</td>
+            <td>Μέτριο</td>
+            <td>Προτείνεται ενίσχυση διαμορφωτικής αξιολόγησης και σαφέστερη καθοδήγηση.</td>
+          </tr>
+          <tr>
+            <td>Εμπλοκή</td>
+            <td>74%</td>
+            <td>Καλή</td>
+            <td>Η συμμετοχή είναι θετική, αλλά μπορεί να αυξηθεί με πιο διαδραστικές δραστηριότητες.</td>
+          </tr>
+          <tr>
+            <td>Αντίληψη Δικαιοσύνης</td>
+            <td>91%</td>
+            <td>Πολύ υψηλή</td>
+            <td>Το παιδαγωγικό κλίμα φαίνεται ασφαλές και δίκαιο για τους περισσότερους μαθητές.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
