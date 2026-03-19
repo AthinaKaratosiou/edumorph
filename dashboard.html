@@ -37,7 +37,8 @@
       font-size: 1.5rem;
     }
 
-    .topbar button, .topbar a {
+    .topbar button,
+    .topbar a {
       background: #0ea5a4;
       color: white;
       border: none;
@@ -48,7 +49,8 @@
       cursor: pointer;
     }
 
-    .topbar button:hover, .topbar a:hover {
+    .topbar button:hover,
+    .topbar a:hover {
       background: #0f766e;
     }
 
@@ -58,7 +60,8 @@
       padding: 28px 20px 50px;
     }
 
-    .welcome-card, .section-card {
+    .welcome-card,
+    .section-card {
       background: var(--card);
       border-radius: 18px;
       padding: 24px;
@@ -87,6 +90,12 @@
       border: 1px solid #e5e7eb;
       border-radius: 16px;
       padding: 18px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.10);
     }
 
     .feature-card h3 {
@@ -108,6 +117,12 @@
     .feature-card a:hover {
       background: #0f766e;
     }
+
+    .quick-info {
+      margin-top: 14px;
+      color: #4b5563;
+      line-height: 1.7;
+    }
   </style>
 </head>
 <body>
@@ -124,6 +139,7 @@
       <h2 id="welcomeTitle">Καλώς ήρθες!</h2>
       <p id="welcomeText">Φόρτωση στοιχείων χρήστη...</p>
       <div id="roleBadge" class="role-badge"></div>
+      <div class="quick-info" id="quickInfo"></div>
     </section>
 
     <section class="section-card">
@@ -157,73 +173,132 @@
       }
 
       const user = JSON.parse(userData);
+      const displayName = user.fullName || user.username || 'Χρήστης';
 
-      document.getElementById('welcomeTitle').textContent = `Καλώς ήρθες, ${user.fullName}!`;
+      document.getElementById('welcomeTitle').textContent = `Καλώς ήρθες, ${displayName}!`;
+
       document.getElementById('roleBadge').textContent =
         user.role === 'student' ? 'Ρόλος: Μαθητής' :
         user.role === 'teacher' ? 'Ρόλος: Εκπαιδευτικός' :
         'Ρόλος: Διοίκηση';
 
       let description = '';
+      let quickInfo = '';
       let cards = '';
 
       if (user.role === 'student') {
         description = 'Ως μαθητής μπορείς να καταγράφεις εμπειρίες, να προτείνεις βελτιώσεις και να συμμετέχεις ενεργά στη βελτίωση της τάξης.';
+        quickInfo = 'Το προσωπικό σου περιβάλλον δίνει έμφαση στη συμμετοχή, στην ανατροφοδότηση, στην αυτοαξιολόγηση και στην ενίσχυση της εμπλοκής σου μέσω παιχνιδοποίησης.';
+
         cards += createCard(
           'Υποβολή Issue Card',
           'Κατέγραψε μια εμπειρία, δυσκολία ή πρόταση βελτίωσης.',
           'issue-cards.html',
           'Μετάβαση'
         );
+
         cards += createCard(
           'Προφίλ Τάξης',
-          'Δες τους συλλογικούς δείκτες της τάξης σου.',
+          'Δες τους συλλογικούς δείκτες της τάξης σου και πώς εξελίσσονται.',
           'classroom-profile.html',
           'Προβολή'
         );
+
+        cards += createCard(
+          'Quiz & Assessment',
+          'Κάνε quiz κατανόησης και δες άμεσα το σκορ και την πρόοδό σου.',
+          'quiz.html',
+          'Έναρξη'
+        );
+
+        cards += createCard(
+          'Gamification Hub',
+          'Δες πόντους, badges, level και leaderboard συμμετοχής.',
+          'gamification.html',
+          'Άνοιγμα'
+        );
+
       } else if (user.role === 'teacher') {
         description = 'Ως εκπαιδευτικός μπορείς να παρακολουθείς τους δείκτες τάξης, να ενεργοποιείς παρεμβάσεις και να αξιολογείς την αποτελεσματικότητά τους.';
+        quickInfo = 'Το dashboard σου δίνει έμφαση στα analytics, στην παιδαγωγική παρέμβαση, στην παρακολούθηση κατανόησης/άγχους και στα αποτελέσματα αξιολόγησης των μαθητών.';
+
         cards += createCard(
           'Collective Classroom Profile',
-          'Παρακολούθησε κατανόηση, άγχος, εμπλοκή και αντίληψη δικαιοσύνης.',
+          'Παρακολούθησε κατανόηση, άγχος, εμπλοκή και αντίληψη δικαιοσύνης με δυναμικά δεδομένα.',
           'classroom-profile.html',
           'Άνοιγμα'
         );
+
         cards += createCard(
           'Μηχανισμός Παρεμβάσεων',
-          'Ενεργοποίησε παιδαγωγικά playbooks σύμφωνα με τα δεδομένα.',
+          'Ενεργοποίησε παιδαγωγικά playbooks σύμφωνα με τα δεδομένα της τάξης.',
           'interventions.html',
           'Ενεργοποίηση'
         );
+
         cards += createCard(
           'Impact Analytics',
-          'Αξιολόγησε τον αντίκτυπο των παρεμβάσεων.',
+          'Αξιολόγησε τον αντίκτυπο των παρεμβάσεων μέσα από before/after εικόνα.',
           'impact-analytics.html',
           'Προβολή'
         );
+
+        cards += createCard(
+          'Quiz Reports',
+          'Παρακολούθησε αποτελέσματα quiz και real-time reporting για τους μαθητές.',
+          'quiz.html',
+          'Προβολή'
+        );
+
+        cards += createCard(
+          'Gamification Overview',
+          'Δες πώς η παιχνιδοποίηση ενισχύει τη συμμετοχή και την πρόοδο.',
+          'gamification.html',
+          'Προβολή'
+        );
+
       } else if (user.role === 'admin') {
-        description = 'Ως διοίκηση έχεις συνολική εποπτεία, μπορείς να παρακολουθείς δεδομένα, να υποστηρίζεις καινοτομία και να αξιοποιείς αναφορές.';
+        description = 'Ως διοίκηση έχεις συνολική εποπτεία, μπορείς να παρακολουθείς δεδομένα, να υποστηρίζεις την καινοτομία και να αξιοποιείς αναφορές.';
+        quickInfo = 'Το περιβάλλον της διοίκησης εστιάζει στη συνολική εικόνα, στις αναλύσεις, στα reports, στην απόδοση των παρεμβάσεων και στην αξιοποίηση της πλατφόρμας σε επίπεδο οργανισμού.';
+
         cards += createCard(
           'Συνολικό Προφίλ Τάξης',
-          'Δες τη συνολική εικόνα της μονάδας ή του ιδρύματος.',
+          'Δες τη συνολική εικόνα της σχολικής μονάδας ή του ιδρύματος.',
           'classroom-profile.html',
           'Άνοιγμα'
         );
+
         cards += createCard(
           'Αναλύσεις Αντικτύπου',
-          'Παρακολούθησε την αποτελεσματικότητα των παρεμβάσεων.',
+          'Παρακολούθησε την αποτελεσματικότητα των παρεμβάσεων και των αλλαγών.',
           'impact-analytics.html',
           'Προβολή'
         );
+
+        cards += createCard(
+          'Gamification Analytics',
+          'Επισκόπηση συμμετοχής, badges, levels και συνολικής ενεργοποίησης.',
+          'gamification.html',
+          'Άνοιγμα'
+        );
+
+        cards += createCard(
+          'Assessment Overview',
+          'Δες συνολική εικόνα αποτελεσμάτων quiz και αξιολογήσεων.',
+          'quiz.html',
+          'Προβολή'
+        );
+
         cards += createCard(
           'Σχετικά με την EduMorph',
-          'Δες το όραμα, την αποστολή και το μοντέλο λειτουργίας.',
+          'Δες το όραμα, την αποστολή και το μοντέλο λειτουργίας της πλατφόρμας.',
           'about-edumorph.html',
           'Προβολή'
         );
       }
 
       document.getElementById('welcomeText').textContent = description;
+      document.getElementById('quickInfo').textContent = quickInfo;
       document.getElementById('roleFeatures').innerHTML = cards;
     }
 
