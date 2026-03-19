@@ -178,54 +178,101 @@
     </div>
   </div>
 
-  <script>
-    function saveIssueCard() {
-      const phase = document.getElementById('phase').value;
-      const intensity = document.getElementById('intensity').value;
-      const experience = document.getElementById('experience').value.trim();
-      const proposal = document.getElementById('proposal').value.trim();
+<script>
+  function getUserObject() {
+    const raw = localStorage.getItem('user');
+    return raw ? JSON.parse(raw) : null;
+  }
 
-      if (!phase || !intensity || !experience || !proposal) {
-        alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
-        return;
-      }
+  function saveGamificationPoints(points) {
+    const user = getUserObject();
+    if (!user) return;
 
-      const newCard = { phase, intensity, experience, proposal };
-      const existing = JSON.parse(localStorage.getItem('issueCards') || '[]');
-      existing.unshift(newCard);
-      localStorage.setItem('issueCards', JSON.stringify(existing));
+    const allPoints = JSON.parse(localStorage.getItem('edumorphPoints') || '{}');
+    const current = allPoints[user.username] || {
+      points: 0,
+      level: 1,
+      badges: []
+    };
 
-      document.getElementById('phase').value = '';
-      document.getElementById('intensity').value = '';
-      document.getElementById('experience').value = '';
-      document.getElementById('proposal').value = '';
+    current.points += points;
+    current.level = Math.floor(current.points / 50) + 1;
 
-      renderCards();
-      alert('Η καταγραφή υποβλήθηκε επιτυχώς.');
+    if (current.points >= 20 && !current.badges.includes('First Voice')) {
+      current.badges.push('First Voice');
+    }
+    if (current.points >= 100 && !current.badges.includes('Active Contributor')) {
+      current.badges.push('Active Contributor');
+    }
+    if (current.points >= 200 && !current.badges.includes('Change Maker')) {
+      current.badges.push('Change Maker');
     }
 
-    function renderCards() {
-      const list = document.getElementById('issue-list');
-      const cards = JSON.parse(localStorage.getItem('issueCards') || '[]');
+    allPoints[user.username] = current;
+    localStorage.setItem('edumorphPoints', JSON.stringify(allPoints));
+  }
 
-      if (!cards.length) {
-        list.className = 'empty';
-        list.textContent = 'Δεν έχουν υποβληθεί ακόμα issue cards.';
-        return;
-      }
+  function saveIssueCard() {
+    const phase = document.getElementById('phase').value;
+    const intensity = document.getElementById('intensity').value;
+    const experience = document.getElementById('experience').value.trim();
+    const proposal = document.getElementById('proposal').value.trim();
 
-      list.className = '';
-      list.innerHTML = cards.slice(0, 5).map(card => `
-        <div class="saved-card">
-          <div><strong>Φάση:</strong> ${card.phase}</div>
-          <div><strong>Ένταση:</strong> ${card.intensity}</div>
-          <div><strong>Εμπειρία:</strong> ${card.experience}</div>
-          <div><strong>Πρόταση:</strong> ${card.proposal}</div>
-        </div>
-      `).join('');
+    if (!phase || !intensity || !experience || !proposal) {
+      alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
+      return;
     }
+
+    const user = getUserObject();
+
+    const newCard = {
+      phase,
+      intensity,
+      experience,
+      proposal,
+      submittedBy: user ? user.username : 'anonymous',
+      submittedAt: new Date().toLocaleString()
+    };
+
+    const existing = JSON.parse(localStorage.getItem('issueCards') || '[]');
+    existing.unshift(newCard);
+    localStorage.setItem('issueCards', JSON.stringify(existing));
+
+    saveGamificationPoints(20);
+
+    document.getElementById('phase').value = '';
+    document.getElementById('intensity').value = '';
+    document.getElementById('experience').value = '';
+    document.getElementById('proposal').value = '';
 
     renderCards();
-  </script>
+    alert('Η καταγραφή υποβλήθηκε επιτυχώς. Κέρδισες 20 πόντους!');
+  }
+
+  function renderCards() {
+    const list = document.getElementById('issue-list');
+    const cards = JSON.parse(localStorage.getItem('issueCards') || '[]');
+
+    if (!cards.length) {
+      list.className = 'empty';
+      list.textContent = 'Δεν έχουν υποβληθεί ακόμα issue cards.';
+      return;
+    }
+
+    list.className = '';
+    list.innerHTML = cards.slice(0, 5).map(card => `
+      <div class="saved-card">
+        <div><strong>Φάση:</strong> ${card.phase}</div>
+        <div><strong>Ένταση:</strong> ${card.intensity}</div>
+        <div><strong>Εμπειρία:</strong> ${card.experience}</div>
+        <div><strong>Πρόταση:</strong> ${card.proposal}</div>
+        <div><strong>Χρήστης:</strong> ${card.submittedBy || 'anonymous'}</div>
+        <div><strong>Χρόνος:</strong> ${card.submittedAt || '-'}</div>
+      </div>
+    `).join('');
+  }
+
+  renderCards();
+</script>
 </body>
 </html>
