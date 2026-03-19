@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     body {
       margin: 0;
@@ -25,12 +29,23 @@
       padding: 30px 20px 50px;
     }
 
-    .back-link {
-      display: inline-block;
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-bottom: 20px;
+    }
+
+    .back-link,
+    .dashboard-link {
+      display: inline-block;
       color: #1e3a8a;
       text-decoration: none;
       font-weight: bold;
+      background: white;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #dbeafe;
     }
 
     .card {
@@ -69,65 +84,141 @@
   </style>
 </head>
 <body>
+<main id="main-content">
   <header>
-    <h1>Σχετικά με την EduMorph</h1>
-    <p>Η εκπαιδευτική καινοτομία ως μηχανισμός συμμετοχικού μετασχηματισμού</p>
+    <h1 data-i18n="pageTitle">Σχετικά με την EduMorph</h1>
+    <p data-i18n="pageSubtitle">Η εκπαιδευτική καινοτομία ως μηχανισμός συμμετοχικού μετασχηματισμού</p>
   </header>
 
   <div class="container">
-    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+    <div class="top-actions">
+      <a class="back-link" href="index.html" data-i18n="backHome">← Επιστροφή στην αρχική</a>
+      <a class="dashboard-link" href="dashboard.html" data-i18n="goDashboard">Dashboard</a>
+    </div>
 
     <section class="card">
-      <h2>Τι είναι η EduMorph;</h2>
-      <p>Η EduMorph είναι μια πλατφόρμα συμμετοχικού εκπαιδευτικού μετασχηματισμού που επιτρέπει στους μαθητές να εκφράζουν οργανωμένα τις εμπειρίες, τους προβληματισμούς και τις προτάσεις τους σχετικά με τη μαθησιακή διαδικασία. Η πληροφορία αυτή μετατρέπεται σε συλλογικούς δείκτες τάξης και σε τεκμηριωμένες παιδαγωγικές παρεμβάσεις.</p>
+      <h2 data-i18n="whatTitle">Τι είναι η EduMorph;</h2>
+      <p data-i18n="whatText">
+        Η EduMorph είναι μια πλατφόρμα συμμετοχικού εκπαιδευτικού μετασχηματισμού που επιτρέπει στους μαθητές να εκφράζουν οργανωμένα τις εμπειρίες, τους προβληματισμούς και τις προτάσεις τους σχετικά με τη μαθησιακή διαδικασία. Η πληροφορία αυτή μετατρέπεται σε συλλογικούς δείκτες τάξης και σε τεκμηριωμένες παιδαγωγικές παρεμβάσεις.
+      </p>
     </section>
 
     <section class="card">
-      <h2>Το πρόβλημα που επιδιώκει να λύσει</h2>
+      <h2 data-i18n="problemTitle">Το πρόβλημα που επιδιώκει να λύσει</h2>
       <ul>
-        <li>Η μαθητική φωνή παραμένει συνήθως άτυπη και μη αξιοποιήσιμη.</li>
-        <li>Η ανατροφοδότηση συλλέγεται αποσπασματικά χωρίς σαφή επόμενα βήματα.</li>
-        <li>Η εκπαιδευτική διαδικασία συχνά δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.</li>
-        <li>Απουσιάζει η συστηματική αξιολόγηση του παιδαγωγικού αντίκτυπου των αλλαγών.</li>
+        <li data-i18n="problem1">Η μαθητική φωνή παραμένει συνήθως άτυπη και μη αξιοποιήσιμη.</li>
+        <li data-i18n="problem2">Η ανατροφοδότηση συλλέγεται αποσπασματικά χωρίς σαφή επόμενα βήματα.</li>
+        <li data-i18n="problem3">Η εκπαιδευτική διαδικασία συχνά δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.</li>
+        <li data-i18n="problem4">Απουσιάζει η συστηματική αξιολόγηση του παιδαγωγικού αντίκτυπου των αλλαγών.</li>
       </ul>
     </section>
 
     <section class="grid">
       <div class="mini-card">
-        <h2>Όραμα</h2>
-        <p>Η τάξη να λειτουργεί ως ένα αυτορυθμιζόμενο, συμμετοχικό και δεδομενοκεντρικό εκπαιδευτικό οικοσύστημα.</p>
+        <h2 data-i18n="visionTitle">Όραμα</h2>
+        <p data-i18n="visionText">Η τάξη να λειτουργεί ως ένα αυτορυθμιζόμενο, συμμετοχικό και δεδομενοκεντρικό εκπαιδευτικό οικοσύστημα.</p>
       </div>
 
       <div class="mini-card">
-        <h2>Αποστολή</h2>
-        <p>Να μετατρέψει τη μαθητική ανατροφοδότηση σε πρακτικό εργαλείο βελτίωσης της διδασκαλίας και της εκπαιδευτικής εμπειρίας.</p>
+        <h2 data-i18n="missionTitle">Αποστολή</h2>
+        <p data-i18n="missionText">Να μετατρέψει τη μαθητική ανατροφοδότηση σε πρακτικό εργαλείο βελτίωσης της διδασκαλίας και της εκπαιδευτικής εμπειρίας.</p>
       </div>
 
       <div class="mini-card">
-        <h2>Καινοτομία</h2>
-        <p>Η EduMorph δεν είναι survey tool ή LMS. Είναι μηχανισμός κλειστού βρόχου βελτίωσης: feedback → action → impact evaluation.</p>
+        <h2 data-i18n="innovationTitle">Καινοτομία</h2>
+        <p data-i18n="innovationText">Η EduMorph δεν είναι survey tool ή LMS. Είναι μηχανισμός κλειστού βρόχου βελτίωσης: feedback → action → impact evaluation.</p>
       </div>
     </section>
 
     <section class="card">
-      <h2>Σε ποιους απευθύνεται</h2>
+      <h2 data-i18n="audienceTitle">Σε ποιους απευθύνεται</h2>
       <ul>
-        <li>Σχολικές μονάδες</li>
-        <li>Πανεπιστήμια και κολέγια</li>
-        <li>Εκπαιδευτικούς οργανισμούς</li>
-        <li>Δίκτυα σχολείων και φορείς καινοτομίας</li>
+        <li data-i18n="audience1">Σχολικές μονάδες</li>
+        <li data-i18n="audience2">Πανεπιστήμια και κολέγια</li>
+        <li data-i18n="audience3">Εκπαιδευτικούς οργανισμούς</li>
+        <li data-i18n="audience4">Δίκτυα σχολείων και φορείς καινοτομίας</li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>Βασικοί άξονες λειτουργίας</h2>
+      <h2 data-i18n="axesTitle">Βασικοί άξονες λειτουργίας</h2>
       <ul>
-        <li>Δομημένη καταγραφή μαθητικών εμπειριών μέσω Issue Cards</li>
-        <li>Συλλογικό προφίλ τάξης με βασικούς δείκτες</li>
-        <li>Μηχανισμός ενεργοποίησης παιδαγωγικών παρεμβάσεων</li>
-        <li>Αξιολόγηση επίδρασης και συνεχής αναπροσαρμογή</li>
+        <li data-i18n="axis1">Δομημένη καταγραφή μαθητικών εμπειριών μέσω Issue Cards</li>
+        <li data-i18n="axis2">Συλλογικό προφίλ τάξης με βασικούς δείκτες</li>
+        <li data-i18n="axis3">Μηχανισμός ενεργοποίησης παιδαγωγικών παρεμβάσεων</li>
+        <li data-i18n="axis4">Αξιολόγηση επίδρασης και συνεχής αναπροσαρμογή</li>
       </ul>
     </section>
   </div>
+</main>
+
+<script>
+  window.pageTranslations = {
+    el: {
+      pageTitle: 'Σχετικά με την EduMorph',
+      pageSubtitle: 'Η εκπαιδευτική καινοτομία ως μηχανισμός συμμετοχικού μετασχηματισμού',
+      backHome: '← Επιστροφή στην αρχική',
+      goDashboard: 'Dashboard',
+      whatTitle: 'Τι είναι η EduMorph;',
+      whatText: 'Η EduMorph είναι μια πλατφόρμα συμμετοχικού εκπαιδευτικού μετασχηματισμού που επιτρέπει στους μαθητές να εκφράζουν οργανωμένα τις εμπειρίες, τους προβληματισμούς και τις προτάσεις τους σχετικά με τη μαθησιακή διαδικασία. Η πληροφορία αυτή μετατρέπεται σε συλλογικούς δείκτες τάξης και σε τεκμηριωμένες παιδαγωγικές παρεμβάσεις.',
+      problemTitle: 'Το πρόβλημα που επιδιώκει να λύσει',
+      problem1: 'Η μαθητική φωνή παραμένει συνήθως άτυπη και μη αξιοποιήσιμη.',
+      problem2: 'Η ανατροφοδότηση συλλέγεται αποσπασματικά χωρίς σαφή επόμενα βήματα.',
+      problem3: 'Η εκπαιδευτική διαδικασία συχνά δεν προσαρμόζεται δυναμικά στις ανάγκες της τάξης.',
+      problem4: 'Απουσιάζει η συστηματική αξιολόγηση του παιδαγωγικού αντίκτυπου των αλλαγών.',
+      visionTitle: 'Όραμα',
+      visionText: 'Η τάξη να λειτουργεί ως ένα αυτορυθμιζόμενο, συμμετοχικό και δεδομενοκεντρικό εκπαιδευτικό οικοσύστημα.',
+      missionTitle: 'Αποστολή',
+      missionText: 'Να μετατρέψει τη μαθητική ανατροφοδότηση σε πρακτικό εργαλείο βελτίωσης της διδασκαλίας και της εκπαιδευτικής εμπειρίας.',
+      innovationTitle: 'Καινοτομία',
+      innovationText: 'Η EduMorph δεν είναι survey tool ή LMS. Είναι μηχανισμός κλειστού βρόχου βελτίωσης: feedback → action → impact evaluation.',
+      audienceTitle: 'Σε ποιους απευθύνεται',
+      audience1: 'Σχολικές μονάδες',
+      audience2: 'Πανεπιστήμια και κολέγια',
+      audience3: 'Εκπαιδευτικούς οργανισμούς',
+      audience4: 'Δίκτυα σχολείων και φορείς καινοτομίας',
+      axesTitle: 'Βασικοί άξονες λειτουργίας',
+      axis1: 'Δομημένη καταγραφή μαθητικών εμπειριών μέσω Issue Cards',
+      axis2: 'Συλλογικό προφίλ τάξης με βασικούς δείκτες',
+      axis3: 'Μηχανισμός ενεργοποίησης παιδαγωγικών παρεμβάσεων',
+      axis4: 'Αξιολόγηση επίδρασης και συνεχής αναπροσαρμογή'
+    },
+    en: {
+      pageTitle: 'About EduMorph',
+      pageSubtitle: 'Educational innovation as a mechanism of participatory transformation',
+      backHome: '← Back to home',
+      goDashboard: 'Dashboard',
+      whatTitle: 'What is EduMorph?',
+      whatText: 'EduMorph is a participatory educational transformation platform that allows students to express in an organized way their experiences, concerns, and proposals regarding the learning process. This information is transformed into collective classroom indicators and evidence-based pedagogical interventions.',
+      problemTitle: 'The problem it seeks to solve',
+      problem1: 'Student voice usually remains informal and underutilized.',
+      problem2: 'Feedback is collected fragmentedly without clear next steps.',
+      problem3: 'The educational process often does not adapt dynamically to classroom needs.',
+      problem4: 'Systematic evaluation of the pedagogical impact of changes is missing.',
+      visionTitle: 'Vision',
+      visionText: 'For the classroom to function as a self-regulating, participatory, and data-driven educational ecosystem.',
+      missionTitle: 'Mission',
+      missionText: 'To transform student feedback into a practical tool for improving teaching and the educational experience.',
+      innovationTitle: 'Innovation',
+      innovationText: 'EduMorph is not a survey tool or LMS. It is a closed-loop improvement mechanism: feedback → action → impact evaluation.',
+      audienceTitle: 'Who it is for',
+      audience1: 'School units',
+      audience2: 'Universities and colleges',
+      audience3: 'Educational organizations',
+      audience4: 'School networks and innovation bodies',
+      axesTitle: 'Core operating pillars',
+      axis1: 'Structured capture of student experiences through Issue Cards',
+      axis2: 'Collective classroom profile with key indicators',
+      axis3: 'Pedagogical intervention activation mechanism',
+      axis4: 'Impact evaluation and continuous readjustment'
+    }
+  };
+
+  window.onload = () => {
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
