@@ -340,19 +340,38 @@
 
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         String action = request.getParameter("action");
+<%
+String loginMessage = null;
 
-        if ("logout".equals(action)) {
-            session.invalidate();
-            response.sendRedirect("EduMorph.jsp");
-            return;
+if ("POST".equalsIgnoreCase(request.getMethod())) {
+    String action = request.getParameter("action");
+
+    if ("login".equals(action)) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        if (username != null && password != null) {
+            session.setAttribute("user", username);
+            loginMessage = "Καλώς ήρθες " + username;
         }
     }
 
-    User loggedInUser = null;
-    if (session != null) {
-        loggedInUser = (User) session.getAttribute("user");
+    if ("register".equals(action)) {
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        loginMessage = "Η εγγραφή ολοκληρώθηκε! Μπορείς να συνδεθείς.";
     }
+
+    if ("logout".equals(action)) {
+        session.invalidate();
+        response.sendRedirect("index.jsp");
+        return;
+    }
+}
 %>
+    
 
 <header>
     <div class="hero-overlay"></div>
