@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     :root {
       --bg: #f4f7fb;
@@ -123,14 +127,26 @@
       color: #4b5563;
       line-height: 1.7;
     }
+
+    @media (max-width: 768px) {
+      .topbar {
+        padding: 16px;
+      }
+
+      .topbar h1 {
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>
+<main id="main-content">
+
   <div class="topbar">
-    <h1>EduMorph Dashboard</h1>
+    <h1 data-i18n="dashboardTitle">EduMorph Dashboard</h1>
     <div>
-      <a href="index.html">Αρχική</a>
-      <button onclick="logout()">Αποσύνδεση</button>
+      <a href="index.html" data-i18n="homeBtn">Αρχική</a>
+      <button onclick="logout()" data-i18n="logoutBtn">Αποσύνδεση</button>
     </div>
   </div>
 
@@ -143,166 +159,362 @@
     </section>
 
     <section class="section-card">
-      <h2>Λειτουργίες ανά ρόλο</h2>
+      <h2 data-i18n="roleFeaturesTitle">Λειτουργίες ανά ρόλο</h2>
       <div id="roleFeatures" class="grid"></div>
     </section>
   </div>
 
-  <script>
-    function logout() {
-      localStorage.removeItem('user');
-      window.location.href = 'index.html';
+</main>
+
+<script>
+  window.pageTranslations = {
+    el: {
+      dashboardTitle: 'EduMorph Dashboard',
+      homeBtn: 'Αρχική',
+      logoutBtn: 'Αποσύνδεση',
+      roleFeaturesTitle: 'Λειτουργίες ανά ρόλο',
+      welcomePrefix: 'Καλώς ήρθες,',
+      fallbackUser: 'Χρήστης',
+      roleStudent: 'Ρόλος: Μαθητής',
+      roleTeacher: 'Ρόλος: Εκπαιδευτικός',
+      roleAdmin: 'Ρόλος: Διοίκηση',
+      roleUser: 'Ρόλος: Χρήστης',
+
+      studentDescription: 'Ως μαθητής μπορείς να καταγράφεις εμπειρίες, να προτείνεις βελτιώσεις και να συμμετέχεις ενεργά στη βελτίωση της τάξης.',
+      studentQuickInfo: 'Το προσωπικό σου περιβάλλον δίνει έμφαση στη συμμετοχή, στην ανατροφοδότηση, στην αυτοαξιολόγηση και στην ενίσχυση της εμπλοκής σου μέσω παιχνιδοποίησης.',
+
+      teacherDescription: 'Ως εκπαιδευτικός μπορείς να παρακολουθείς τους δείκτες τάξης, να ενεργοποιείς παρεμβάσεις και να αξιολογείς την αποτελεσματικότητά τους.',
+      teacherQuickInfo: 'Το dashboard σου δίνει έμφαση στα analytics, στην παιδαγωγική παρέμβαση, στην παρακολούθηση κατανόησης και άγχους, και στα αποτελέσματα αξιολόγησης των μαθητών.',
+
+      adminDescription: 'Ως διοίκηση έχεις συνολική εποπτεία, μπορείς να παρακολουθείς δεδομένα, να υποστηρίζεις την καινοτομία και να αξιοποιείς αναφορές.',
+      adminQuickInfo: 'Το περιβάλλον της διοίκησης εστιάζει στη συνολική εικόνα, στις αναλύσεις, στα reports, στην απόδοση των παρεμβάσεων και στην αξιοποίηση της πλατφόρμας σε επίπεδο οργανισμού.',
+
+      studentCard1Title: 'Υποβολή Issue Card',
+      studentCard1Text: 'Κατέγραψε μια εμπειρία, δυσκολία ή πρόταση βελτίωσης.',
+      studentCard1Btn: 'Μετάβαση',
+
+      studentCard2Title: 'Προφίλ Τάξης',
+      studentCard2Text: 'Δες τους συλλογικούς δείκτες της τάξης σου και πώς εξελίσσονται.',
+      studentCard2Btn: 'Προβολή',
+
+      studentCard3Title: 'Quiz & Assessment',
+      studentCard3Text: 'Κάνε quiz κατανόησης και δες άμεσα το σκορ και την πρόοδό σου.',
+      studentCard3Btn: 'Έναρξη',
+
+      studentCard4Title: 'Gamification Hub',
+      studentCard4Text: 'Δες πόντους, badges, level και leaderboard συμμετοχής.',
+      studentCard4Btn: 'Άνοιγμα',
+
+      teacherCard1Title: 'Collective Classroom Profile',
+      teacherCard1Text: 'Παρακολούθησε κατανόηση, άγχος, εμπλοκή και αντίληψη δικαιοσύνης με δυναμικά δεδομένα.',
+      teacherCard1Btn: 'Άνοιγμα',
+
+      teacherCard2Title: 'Μηχανισμός Παρεμβάσεων',
+      teacherCard2Text: 'Ενεργοποίησε παιδαγωγικά playbooks σύμφωνα με τα δεδομένα της τάξης.',
+      teacherCard2Btn: 'Ενεργοποίηση',
+
+      teacherCard3Title: 'Impact Analytics',
+      teacherCard3Text: 'Αξιολόγησε τον αντίκτυπο των παρεμβάσεων μέσα από before/after εικόνα.',
+      teacherCard3Btn: 'Προβολή',
+
+      teacherCard4Title: 'Quiz Reports',
+      teacherCard4Text: 'Παρακολούθησε αποτελέσματα quiz και real-time reporting για τους μαθητές.',
+      teacherCard4Btn: 'Προβολή',
+
+      teacherCard5Title: 'Gamification Overview',
+      teacherCard5Text: 'Δες πώς η παιχνιδοποίηση ενισχύει τη συμμετοχή και την πρόοδο.',
+      teacherCard5Btn: 'Προβολή',
+
+      adminCard1Title: 'Συνολικό Προφίλ Τάξης',
+      adminCard1Text: 'Δες τη συνολική εικόνα της σχολικής μονάδας ή του ιδρύματος.',
+      adminCard1Btn: 'Άνοιγμα',
+
+      adminCard2Title: 'Αναλύσεις Αντικτύπου',
+      adminCard2Text: 'Παρακολούθησε την αποτελεσματικότητα των παρεμβάσεων και των αλλαγών.',
+      adminCard2Btn: 'Προβολή',
+
+      adminCard3Title: 'Gamification Analytics',
+      adminCard3Text: 'Επισκόπηση συμμετοχής, badges, levels και συνολικής ενεργοποίησης.',
+      adminCard3Btn: 'Άνοιγμα',
+
+      adminCard4Title: 'Assessment Overview',
+      adminCard4Text: 'Δες συνολική εικόνα αποτελεσμάτων quiz και αξιολογήσεων.',
+      adminCard4Btn: 'Προβολή',
+
+      adminCard5Title: 'Σχετικά με την EduMorph',
+      adminCard5Text: 'Δες το όραμα, την αποστολή και το μοντέλο λειτουργίας της πλατφόρμας.',
+      adminCard5Btn: 'Προβολή'
+    },
+    en: {
+      dashboardTitle: 'EduMorph Dashboard',
+      homeBtn: 'Home',
+      logoutBtn: 'Logout',
+      roleFeaturesTitle: 'Role-based features',
+      welcomePrefix: 'Welcome,',
+      fallbackUser: 'User',
+      roleStudent: 'Role: Student',
+      roleTeacher: 'Role: Teacher',
+      roleAdmin: 'Role: Administration',
+      roleUser: 'Role: User',
+
+      studentDescription: 'As a student, you can record experiences, suggest improvements, and actively participate in improving the classroom.',
+      studentQuickInfo: 'Your personal environment emphasizes participation, feedback, self-assessment, and stronger engagement through gamification.',
+
+      teacherDescription: 'As an educator, you can monitor classroom indicators, activate interventions, and evaluate their effectiveness.',
+      teacherQuickInfo: 'Your dashboard emphasizes analytics, pedagogical intervention, monitoring understanding and anxiety, and reviewing student assessment results.',
+
+      adminDescription: 'As administration, you have overall supervision, can monitor data, support innovation, and use reports.',
+      adminQuickInfo: 'The administration environment focuses on the overall picture, analytics, reports, intervention performance, and platform usage at organization level.',
+
+      studentCard1Title: 'Submit Issue Card',
+      studentCard1Text: 'Record an experience, difficulty, or improvement proposal.',
+      studentCard1Btn: 'Open',
+
+      studentCard2Title: 'Classroom Profile',
+      studentCard2Text: 'View your classroom’s collective indicators and how they evolve.',
+      studentCard2Btn: 'View',
+
+      studentCard3Title: 'Quiz & Assessment',
+      studentCard3Text: 'Take understanding quizzes and instantly see your score and progress.',
+      studentCard3Btn: 'Start',
+
+      studentCard4Title: 'Gamification Hub',
+      studentCard4Text: 'See points, badges, level, and participation leaderboard.',
+      studentCard4Btn: 'Open',
+
+      teacherCard1Title: 'Collective Classroom Profile',
+      teacherCard1Text: 'Track understanding, anxiety, engagement, and perceived fairness with dynamic data.',
+      teacherCard1Btn: 'Open',
+
+      teacherCard2Title: 'Intervention Engine',
+      teacherCard2Text: 'Activate pedagogical playbooks based on classroom data.',
+      teacherCard2Btn: 'Activate',
+
+      teacherCard3Title: 'Impact Analytics',
+      teacherCard3Text: 'Evaluate the impact of interventions through before/after insights.',
+      teacherCard3Btn: 'View',
+
+      teacherCard4Title: 'Quiz Reports',
+      teacherCard4Text: 'Monitor quiz results and real-time reporting for students.',
+      teacherCard4Btn: 'View',
+
+      teacherCard5Title: 'Gamification Overview',
+      teacherCard5Text: 'See how gamification strengthens participation and progress.',
+      teacherCard5Btn: 'View',
+
+      adminCard1Title: 'Institution Classroom Profile',
+      adminCard1Text: 'View the overall picture of the school unit or institution.',
+      adminCard1Btn: 'Open',
+
+      adminCard2Title: 'Impact Analytics',
+      adminCard2Text: 'Monitor the effectiveness of interventions and changes.',
+      adminCard2Btn: 'View',
+
+      adminCard3Title: 'Gamification Analytics',
+      adminCard3Text: 'Overview of participation, badges, levels, and total activation.',
+      adminCard3Btn: 'Open',
+
+      adminCard4Title: 'Assessment Overview',
+      adminCard4Text: 'See the overall picture of quiz and assessment results.',
+      adminCard4Btn: 'View',
+
+      adminCard5Title: 'About EduMorph',
+      adminCard5Text: 'Explore the platform’s vision, mission, and operating model.',
+      adminCard5Btn: 'View'
+    }
+  };
+
+  function logout() {
+    localStorage.removeItem('user');
+    window.location.href = 'index.html';
+  }
+
+  function getCurrentLanguage() {
+    return localStorage.getItem('edumorphLanguage') || 'el';
+  }
+
+  function t(key) {
+    const lang = getCurrentLanguage();
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
+  function formatRole(role) {
+    if (role === 'student') return t('roleStudent');
+    if (role === 'teacher') return t('roleTeacher');
+    if (role === 'admin') return t('roleAdmin');
+    return t('roleUser');
+  }
+
+  function createCard(title, text, link, linkText) {
+    return `
+      <div class="feature-card">
+        <h3>${title}</h3>
+        <p>${text}</p>
+        <a href="${link}" aria-label="${title}">${linkText}</a>
+      </div>
+    `;
+  }
+
+  function buildCardsForRole(role) {
+    let description = '';
+    let quickInfo = '';
+    let cards = '';
+
+    if (role === 'student') {
+      description = t('studentDescription');
+      quickInfo = t('studentQuickInfo');
+
+      cards += createCard(
+        t('studentCard1Title'),
+        t('studentCard1Text'),
+        'issue-cards.html',
+        t('studentCard1Btn')
+      );
+
+      cards += createCard(
+        t('studentCard2Title'),
+        t('studentCard2Text'),
+        'classroom-profile.html',
+        t('studentCard2Btn')
+      );
+
+      cards += createCard(
+        t('studentCard3Title'),
+        t('studentCard3Text'),
+        'quiz.html',
+        t('studentCard3Btn')
+      );
+
+      cards += createCard(
+        t('studentCard4Title'),
+        t('studentCard4Text'),
+        'gamification.html',
+        t('studentCard4Btn')
+      );
+    } else if (role === 'teacher') {
+      description = t('teacherDescription');
+      quickInfo = t('teacherQuickInfo');
+
+      cards += createCard(
+        t('teacherCard1Title'),
+        t('teacherCard1Text'),
+        'classroom-profile.html',
+        t('teacherCard1Btn')
+      );
+
+      cards += createCard(
+        t('teacherCard2Title'),
+        t('teacherCard2Text'),
+        'interventions.html',
+        t('teacherCard2Btn')
+      );
+
+      cards += createCard(
+        t('teacherCard3Title'),
+        t('teacherCard3Text'),
+        'impact-analytics.html',
+        t('teacherCard3Btn')
+      );
+
+      cards += createCard(
+        t('teacherCard4Title'),
+        t('teacherCard4Text'),
+        'quiz.html',
+        t('teacherCard4Btn')
+      );
+
+      cards += createCard(
+        t('teacherCard5Title'),
+        t('teacherCard5Text'),
+        'gamification.html',
+        t('teacherCard5Btn')
+      );
+    } else {
+      description = t('adminDescription');
+      quickInfo = t('adminQuickInfo');
+
+      cards += createCard(
+        t('adminCard1Title'),
+        t('adminCard1Text'),
+        'classroom-profile.html',
+        t('adminCard1Btn')
+      );
+
+      cards += createCard(
+        t('adminCard2Title'),
+        t('adminCard2Text'),
+        'impact-analytics.html',
+        t('adminCard2Btn')
+      );
+
+      cards += createCard(
+        t('adminCard3Title'),
+        t('adminCard3Text'),
+        'gamification.html',
+        t('adminCard3Btn')
+      );
+
+      cards += createCard(
+        t('adminCard4Title'),
+        t('adminCard4Text'),
+        'quiz.html',
+        t('adminCard4Btn')
+      );
+
+      cards += createCard(
+        t('adminCard5Title'),
+        t('adminCard5Text'),
+        'about-edumorph.html',
+        t('adminCard5Btn')
+      );
     }
 
-    function createCard(title, text, link, linkText) {
-      return `
-        <div class="feature-card">
-          <h3>${title}</h3>
-          <p>${text}</p>
-          <a href="${link}">${linkText}</a>
-        </div>
-      `;
+    return { description, quickInfo, cards };
+  }
+
+  function loadDashboard() {
+    const userData = localStorage.getItem('user');
+
+    if (!userData) {
+      window.location.href = 'login.html';
+      return;
     }
 
-    function loadDashboard() {
-      const userData = localStorage.getItem('user');
+    const user = JSON.parse(userData);
+    const displayName = user.fullName || user.username || t('fallbackUser');
 
-      if (!userData) {
-        window.location.href = 'login.html';
-        return;
-      }
+    document.getElementById('welcomeTitle').textContent = `${t('welcomePrefix')} ${displayName}!`;
+    document.getElementById('roleBadge').textContent = formatRole(user.role);
 
-      const user = JSON.parse(userData);
-      const displayName = user.fullName || user.username || 'Χρήστης';
+    const roleData = buildCardsForRole(user.role);
+    document.getElementById('welcomeText').textContent = roleData.description;
+    document.getElementById('quickInfo').textContent = roleData.quickInfo;
+    document.getElementById('roleFeatures').innerHTML = roleData.cards;
+  }
 
-      document.getElementById('welcomeTitle').textContent = `Καλώς ήρθες, ${displayName}!`;
+  function makeCardsAccessible() {
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.setAttribute('tabindex', '0');
+      card.addEventListener('keydown', function (e) {
+        const link = card.querySelector('a');
+        if (link && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          link.click();
+        }
+      });
+    });
+  }
 
-      document.getElementById('roleBadge').textContent =
-        user.role === 'student' ? 'Ρόλος: Μαθητής' :
-        user.role === 'teacher' ? 'Ρόλος: Εκπαιδευτικός' :
-        'Ρόλος: Διοίκηση';
-
-      let description = '';
-      let quickInfo = '';
-      let cards = '';
-
-      if (user.role === 'student') {
-        description = 'Ως μαθητής μπορείς να καταγράφεις εμπειρίες, να προτείνεις βελτιώσεις και να συμμετέχεις ενεργά στη βελτίωση της τάξης.';
-        quickInfo = 'Το προσωπικό σου περιβάλλον δίνει έμφαση στη συμμετοχή, στην ανατροφοδότηση, στην αυτοαξιολόγηση και στην ενίσχυση της εμπλοκής σου μέσω παιχνιδοποίησης.';
-
-        cards += createCard(
-          'Υποβολή Issue Card',
-          'Κατέγραψε μια εμπειρία, δυσκολία ή πρόταση βελτίωσης.',
-          'issue-cards.html',
-          'Μετάβαση'
-        );
-
-        cards += createCard(
-          'Προφίλ Τάξης',
-          'Δες τους συλλογικούς δείκτες της τάξης σου και πώς εξελίσσονται.',
-          'classroom-profile.html',
-          'Προβολή'
-        );
-
-        cards += createCard(
-          'Quiz & Assessment',
-          'Κάνε quiz κατανόησης και δες άμεσα το σκορ και την πρόοδό σου.',
-          'quiz.html',
-          'Έναρξη'
-        );
-
-        cards += createCard(
-          'Gamification Hub',
-          'Δες πόντους, badges, level και leaderboard συμμετοχής.',
-          'gamification.html',
-          'Άνοιγμα'
-        );
-
-      } else if (user.role === 'teacher') {
-        description = 'Ως εκπαιδευτικός μπορείς να παρακολουθείς τους δείκτες τάξης, να ενεργοποιείς παρεμβάσεις και να αξιολογείς την αποτελεσματικότητά τους.';
-        quickInfo = 'Το dashboard σου δίνει έμφαση στα analytics, στην παιδαγωγική παρέμβαση, στην παρακολούθηση κατανόησης/άγχους και στα αποτελέσματα αξιολόγησης των μαθητών.';
-
-        cards += createCard(
-          'Collective Classroom Profile',
-          'Παρακολούθησε κατανόηση, άγχος, εμπλοκή και αντίληψη δικαιοσύνης με δυναμικά δεδομένα.',
-          'classroom-profile.html',
-          'Άνοιγμα'
-        );
-
-        cards += createCard(
-          'Μηχανισμός Παρεμβάσεων',
-          'Ενεργοποίησε παιδαγωγικά playbooks σύμφωνα με τα δεδομένα της τάξης.',
-          'interventions.html',
-          'Ενεργοποίηση'
-        );
-
-        cards += createCard(
-          'Impact Analytics',
-          'Αξιολόγησε τον αντίκτυπο των παρεμβάσεων μέσα από before/after εικόνα.',
-          'impact-analytics.html',
-          'Προβολή'
-        );
-
-        cards += createCard(
-          'Quiz Reports',
-          'Παρακολούθησε αποτελέσματα quiz και real-time reporting για τους μαθητές.',
-          'quiz.html',
-          'Προβολή'
-        );
-
-        cards += createCard(
-          'Gamification Overview',
-          'Δες πώς η παιχνιδοποίηση ενισχύει τη συμμετοχή και την πρόοδο.',
-          'gamification.html',
-          'Προβολή'
-        );
-
-      } else if (user.role === 'admin') {
-        description = 'Ως διοίκηση έχεις συνολική εποπτεία, μπορείς να παρακολουθείς δεδομένα, να υποστηρίζεις την καινοτομία και να αξιοποιείς αναφορές.';
-        quickInfo = 'Το περιβάλλον της διοίκησης εστιάζει στη συνολική εικόνα, στις αναλύσεις, στα reports, στην απόδοση των παρεμβάσεων και στην αξιοποίηση της πλατφόρμας σε επίπεδο οργανισμού.';
-
-        cards += createCard(
-          'Συνολικό Προφίλ Τάξης',
-          'Δες τη συνολική εικόνα της σχολικής μονάδας ή του ιδρύματος.',
-          'classroom-profile.html',
-          'Άνοιγμα'
-        );
-
-        cards += createCard(
-          'Αναλύσεις Αντικτύπου',
-          'Παρακολούθησε την αποτελεσματικότητα των παρεμβάσεων και των αλλαγών.',
-          'impact-analytics.html',
-          'Προβολή'
-        );
-
-        cards += createCard(
-          'Gamification Analytics',
-          'Επισκόπηση συμμετοχής, badges, levels και συνολικής ενεργοποίησης.',
-          'gamification.html',
-          'Άνοιγμα'
-        );
-
-        cards += createCard(
-          'Assessment Overview',
-          'Δες συνολική εικόνα αποτελεσμάτων quiz και αξιολογήσεων.',
-          'quiz.html',
-          'Προβολή'
-        );
-
-        cards += createCard(
-          'Σχετικά με την EduMorph',
-          'Δες το όραμα, την αποστολή και το μοντέλο λειτουργίας της πλατφόρμας.',
-          'about-edumorph.html',
-          'Προβολή'
-        );
-      }
-
-      document.getElementById('welcomeText').textContent = description;
-      document.getElementById('quickInfo').textContent = quickInfo;
-      document.getElementById('roleFeatures').innerHTML = cards;
-    }
-
+  window.onload = () => {
     loadDashboard();
-  </script>
+    setTimeout(() => {
+      makeCardsAccessible();
+      if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+        window.EduMorphUI.applyTranslations();
+      }
+    }, 0);
+  };
+</script>
 </body>
 </html>
