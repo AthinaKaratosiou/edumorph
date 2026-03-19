@@ -1,0 +1,70 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Σύνδεση | EduMorph</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #1e3a8a, #0f766e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+.form-box {
+    background: white;
+    color: #333;
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #0ea5a4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0f766e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-box">
+    <h2>Σύνδεση</h2>
+
+    <form method="post" action="index.jsp">
+        <input type="text" name="username" placeholder="Όνομα χρήστη" required>
+        <input type="password" name="password" placeholder="Κωδικός" required>
+        <button type="submit" name="action" value="login">Σύνδεση</button>
+    </form>
+
+    <p>Δεν έχεις λογαριασμό;</p>
+    <a href="register.jsp">Κάνε εγγραφή</a>
+</div>
+
+</body>
+</html>
