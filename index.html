@@ -13,9 +13,6 @@
             --header-text-color: #ffffff;
             --button-bg-color: #0ea5a4;
             --button-hover-bg-color: #0f766e;
-            --input-bg-color: #ffffff;
-            --input-text-color: #1f2937;
-            --border-color: #d1d5db;
             --form-box-bg: #ffffff;
             --card-bg: #ffffff;
             --accent-color: #2563eb;
@@ -30,9 +27,6 @@
             --header-text-color: #f8fafc;
             --button-bg-color: #14b8a6;
             --button-hover-bg-color: #0f766e;
-            --input-bg-color: #1e293b;
-            --input-text-color: #f8fafc;
-            --border-color: #334155;
             --form-box-bg: #111827;
             --card-bg: #1e293b;
             --accent-color: #60a5fa;
@@ -281,6 +275,7 @@
             width: 90%;
             max-width: 700px;
             box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+            display: none;
         }
 
         .welcome-message h2 {
@@ -331,44 +326,6 @@
 </head>
 <body>
 
-<%
-    String loginMessage = null;
-
-    if ("POST".equalsIgnoreCase(request.getMethod())) {
-        String action = request.getParameter("action");
-<%
-String loginMessage = null;
-
-if ("POST".equalsIgnoreCase(request.getMethod())) {
-    String action = request.getParameter("action");
-
-    if ("login".equals(action)) {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        if (username != null && password != null) {
-            session.setAttribute("user", username);
-            loginMessage = "Καλώς ήρθες " + username;
-        }
-    }
-
-    if ("register".equals(action)) {
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        loginMessage = "Η εγγραφή ολοκληρώθηκε! Μπορείς να συνδεθείς.";
-    }
-
-    if ("logout".equals(action)) {
-        session.invalidate();
-        response.sendRedirect("index.jsp");
-        return;
-    }
-}
-%>
-    
-
 <header>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -390,25 +347,21 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
 
 <div class="container">
 
-    <% if (loggedInUser == null) { %>
-        <div class="button-container">
-            <form action="login.jsp" method="get" style="display:inline;">
-                <button class="button" type="submit">Σύνδεση</button>
-            </form>
-            <form action="register.jsp" method="get" style="display:inline;">
-                <button class="button" type="submit">Εγγραφή</button>
-            </form>
-        </div>
-    <% } else { %>
-        <div class="welcome-message">
-            <h2>Καλώς ήρθες, <span class="user-name"><%= loggedInUser.getFirstName() %></span>!</h2>
-            <p>Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.</p>
-            <p>Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.</p>
-            <form method="post" style="display:inline;">
-                <button class="button" type="submit" name="action" value="logout">Αποσύνδεση</button>
-            </form>
-        </div>
-    <% } %>
+    <div id="auth-buttons" class="button-container">
+        <form action="login.html" method="get" style="display:inline;">
+            <button class="button" type="submit">Σύνδεση</button>
+        </form>
+        <form action="register.html" method="get" style="display:inline;">
+            <button class="button" type="submit">Εγγραφή</button>
+        </form>
+    </div>
+
+    <div id="welcome-message" class="welcome-message">
+        <h2>Καλώς ήρθες, <span id="user-name" class="user-name"></span>!</h2>
+        <p>Η EduMorph σε βοηθά να συμμετέχεις ενεργά στη βελτίωση της μαθησιακής διαδικασίας.</p>
+        <p>Συνέχισε προς τις βασικές λειτουργίες της πλατφόρμας.</p>
+        <button class="button" onclick="logout()">Αποσύνδεση</button>
+    </div>
 
     <section>
         <h2>Η Αποστολή της EduMorph</h2>
@@ -434,25 +387,25 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
         <h2>Βασικές Δυνατότητες της Πλατφόρμας</h2>
 
         <div class="features-container">
-            <div class="feature-box" onclick="navigateTo('issue-cards.jsp')">
+            <div class="feature-box" onclick="navigateTo('issue-cards.html')">
                 <div class="feature-icon">📝</div>
                 <h3>Issue Cards</h3>
                 <p>Οι μαθητές καταγράφουν εμπειρίες, επίπεδο έντασης, φάση μαθήματος και πρόταση βελτίωσης.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('classroom-profile.jsp')">
+            <div class="feature-box" onclick="navigateTo('classroom-profile.html')">
                 <div class="feature-icon">📊</div>
                 <h3>Collective Classroom Profile</h3>
                 <p>Δημιουργία συλλογικών δεικτών κατανόησης, άγχους, εμπλοκής και αντίληψης δικαιοσύνης.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('interventions.jsp')">
+            <div class="feature-box" onclick="navigateTo('interventions.html')">
                 <div class="feature-icon">🎯</div>
                 <h3>Μηχανισμός Παρεμβάσεων</h3>
                 <p>Ενεργοποίηση παιδαγωγικών playbooks όταν οι δείκτες ξεπερνούν καθορισμένα όρια.</p>
             </div>
 
-            <div class="feature-box" onclick="navigateTo('impact-analytics.jsp')">
+            <div class="feature-box" onclick="navigateTo('impact-analytics.html')">
                 <div class="feature-icon">🔄</div>
                 <h3>Closed-Loop Improvement</h3>
                 <p>Κάθε παρέμβαση εφαρμόζεται, αξιολογείται και αναπροσαρμόζεται βάσει επίδρασης.</p>
@@ -557,8 +510,8 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
         </p>
 
         <div class="top-actions">
-            <button class="button" onclick="navigateTo('register.jsp')">Ξεκίνα τώρα</button>
-            <button class="button" onclick="navigateTo('about-edumorph.jsp')">Μάθε περισσότερα</button>
+            <button class="button" onclick="navigateTo('register.html')">Ξεκίνα τώρα</button>
+            <button class="button" onclick="navigateTo('about-edumorph.html')">Μάθε περισσότερα</button>
         </div>
     </section>
 </div>
@@ -578,10 +531,29 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
         localStorage.setItem('darkMode', isDarkMode);
     }
 
+    function logout() {
+        localStorage.removeItem('user');
+        location.reload();
+    }
+
     window.onload = () => {
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
+        }
+
+        const user = localStorage.getItem('user');
+        const authButtons = document.getElementById('auth-buttons');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const userName = document.getElementById('user-name');
+
+        if (user) {
+            authButtons.style.display = 'none';
+            welcomeMessage.style.display = 'block';
+            userName.textContent = user;
+        } else {
+            authButtons.style.display = 'flex';
+            welcomeMessage.style.display = 'none';
         }
     };
 </script>
