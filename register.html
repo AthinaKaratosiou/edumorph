@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Εγγραφή | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,35 +17,54 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
 
     .form-box {
       background: white;
       padding: 36px;
       border-radius: 18px;
-      width: 380px;
+      width: 100%;
+      max-width: 420px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       text-align: center;
     }
 
-    h2 {
+    h1 {
       margin-top: 0;
       color: #1e3a8a;
+      font-size: 1.9rem;
     }
 
     p {
       color: #4b5563;
       font-size: 0.95rem;
+      line-height: 1.6;
     }
 
-    input, select {
+    .field-group {
+      text-align: left;
+      margin-top: 12px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #1f2937;
+    }
+
+    input,
+    select {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
+      margin: 0;
       border: 1px solid #d1d5db;
       border-radius: 10px;
       box-sizing: border-box;
       font-size: 1rem;
+      background: #fff;
+      color: #1f2937;
     }
 
     button {
@@ -53,7 +76,7 @@
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 18px;
     }
 
     button:hover {
@@ -71,76 +94,210 @@
       background: #eff6ff;
       border-radius: 12px;
       padding: 12px 14px;
-      margin-top: 14px;
+      margin-top: 16px;
       font-size: 0.92rem;
       color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .top-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 520px) {
+      .form-box {
+        padding: 24px 18px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="form-box">
-    <h2>Εγγραφή στην EduMorph</h2>
-    <p>Δημιούργησε λογαριασμό και επίλεξε τον ρόλο σου.</p>
+<main id="main-content">
+  <div class="form-box" role="form" aria-labelledby="register-title">
+    <h1 id="register-title" data-i18n="registerTitle">Εγγραφή στην EduMorph</h1>
+    <p data-i18n="registerSubtitle">Δημιούργησε λογαριασμό και επίλεξε τον ρόλο σου.</p>
 
-    <input type="text" id="fullName" placeholder="Ονοματεπώνυμο">
-    <input type="text" id="username" placeholder="Όνομα χρήστη">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Κωδικός">
+    <div class="field-group">
+      <label for="fullName" data-i18n="fullNameLabel">Ονοματεπώνυμο</label>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Ονοματεπώνυμο"
+        data-i18n-placeholder="fullNamePlaceholder"
+        aria-required="true"
+      >
+    </div>
 
-    <select id="role">
-      <option value="">Επίλεξε ρόλο</option>
-      <option value="student">Μαθητής</option>
-      <option value="teacher">Εκπαιδευτικός</option>
-      <option value="admin">Διοίκηση</option>
-    </select>
+    <div class="field-group">
+      <label for="username" data-i18n="usernameLabel">Όνομα χρήστη</label>
+      <input
+        type="text"
+        id="username"
+        placeholder="Όνομα χρήστη"
+        data-i18n-placeholder="usernamePlaceholder"
+        aria-required="true"
+      >
+    </div>
 
-    <button onclick="register()">Ολοκλήρωση εγγραφής</button>
+    <div class="field-group">
+      <label for="email" data-i18n="emailLabel">Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        data-i18n-placeholder="emailPlaceholder"
+        aria-required="true"
+      >
+    </div>
 
-    <div class="hint">
+    <div class="field-group">
+      <label for="password" data-i18n="passwordLabel">Κωδικός</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Κωδικός"
+        data-i18n-placeholder="passwordPlaceholder"
+        aria-required="true"
+      >
+    </div>
+
+    <div class="field-group">
+      <label for="role" data-i18n="roleLabel">Ρόλος</label>
+      <select id="role" aria-required="true">
+        <option value="" data-i18n="rolePlaceholder">Επίλεξε ρόλο</option>
+        <option value="student" data-i18n="roleStudent">Μαθητής</option>
+        <option value="teacher" data-i18n="roleTeacher">Εκπαιδευτικός</option>
+        <option value="admin" data-i18n="roleAdmin">Διοίκηση</option>
+      </select>
+    </div>
+
+    <button onclick="register()" data-i18n="registerBtn" data-i18n-aria-label="registerBtnAria" aria-label="Ολοκλήρωση εγγραφής">
+      Ολοκλήρωση εγγραφής
+    </button>
+
+    <div class="hint" data-i18n="hintText">
       Κάθε ρόλος οδηγεί σε διαφορετικές λειτουργίες της πλατφόρμας.
     </div>
 
-    <p>Έχεις ήδη λογαριασμό; <a href="login.html">Σύνδεση</a></p>
+    <div class="top-links">
+      <span data-i18n="alreadyAccount">Έχεις ήδη λογαριασμό;</span>
+      <a href="login.html" data-i18n="loginLink">Σύνδεση</a>
+    </div>
   </div>
+</main>
 
-  <script>
-    function register() {
-      const fullName = document.getElementById('fullName').value.trim();
-      const username = document.getElementById('username').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const role = document.getElementById('role').value;
-
-      if (!fullName || !username || !email || !password || !role) {
-        alert('Παρακαλώ συμπλήρωσε όλα τα πεδία.');
-        return;
-      }
-
-      const users = JSON.parse(localStorage.getItem('edumorphUsers') || '[]');
-
-      const exists = users.some(
-        user => user.username === username || user.email === email
-      );
-
-      if (exists) {
-        alert('Υπάρχει ήδη χρήστης με αυτό το username ή email.');
-        return;
-      }
-
-      const newUser = {
-        fullName,
-        username,
-        email,
-        password,
-        role
-      };
-
-      users.push(newUser);
-      localStorage.setItem('edumorphUsers', JSON.stringify(users));
-
-      alert('Η εγγραφή ολοκληρώθηκε επιτυχώς!');
-      window.location.href = 'login.html';
+<script>
+  window.pageTranslations = {
+    el: {
+      registerTitle: 'Εγγραφή στην EduMorph',
+      registerSubtitle: 'Δημιούργησε λογαριασμό και επίλεξε τον ρόλο σου.',
+      fullNameLabel: 'Ονοματεπώνυμο',
+      fullNamePlaceholder: 'Ονοματεπώνυμο',
+      usernameLabel: 'Όνομα χρήστη',
+      usernamePlaceholder: 'Όνομα χρήστη',
+      emailLabel: 'Email',
+      emailPlaceholder: 'Email',
+      passwordLabel: 'Κωδικός',
+      passwordPlaceholder: 'Κωδικός',
+      roleLabel: 'Ρόλος',
+      rolePlaceholder: 'Επίλεξε ρόλο',
+      roleStudent: 'Μαθητής',
+      roleTeacher: 'Εκπαιδευτικός',
+      roleAdmin: 'Διοίκηση',
+      registerBtn: 'Ολοκλήρωση εγγραφής',
+      registerBtnAria: 'Ολοκλήρωση εγγραφής',
+      hintText: 'Κάθε ρόλος οδηγεί σε διαφορετικές λειτουργίες της πλατφόρμας.',
+      alreadyAccount: 'Έχεις ήδη λογαριασμό;',
+      loginLink: 'Σύνδεση',
+      fillAllFields: 'Παρακαλώ συμπλήρωσε όλα τα πεδία.',
+      userExists: 'Υπάρχει ήδη χρήστης με αυτό το username ή email.',
+      success: 'Η εγγραφή ολοκληρώθηκε επιτυχώς!'
+    },
+    en: {
+      registerTitle: 'Register to EduMorph',
+      registerSubtitle: 'Create an account and choose your role.',
+      fullNameLabel: 'Full name',
+      fullNamePlaceholder: 'Full name',
+      usernameLabel: 'Username',
+      usernamePlaceholder: 'Username',
+      emailLabel: 'Email',
+      emailPlaceholder: 'Email',
+      passwordLabel: 'Password',
+      passwordPlaceholder: 'Password',
+      roleLabel: 'Role',
+      rolePlaceholder: 'Select a role',
+      roleStudent: 'Student',
+      roleTeacher: 'Teacher',
+      roleAdmin: 'Administration',
+      registerBtn: 'Complete registration',
+      registerBtnAria: 'Complete registration',
+      hintText: 'Each role leads to different platform functions.',
+      alreadyAccount: 'Already have an account?',
+      loginLink: 'Login',
+      fillAllFields: 'Please fill in all fields.',
+      userExists: 'A user with this username or email already exists.',
+      success: 'Registration completed successfully!'
     }
-  </script>
+  };
+
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
+  function register() {
+    const fullName = document.getElementById('fullName').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const role = document.getElementById('role').value;
+
+    if (!fullName || !username || !email || !password || !role) {
+      alert(t('fillAllFields'));
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem('edumorphUsers') || '[]');
+
+    const exists = users.some(
+      user => user.username === username || user.email === email
+    );
+
+    if (exists) {
+      alert(t('userExists'));
+      return;
+    }
+
+    const newUser = {
+      fullName,
+      username,
+      email,
+      password,
+      role
+    };
+
+    users.push(newUser);
+    localStorage.setItem('edumorphUsers', JSON.stringify(users));
+
+    alert(t('success'));
+    window.location.href = 'login.html';
+  }
+
+  window.onload = () => {
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
