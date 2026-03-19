@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interventions | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     body {
       margin: 0;
@@ -25,15 +29,27 @@
       padding: 30px 20px 50px;
     }
 
-    .back-link {
-      display: inline-block;
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-bottom: 20px;
+    }
+
+    .back-link,
+    .dashboard-link {
+      display: inline-block;
       color: #1e3a8a;
       text-decoration: none;
       font-weight: bold;
+      background: white;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #dbeafe;
     }
 
-    .intro, .playbook-card {
+    .intro,
+    .playbook-card {
       background: white;
       border-radius: 18px;
       padding: 24px;
@@ -95,68 +111,166 @@
   </style>
 </head>
 <body>
+<main id="main-content">
   <header>
-    <h1>Μηχανισμός Παρεμβάσεων</h1>
-    <p>Από τα δεδομένα της τάξης σε στοχευμένη παιδαγωγική δράση</p>
+    <h1 data-i18n="pageTitle">Μηχανισμός Παρεμβάσεων</h1>
+    <p data-i18n="pageSubtitle">Από τα δεδομένα της τάξης σε στοχευμένη παιδαγωγική δράση</p>
   </header>
 
   <div class="container">
-    <a class="back-link" href="index.html">← Επιστροφή στην αρχική</a>
+    <div class="top-actions">
+      <a class="back-link" href="index.html" data-i18n="backHome">← Επιστροφή στην αρχική</a>
+      <a class="dashboard-link" href="dashboard.html" data-i18n="goDashboard">Dashboard</a>
+    </div>
 
     <section class="intro">
-      <h2>Πώς λειτουργεί</h2>
-      <p>Όταν οι δείκτες της τάξης ξεπερνούν ορισμένα όρια, η EduMorph προτείνει playbooks παρέμβασης. Οι παρεμβάσεις δεν λειτουργούν τιμωρητικά, αλλά υποστηρικτικά και προσαρμοστικά, με στόχο τη βελτίωση της εμπειρίας μάθησης.</p>
+      <h2 data-i18n="howTitle">Πώς λειτουργεί</h2>
+      <p data-i18n="howText">
+        Όταν οι δείκτες της τάξης ξεπερνούν ορισμένα όρια, η EduMorph προτείνει playbooks παρέμβασης. Οι παρεμβάσεις δεν λειτουργούν τιμωρητικά, αλλά υποστηρικτικά και προσαρμοστικά, με στόχο τη βελτίωση της εμπειρίας μάθησης.
+      </p>
     </section>
 
-    <section class="grid">
+    <section class="grid" aria-label="Intervention playbooks">
       <div class="playbook-card">
-        <span class="tag high-risk">Υψηλή προτεραιότητα</span>
-        <h3>Αυξημένο άγχος τάξης</h3>
+        <span class="tag high-risk" data-i18n="tagHigh">Υψηλή προτεραιότητα</span>
+        <h3 data-i18n="card1Title">Αυξημένο άγχος τάξης</h3>
         <ul>
-          <li>Μικρότερες ενότητες αξιολόγησης</li>
-          <li>Σαφέστερα κριτήρια επιτυχίας</li>
-          <li>Προφορική ανατροφοδότηση πριν από βαθμολόγηση</li>
-          <li>Χρόνος αποφόρτισης και ανακεφαλαίωσης</li>
+          <li data-i18n="card1Item1">Μικρότερες ενότητες αξιολόγησης</li>
+          <li data-i18n="card1Item2">Σαφέστερα κριτήρια επιτυχίας</li>
+          <li data-i18n="card1Item3">Προφορική ανατροφοδότηση πριν από βαθμολόγηση</li>
+          <li data-i18n="card1Item4">Χρόνος αποφόρτισης και ανακεφαλαίωσης</li>
         </ul>
-        <button onclick="alert('Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.')">Ενεργοποίηση playbook</button>
+        <button onclick="activatePlaybook('playbookActivated')" data-i18n="activateBtn">Ενεργοποίηση playbook</button>
       </div>
 
       <div class="playbook-card">
-        <span class="tag medium-risk">Μέτρια προτεραιότητα</span>
-        <h3>Χαμηλή κατανόηση</h3>
+        <span class="tag medium-risk" data-i18n="tagMedium">Μέτρια προτεραιότητα</span>
+        <h3 data-i18n="card2Title">Χαμηλή κατανόηση</h3>
         <ul>
-          <li>Μικρο-ανακεφαλαίωση βασικών εννοιών</li>
-          <li>Παραδείγματα με διαφοροποιημένη δυσκολία</li>
-          <li>Επαναπλαισίωση δύσκολων σημείων</li>
-          <li>Στοχευμένες ερωτήσεις κατανόησης</li>
+          <li data-i18n="card2Item1">Μικρο-ανακεφαλαίωση βασικών εννοιών</li>
+          <li data-i18n="card2Item2">Παραδείγματα με διαφοροποιημένη δυσκολία</li>
+          <li data-i18n="card2Item3">Επαναπλαισίωση δύσκολων σημείων</li>
+          <li data-i18n="card2Item4">Στοχευμένες ερωτήσεις κατανόησης</li>
         </ul>
-        <button onclick="alert('Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.')">Ενεργοποίηση playbook</button>
+        <button onclick="activatePlaybook('playbookActivated')" data-i18n="activateBtn">Ενεργοποίηση playbook</button>
       </div>
 
       <div class="playbook-card">
-        <span class="tag medium-risk">Μέτρια προτεραιότητα</span>
-        <h3>Χαμηλή εμπλοκή</h3>
+        <span class="tag medium-risk" data-i18n="tagMedium">Μέτρια προτεραιότητα</span>
+        <h3 data-i18n="card3Title">Χαμηλή εμπλοκή</h3>
         <ul>
-          <li>Δραστηριότητες συνεργατικής μάθησης</li>
-          <li>Σύντομες ψηφιακές παρεμβάσεις αλληλεπίδρασης</li>
-          <li>Ενεργή συμμετοχή με ρόλους</li>
-          <li>Σύνδεση ύλης με αυθεντικά παραδείγματα</li>
+          <li data-i18n="card3Item1">Δραστηριότητες συνεργατικής μάθησης</li>
+          <li data-i18n="card3Item2">Σύντομες ψηφιακές παρεμβάσεις αλληλεπίδρασης</li>
+          <li data-i18n="card3Item3">Ενεργή συμμετοχή με ρόλους</li>
+          <li data-i18n="card3Item4">Σύνδεση ύλης με αυθεντικά παραδείγματα</li>
         </ul>
-        <button onclick="alert('Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.')">Ενεργοποίηση playbook</button>
+        <button onclick="activatePlaybook('playbookActivated')" data-i18n="activateBtn">Ενεργοποίηση playbook</button>
       </div>
 
       <div class="playbook-card">
-        <span class="tag good">Σταθερότητα</span>
-        <h3>Διατήρηση θετικού κλίματος</h3>
+        <span class="tag good" data-i18n="tagStable">Σταθερότητα</span>
+        <h3 data-i18n="card4Title">Διατήρηση θετικού κλίματος</h3>
         <ul>
-          <li>Συνέχιση καλών πρακτικών ανατροφοδότησης</li>
-          <li>Περιοδική συλλογή feedback</li>
-          <li>Αναγνώριση προόδου της τάξης</li>
-          <li>Ενίσχυση συμμετοχικής κουλτούρας</li>
+          <li data-i18n="card4Item1">Συνέχιση καλών πρακτικών ανατροφοδότησης</li>
+          <li data-i18n="card4Item2">Περιοδική συλλογή feedback</li>
+          <li data-i18n="card4Item3">Αναγνώριση προόδου της τάξης</li>
+          <li data-i18n="card4Item4">Ενίσχυση συμμετοχικής κουλτούρας</li>
         </ul>
-        <button onclick="alert('Η καλή πρακτική καταγράφηκε.')">Καταγραφή καλής πρακτικής</button>
+        <button onclick="activatePlaybook('goodPracticeSaved')" data-i18n="savePracticeBtn">Καταγραφή καλής πρακτικής</button>
       </div>
     </section>
   </div>
+</main>
+
+<script>
+  window.pageTranslations = {
+    el: {
+      pageTitle: 'Μηχανισμός Παρεμβάσεων',
+      pageSubtitle: 'Από τα δεδομένα της τάξης σε στοχευμένη παιδαγωγική δράση',
+      backHome: '← Επιστροφή στην αρχική',
+      goDashboard: 'Dashboard',
+      howTitle: 'Πώς λειτουργεί',
+      howText: 'Όταν οι δείκτες της τάξης ξεπερνούν ορισμένα όρια, η EduMorph προτείνει playbooks παρέμβασης. Οι παρεμβάσεις δεν λειτουργούν τιμωρητικά, αλλά υποστηρικτικά και προσαρμοστικά, με στόχο τη βελτίωση της εμπειρίας μάθησης.',
+      tagHigh: 'Υψηλή προτεραιότητα',
+      tagMedium: 'Μέτρια προτεραιότητα',
+      tagStable: 'Σταθερότητα',
+      card1Title: 'Αυξημένο άγχος τάξης',
+      card1Item1: 'Μικρότερες ενότητες αξιολόγησης',
+      card1Item2: 'Σαφέστερα κριτήρια επιτυχίας',
+      card1Item3: 'Προφορική ανατροφοδότηση πριν από βαθμολόγηση',
+      card1Item4: 'Χρόνος αποφόρτισης και ανακεφαλαίωσης',
+      card2Title: 'Χαμηλή κατανόηση',
+      card2Item1: 'Μικρο-ανακεφαλαίωση βασικών εννοιών',
+      card2Item2: 'Παραδείγματα με διαφοροποιημένη δυσκολία',
+      card2Item3: 'Επαναπλαισίωση δύσκολων σημείων',
+      card2Item4: 'Στοχευμένες ερωτήσεις κατανόησης',
+      card3Title: 'Χαμηλή εμπλοκή',
+      card3Item1: 'Δραστηριότητες συνεργατικής μάθησης',
+      card3Item2: 'Σύντομες ψηφιακές παρεμβάσεις αλληλεπίδρασης',
+      card3Item3: 'Ενεργή συμμετοχή με ρόλους',
+      card3Item4: 'Σύνδεση ύλης με αυθεντικά παραδείγματα',
+      card4Title: 'Διατήρηση θετικού κλίματος',
+      card4Item1: 'Συνέχιση καλών πρακτικών ανατροφοδότησης',
+      card4Item2: 'Περιοδική συλλογή feedback',
+      card4Item3: 'Αναγνώριση προόδου της τάξης',
+      card4Item4: 'Ενίσχυση συμμετοχικής κουλτούρας',
+      activateBtn: 'Ενεργοποίηση playbook',
+      savePracticeBtn: 'Καταγραφή καλής πρακτικής',
+      playbookActivated: 'Το playbook ενεργοποιήθηκε σε δοκιμαστική μορφή.',
+      goodPracticeSaved: 'Η καλή πρακτική καταγράφηκε.'
+    },
+    en: {
+      pageTitle: 'Intervention Engine',
+      pageSubtitle: 'From classroom data to targeted pedagogical action',
+      backHome: '← Back to home',
+      goDashboard: 'Dashboard',
+      howTitle: 'How it works',
+      howText: 'When classroom indicators exceed certain thresholds, EduMorph proposes intervention playbooks. These interventions are not punitive, but supportive and adaptive, aiming to improve the learning experience.',
+      tagHigh: 'High priority',
+      tagMedium: 'Medium priority',
+      tagStable: 'Stability',
+      card1Title: 'Increased classroom anxiety',
+      card1Item1: 'Smaller assessment units',
+      card1Item2: 'Clearer success criteria',
+      card1Item3: 'Verbal feedback before grading',
+      card1Item4: 'Time for decompression and recap',
+      card2Title: 'Low understanding',
+      card2Item1: 'Micro-recap of key concepts',
+      card2Item2: 'Examples with differentiated difficulty',
+      card2Item3: 'Reframing difficult points',
+      card2Item4: 'Targeted understanding questions',
+      card3Title: 'Low engagement',
+      card3Item1: 'Collaborative learning activities',
+      card3Item2: 'Short digital interaction interventions',
+      card3Item3: 'Active participation through roles',
+      card3Item4: 'Connecting content with authentic examples',
+      card4Title: 'Maintaining a positive climate',
+      card4Item1: 'Continuation of strong feedback practices',
+      card4Item2: 'Periodic feedback collection',
+      card4Item3: 'Recognition of classroom progress',
+      card4Item4: 'Strengthening participatory culture',
+      activateBtn: 'Activate playbook',
+      savePracticeBtn: 'Record good practice',
+      playbookActivated: 'The playbook was activated in demo mode.',
+      goodPracticeSaved: 'The good practice was recorded.'
+    }
+  };
+
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
+  function activatePlaybook(messageKey) {
+    alert(t(messageKey));
+  }
+
+  window.onload = () => {
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
