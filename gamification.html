@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamification | EduMorph</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .btn, .lang-btn {
+      background: #0ea5a4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn:hover, .lang-btn:hover {
+      background: #0f766e;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      margin-bottom: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .big {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      margin: 6px 6px 0 0;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 data-i18n="title">Gamification Hub</h1>
+    <p data-i18n="subtitle">Πόντοι, επίπεδα, badges και leaderboard συμμετοχής</p>
+  </header>
+
+  <div class="container">
+    <div class="actions">
+      <a class="btn" href="index.html" data-i18n="back">← Επιστροφή στην αρχική</a>
+      <a class="btn" href="dashboard.html" data-i18n="dashboard">Dashboard</a>
+      <button class="lang-btn" onclick="toggleLanguage()">EN / GR</button>
+    </div>
+
+    <section class="grid">
+      <div class="mini-card">
+        <h3 data-i18n="myPoints">Οι πόντοι μου</h3>
+        <div id="myPoints" class="big">0</div>
+      </div>
+      <div class="mini-card">
+        <h3 data-i18n="myLevel">Το επίπεδό μου</h3>
+        <div id="myLevel" class="big">1</div>
+      </div>
+      <div class="mini-card">
+        <h3 data-i18n="nextGoal">Επόμενος στόχος</h3>
+        <div id="nextGoal" class="big">50</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="badges">Badges</h2>
+      <div id="badgesContainer"></div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="leaderboard">Leaderboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="position">Θέση</th>
+            <th data-i18n="user">Χρήστης</th>
+            <th data-i18n="points">Πόντοι</th>
+            <th data-i18n="level">Επίπεδο</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    let currentLanguage = localStorage.getItem('edumorphLanguage') || 'el';
+
+    const translations = {
+      el: {
+        title: 'Gamification Hub',
+        subtitle: 'Πόντοι, επίπεδα, badges και leaderboard συμμετοχής',
+        back: '← Επιστροφή στην αρχική',
+        dashboard: 'Dashboard',
+        myPoints: 'Οι πόντοι μου',
+        myLevel: 'Το επίπεδό μου',
+        nextGoal: 'Επόμενος στόχος',
+        badges: 'Badges',
+        leaderboard: 'Leaderboard',
+        position: 'Θέση',
+        user: 'Χρήστης',
+        points: 'Πόντοι',
+        level: 'Επίπεδο',
+        noBadges: 'Δεν υπάρχουν ακόμα badges.'
+      },
+      en: {
+        title: 'Gamification Hub',
+        subtitle: 'Points, levels, badges and participation leaderboard',
+        back: '← Back to home',
+        dashboard: 'Dashboard',
+        myPoints: 'My points',
+        myLevel: 'My level',
+        nextGoal: 'Next goal',
+        badges: 'Badges',
+        leaderboard: 'Leaderboard',
+        position: 'Position',
+        user: 'User',
+        points: 'Points',
+        level: 'Level',
+        noBadges: 'No badges yet.'
+      }
+    };
+
+    function applyLanguage() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = translations[currentLanguage][el.dataset.i18n];
+      });
+    }
+
+    function toggleLanguage() {
+      currentLanguage = currentLanguage === 'el' ? 'en' : 'el';
+      localStorage.setItem('edumorphLanguage', currentLanguage);
+      applyLanguage();
+      renderGamification();
+    }
+
+    function renderGamification() {
+      const rawUser = localStorage.getItem('user');
+      const allPoints = JSON.parse(localStorage.getItem('edumorphPoints') || '{}');
+      const users = JSON.parse(localStorage.getItem('edumorphUsers') || '[]');
+
+      if (!rawUser) {
+        document.getElementById('myPoints').textContent = '0';
+        document.getElementById('myLevel').textContent = '1';
+        document.getElementById('nextGoal').textContent = '50';
+        document.getElementById('badgesContainer').innerHTML = translations[currentLanguage].noBadges;
+      } else {
+        const user = JSON.parse(rawUser);
+        const current = allPoints[user.username] || { points: 0, level: 1, badges: [] };
+        document.getElementById('myPoints').textContent = current.points;
+        document.getElementById('myLevel').textContent = current.level;
+        document.getElementById('nextGoal').textContent = current.level * 50;
+
+        const badgesContainer = document.getElementById('badgesContainer');
+        if (!current.badges.length) {
+          badgesContainer.textContent = translations[currentLanguage].noBadges;
+        } else {
+          badgesContainer.innerHTML = current.badges.map(b => `<span class="badge">${b}</span>`).join('');
+        }
+      }
+
+      const ranking = users.map(user => {
+        const score = allPoints[user.username] || { points: 0, level: 1 };
+        return {
+          username: user.username,
+          points: score.points,
+          level: score.level
+        };
+      }).sort((a, b) => b.points - a.points);
+
+      document.getElementById('leaderboardBody').innerHTML = ranking.map((item, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${item.username}</td>
+          <td>${item.points}</td>
+          <td>${item.level}</td>
+        </tr>
+      `).join('');
+    }
+
+    applyLanguage();
+    renderGamification();
+  </script>
+</body>
+</html>
