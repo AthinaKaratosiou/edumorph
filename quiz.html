@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz & Assessment | EduMorph</title>
+
+  <link rel="stylesheet" href="global-accessibility.css">
+  <script src="global.js" defer></script>
+
   <style>
     body {
       margin: 0;
@@ -32,7 +36,7 @@
       margin-bottom: 20px;
     }
 
-    .btn, .lang-btn {
+    .btn {
       background: #0ea5a4;
       color: white;
       border: none;
@@ -41,9 +45,10 @@
       text-decoration: none;
       font-weight: bold;
       cursor: pointer;
+      display: inline-block;
     }
 
-    .btn:hover, .lang-btn:hover {
+    .btn:hover {
       background: #0f766e;
     }
 
@@ -68,6 +73,7 @@
     label {
       display: block;
       margin: 8px 0;
+      line-height: 1.6;
     }
 
     button.submit-btn {
@@ -90,6 +96,7 @@
       border-radius: 14px;
       background: #eff6ff;
       display: none;
+      line-height: 1.7;
     }
 
     table {
@@ -110,6 +117,7 @@
   </style>
 </head>
 <body>
+<main id="main-content">
   <header>
     <h1 data-i18n="title">Quiz & Assessment</h1>
     <p data-i18n="subtitle">Αυτόματη βαθμολόγηση και real-time reporting</p>
@@ -119,7 +127,6 @@
     <div class="actions">
       <a class="btn" href="index.html" data-i18n="back">← Επιστροφή στην αρχική</a>
       <a class="btn" href="dashboard.html" data-i18n="dashboard">Dashboard</a>
-      <button class="lang-btn" onclick="toggleLanguage()">EN / GR</button>
     </div>
 
     <section class="card">
@@ -127,28 +134,63 @@
 
       <div class="question">
         <h3 data-i18n="q1">1. Ποιος είναι ο βασικός στόχος της EduMorph;</h3>
-        <label><input type="radio" name="q1" value="a"> Να αντικαταστήσει τους εκπαιδευτικούς</label>
-        <label><input type="radio" name="q1" value="b"> Να μετατρέπει τη μαθητική φωνή σε παιδαγωγική δράση</label>
-        <label><input type="radio" name="q1" value="c"> Να λειτουργεί μόνο ως LMS</label>
+        <label>
+          <input type="radio" name="q1" value="a">
+          <span data-i18n="q1a">Να αντικαταστήσει τους εκπαιδευτικούς</span>
+        </label>
+        <label>
+          <input type="radio" name="q1" value="b">
+          <span data-i18n="q1b">Να μετατρέπει τη μαθητική φωνή σε παιδαγωγική δράση</span>
+        </label>
+        <label>
+          <input type="radio" name="q1" value="c">
+          <span data-i18n="q1c">Να λειτουργεί μόνο ως LMS</span>
+        </label>
       </div>
 
       <div class="question">
         <h3 data-i18n="q2">2. Τι καταγράφεται στα issue cards;</h3>
-        <label><input type="radio" name="q2" value="a"> Μόνο βαθμοί</label>
-        <label><input type="radio" name="q2" value="b"> Εμπειρία, ένταση, φάση μαθήματος και πρόταση</label>
-        <label><input type="radio" name="q2" value="c"> Μόνο απουσίες</label>
+        <label>
+          <input type="radio" name="q2" value="a">
+          <span data-i18n="q2a">Μόνο βαθμοί</span>
+        </label>
+        <label>
+          <input type="radio" name="q2" value="b">
+          <span data-i18n="q2b">Εμπειρία, ένταση, φάση μαθήματος και πρόταση</span>
+        </label>
+        <label>
+          <input type="radio" name="q2" value="c">
+          <span data-i18n="q2c">Μόνο απουσίες</span>
+        </label>
       </div>
 
       <div class="question">
         <h3 data-i18n="q3">3. Τι σημαίνει closed-loop improvement;</h3>
-        <label><input type="radio" name="q3" value="a"> Feedback → Action → Evaluation</label>
-        <label><input type="radio" name="q3" value="b"> Μόνο feedback</label>
-        <label><input type="radio" name="q3" value="c"> Μόνο τελική αξιολόγηση</label>
+        <label>
+          <input type="radio" name="q3" value="a">
+          <span data-i18n="q3a">Feedback → Action → Evaluation</span>
+        </label>
+        <label>
+          <input type="radio" name="q3" value="b">
+          <span data-i18n="q3b">Μόνο feedback</span>
+        </label>
+        <label>
+          <input type="radio" name="q3" value="c">
+          <span data-i18n="q3c">Μόνο τελική αξιολόγηση</span>
+        </label>
       </div>
 
-      <button class="submit-btn" onclick="submitQuiz()" data-i18n="submit">Υποβολή quiz</button>
+      <button
+        class="submit-btn"
+        onclick="submitQuiz()"
+        data-i18n="submit"
+        data-i18n-aria-label="submitAria"
+        aria-label="Υποβολή quiz"
+      >
+        Υποβολή quiz
+      </button>
 
-      <div id="resultBox" class="result-box"></div>
+      <div id="resultBox" class="result-box" aria-live="polite"></div>
     </section>
 
     <section class="card">
@@ -165,134 +207,152 @@
       </table>
     </section>
   </div>
+</main>
 
-  <script>
-    let currentLanguage = localStorage.getItem('edumorphLanguage') || 'el';
+<script>
+  window.pageTranslations = {
+    el: {
+      title: 'Quiz & Assessment',
+      subtitle: 'Αυτόματη βαθμολόγηση και real-time reporting',
+      back: '← Επιστροφή στην αρχική',
+      dashboard: 'Dashboard',
+      quizTitle: 'Mini Quiz Κατανόησης',
+      q1: '1. Ποιος είναι ο βασικός στόχος της EduMorph;',
+      q1a: 'Να αντικαταστήσει τους εκπαιδευτικούς',
+      q1b: 'Να μετατρέπει τη μαθητική φωνή σε παιδαγωγική δράση',
+      q1c: 'Να λειτουργεί μόνο ως LMS',
+      q2: '2. Τι καταγράφεται στα issue cards;',
+      q2a: 'Μόνο βαθμοί',
+      q2b: 'Εμπειρία, ένταση, φάση μαθήματος και πρόταση',
+      q2c: 'Μόνο απουσίες',
+      q3: '3. Τι σημαίνει closed-loop improvement;',
+      q3a: 'Feedback → Action → Evaluation',
+      q3b: 'Μόνο feedback',
+      q3c: 'Μόνο τελική αξιολόγηση',
+      submit: 'Υποβολή quiz',
+      submitAria: 'Υποβολή quiz',
+      reports: 'Αναφορές αποτελεσμάτων',
+      user: 'Χρήστης',
+      score: 'Σκορ',
+      date: 'Ημερομηνία',
+      resultPrefix: 'Ολοκλήρωσες το quiz με σκορ: ',
+      saved: 'Το αποτέλεσμα αποθηκεύτηκε και κέρδισες 15 πόντους.',
+      anonymous: 'anonymous'
+    },
+    en: {
+      title: 'Quiz & Assessment',
+      subtitle: 'Automatic grading and real-time reporting',
+      back: '← Back to home',
+      dashboard: 'Dashboard',
+      quizTitle: 'Mini Understanding Quiz',
+      q1: '1. What is the main goal of EduMorph?',
+      q1a: 'To replace teachers',
+      q1b: 'To turn student voice into pedagogical action',
+      q1c: 'To function only as an LMS',
+      q2: '2. What is recorded in issue cards?',
+      q2a: 'Only grades',
+      q2b: 'Experience, intensity, lesson phase, and proposal',
+      q2c: 'Only absences',
+      q3: '3. What does closed-loop improvement mean?',
+      q3a: 'Feedback → Action → Evaluation',
+      q3b: 'Only feedback',
+      q3c: 'Only final evaluation',
+      submit: 'Submit quiz',
+      submitAria: 'Submit quiz',
+      reports: 'Result reports',
+      user: 'User',
+      score: 'Score',
+      date: 'Date',
+      resultPrefix: 'You completed the quiz with score: ',
+      saved: 'The result was saved and you earned 15 points.',
+      anonymous: 'anonymous'
+    }
+  };
 
-    const translations = {
-      el: {
-        title: 'Quiz & Assessment',
-        subtitle: 'Αυτόματη βαθμολόγηση και real-time reporting',
-        back: '← Επιστροφή στην αρχική',
-        dashboard: 'Dashboard',
-        quizTitle: 'Mini Quiz Κατανόησης',
-        q1: '1. Ποιος είναι ο βασικός στόχος της EduMorph;',
-        q2: '2. Τι καταγράφεται στα issue cards;',
-        q3: '3. Τι σημαίνει closed-loop improvement;',
-        submit: 'Υποβολή quiz',
-        reports: 'Αναφορές αποτελεσμάτων',
-        user: 'Χρήστης',
-        score: 'Σκορ',
-        date: 'Ημερομηνία',
-        resultPrefix: 'Ολοκλήρωσες το quiz με σκορ: ',
-        saved: 'Το αποτέλεσμα αποθηκεύτηκε και κέρδισες 15 πόντους.'
-      },
-      en: {
-        title: 'Quiz & Assessment',
-        subtitle: 'Automatic grading and real-time reporting',
-        back: '← Back to home',
-        dashboard: 'Dashboard',
-        quizTitle: 'Mini Understanding Quiz',
-        q1: '1. What is the main goal of EduMorph?',
-        q2: '2. What is recorded in issue cards?',
-        q3: '3. What does closed-loop improvement mean?',
-        submit: 'Submit quiz',
-        reports: 'Result reports',
-        user: 'User',
-        score: 'Score',
-        date: 'Date',
-        resultPrefix: 'You completed the quiz with score: ',
-        saved: 'The result was saved and you earned 15 points.'
-      }
+  function t(key) {
+    const lang = localStorage.getItem('edumorphLanguage') || 'el';
+    const dict = window.pageTranslations[lang] || window.pageTranslations.el;
+    return dict[key] || key;
+  }
+
+  function awardQuizPoints() {
+    const rawUser = localStorage.getItem('user');
+    if (!rawUser) return;
+
+    const user = JSON.parse(rawUser);
+    const allPoints = JSON.parse(localStorage.getItem('edumorphPoints') || '{}');
+    const current = allPoints[user.username] || { points: 0, level: 1, badges: [] };
+
+    current.points += 15;
+    current.level = Math.floor(current.points / 50) + 1;
+
+    if (current.points >= 20 && !current.badges.includes('First Voice')) {
+      current.badges.push('First Voice');
+    }
+    if (current.points >= 100 && !current.badges.includes('Active Contributor')) {
+      current.badges.push('Active Contributor');
+    }
+    if (current.points >= 200 && !current.badges.includes('Change Maker')) {
+      current.badges.push('Change Maker');
+    }
+
+    allPoints[user.username] = current;
+    localStorage.setItem('edumorphPoints', JSON.stringify(allPoints));
+  }
+
+  function submitQuiz() {
+    const answers = {
+      q1: 'b',
+      q2: 'b',
+      q3: 'a'
     };
 
-    function applyLanguage() {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.textContent = translations[currentLanguage][el.dataset.i18n];
-      });
-    }
+    let score = 0;
+    Object.keys(answers).forEach(q => {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      if (selected && selected.value === answers[q]) score++;
+    });
 
-    function toggleLanguage() {
-      currentLanguage = currentLanguage === 'el' ? 'en' : 'el';
-      localStorage.setItem('edumorphLanguage', currentLanguage);
-      applyLanguage();
-      renderReports();
-    }
+    const rawUser = localStorage.getItem('user');
+    const username = rawUser ? JSON.parse(rawUser).username : t('anonymous');
 
-    function awardQuizPoints() {
-      const rawUser = localStorage.getItem('user');
-      if (!rawUser) return;
+    const reports = JSON.parse(localStorage.getItem('edumorphQuizReports') || '[]');
+    reports.unshift({
+      username,
+      score: `${score}/3`,
+      date: new Date().toLocaleString()
+    });
+    localStorage.setItem('edumorphQuizReports', JSON.stringify(reports));
 
-      const user = JSON.parse(rawUser);
-      const allPoints = JSON.parse(localStorage.getItem('edumorphPoints') || '{}');
-      const current = allPoints[user.username] || { points: 0, level: 1, badges: [] };
+    awardQuizPoints();
 
-      current.points += 15;
-      current.level = Math.floor(current.points / 50) + 1;
+    const box = document.getElementById('resultBox');
+    box.style.display = 'block';
+    box.innerHTML = `
+      <strong>${t('resultPrefix')}${score}/3</strong><br>
+      ${t('saved')}
+    `;
 
-      if (current.points >= 20 && !current.badges.includes('First Voice')) {
-        current.badges.push('First Voice');
-      }
-      if (current.points >= 100 && !current.badges.includes('Active Contributor')) {
-        current.badges.push('Active Contributor');
-      }
-      if (current.points >= 200 && !current.badges.includes('Change Maker')) {
-        current.badges.push('Change Maker');
-      }
-
-      allPoints[user.username] = current;
-      localStorage.setItem('edumorphPoints', JSON.stringify(allPoints));
-    }
-
-    function submitQuiz() {
-      const answers = {
-        q1: 'b',
-        q2: 'b',
-        q3: 'a'
-      };
-
-      let score = 0;
-      Object.keys(answers).forEach(q => {
-        const selected = document.querySelector(`input[name="${q}"]:checked`);
-        if (selected && selected.value === answers[q]) score++;
-      });
-
-      const rawUser = localStorage.getItem('user');
-      const username = rawUser ? JSON.parse(rawUser).username : 'anonymous';
-
-      const reports = JSON.parse(localStorage.getItem('edumorphQuizReports') || '[]');
-      reports.unshift({
-        username,
-        score: `${score}/3`,
-        date: new Date().toLocaleString()
-      });
-      localStorage.setItem('edumorphQuizReports', JSON.stringify(reports));
-
-      awardQuizPoints();
-
-      const box = document.getElementById('resultBox');
-      box.style.display = 'block';
-      box.innerHTML = `
-        <strong>${translations[currentLanguage].resultPrefix}${score}/3</strong><br>
-        ${translations[currentLanguage].saved}
-      `;
-
-      renderReports();
-    }
-
-    function renderReports() {
-      const reports = JSON.parse(localStorage.getItem('edumorphQuizReports') || '[]');
-      document.getElementById('reportBody').innerHTML = reports.map(item => `
-        <tr>
-          <td>${item.username}</td>
-          <td>${item.score}</td>
-          <td>${item.date}</td>
-        </tr>
-      `).join('');
-    }
-
-    applyLanguage();
     renderReports();
-  </script>
+  }
+
+  function renderReports() {
+    const reports = JSON.parse(localStorage.getItem('edumorphQuizReports') || '[]');
+    document.getElementById('reportBody').innerHTML = reports.map(item => `
+      <tr>
+        <td>${item.username}</td>
+        <td>${item.score}</td>
+        <td>${item.date}</td>
+      </tr>
+    `).join('');
+  }
+
+  window.onload = () => {
+    renderReports();
+    if (window.EduMorphUI && window.EduMorphUI.applyTranslations) {
+      window.EduMorphUI.applyTranslations();
+    }
+  };
+</script>
 </body>
 </html>
